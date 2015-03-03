@@ -10,7 +10,7 @@ namespace PublicationAssistantSystem.UI
             InitializeComponent();
         }
 
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             var test = new Test();
             test.Run();

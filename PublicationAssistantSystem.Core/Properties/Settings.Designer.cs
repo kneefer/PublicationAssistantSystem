@@ -26,11 +26,21 @@ namespace PublicationAssistantSystem.Core.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate")]
-        public string PublicationAssistantSystem_Core_com_webofknowledge_search_WOKMWSAuthenticateService {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://search.webofknowledge.com/esti/wokmws/ws/WokSearch")]
+        public string PublicationAssistantSystem_Core_WebOfKnowledgeApi_Search_WokSearchService {
             get {
-                return ((string)(this["PublicationAssistantSystem_Core_com_webofknowledge_search_WOKMWSAuthenticateServi" +
-                    "ce"]));
+                return ((string)(this["PublicationAssistantSystem_Core_WebOfKnowledgeApi_Search_WokSearchService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate")]
+        public string PublicationAssistantSystem_Core_WebOfKnowledgeApi_Authentication_WOKMWSAuthenticateService {
+            get {
+                return ((string)(this["PublicationAssistantSystem_Core_WebOfKnowledgeApi_Authentication_WOKMWSAuthentica" +
+                    "teService"]));
             }
         }
     }

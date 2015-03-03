@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,7 +51,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Test.cs" />
-    <Compile Include="Web References\com.webofknowledge.search\Reference.cs">
+    <Compile Include="Web References\WebOfKnowledgeApi.Authentication\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WebOfKnowledgeApi.Search\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -68,14 +74,25 @@
   <ItemGroup>
     <WebReferenceUrl Include="http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\com.webofknowledge.search\</RelPath>
+      <RelPath>Web References\WebOfKnowledgeApi.Authentication\</RelPath>
       <UpdateFromURL>http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>PublicationAssistantSystem_Core_com_webofknowledge_search_WOKMWSAuthenticateService</CachedSettingsPropName>
+      <CachedSettingsPropName>PublicationAssistantSystem_Core_WebOfKnowledgeApi_Authentication_WOKMWSAuthenticateService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://search.webofknowledge.com/esti/wokmws/ws/WokSearch%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebOfKnowledgeApi.Search\</RelPath>
+      <UpdateFromURL>http://search.webofknowledge.com/esti/wokmws/ws/WokSearch%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PublicationAssistantSystem_Core_WebOfKnowledgeApi_Search_WokSearchService</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
@@ -84,11 +101,31 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\com.webofknowledge.search\Reference.map">
+    <None Include="Web References\WebOfKnowledgeApi.Authentication\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\com.webofknowledge.search\WOKMWSAuthenticateService.wsdl" />
+    <None Include="Web References\WebOfKnowledgeApi.Authentication\WOKMWSAuthenticateService.wsdl" />
+    <None Include="Web References\WebOfKnowledgeApi.Search\citedReference.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebOfKnowledgeApi.Search\citedReferencesSearchResults.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebOfKnowledgeApi.Search\fullRecordData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebOfKnowledgeApi.Search\fullRecordSearchResults.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebOfKnowledgeApi.Search\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WebOfKnowledgeApi.Search\WokSearchService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

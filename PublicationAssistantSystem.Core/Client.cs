@@ -3,7 +3,7 @@ using System.Net;
 
 namespace PublicationAssistantSystem.Core
 {
-    public class Client : com.webofknowledge.search.WOKMWSAuthenticateService
+    public class Client : WebOfKnowledgeApi.Authentication.WOKMWSAuthenticateService
     {
         protected override WebRequest GetWebRequest(Uri uri)
         {
