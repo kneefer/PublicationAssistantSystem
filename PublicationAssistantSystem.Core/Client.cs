@@ -8,7 +8,7 @@ namespace PublicationAssistantSystem.Core
         protected override WebRequest GetWebRequest(Uri uri)
         {
             var request = base.GetWebRequest(uri);
-            request.Headers.Add("Authorization", Test.CredentialsBased);
+            request.Headers.Add("Authorization", Test.Cred);
             return request;
         }
     }

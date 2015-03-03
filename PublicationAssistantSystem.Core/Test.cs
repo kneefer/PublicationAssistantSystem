@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Security;
+using System.Text;
 
 namespace PublicationAssistantSystem.Core
 {
     public class Test
     {
-        public const string UserName = "kneefer@gmail.com";
-        public const string Password = "P@ssw0rd";
-        public const string CredentialsBased = "Basic a25lZWZlckBnbWFpbC5jb206UEBzc3cwcmQ=";
+        public static string UserName = "kneefer@gmail.com";
+        public static string Password = "P@ssw0rd";
+        public static string Cred { get; private set; }
 
+        static Test()
+        {
+            Cred = ConvertCredentialsToBasicAccessFormat(UserName, Password);
+        }
 
         public void Run()
         {
@@ -16,24 +21,22 @@ namespace PublicationAssistantSystem.Core
             {
                 UseDefaultCredentials = false,
             };
-
+            
             x.authenticate();
         }
 
-        private static SecureString ConvertToSecureString(string password)
+        public static string ConvertCredentialsToBasicAccessFormat(string userName, string password)
         {
-            if (password == null)
-                throw new ArgumentNullException("password");
+            var credentials = userName + ":" + password;
+            var convertedCredentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
+            return "Basic " + convertedCredentials;
+        }
 
-            unsafe
-            {
-                fixed (char* passwordChars = password)
-                {
-                    var securePassword = new SecureString(passwordChars, password.Length);
-                    securePassword.MakeReadOnly();
-                    return securePassword;
-                }
-            }
+        public static byte[] ToByteArray(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
         }
     }
 }
