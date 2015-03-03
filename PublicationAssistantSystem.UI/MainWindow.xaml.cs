@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using PublicationAssistantSystem.Core;
+using PublicationAssistantSystem.DAL.Context;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.UI
 {
@@ -8,6 +10,13 @@ namespace PublicationAssistantSystem.UI
         public MainWindow()
         {
             InitializeComponent();
+
+            using (var context = new PublicationAssistantContext())
+            {
+                context.Database.Delete();
+                context.Publications.Add(new Article());
+                context.SaveChanges();
+            }
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

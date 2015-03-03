@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using PublicationAssistantSystem.DAL.Models.Misc;
+﻿using PublicationAssistantSystem.DAL.Models.Misc;
 
 namespace PublicationAssistantSystem.DAL.Models.Publications
 {
@@ -12,7 +11,6 @@ namespace PublicationAssistantSystem.DAL.Models.Publications
 
     public class Book : PublicationBase
     {
-        [Key]
         public string ISBN { get; set; }
 
         public string Publisher { get; set; }
