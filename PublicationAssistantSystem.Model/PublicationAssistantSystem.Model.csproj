@@ -40,12 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Department.cs" />
+    <Compile Include="Publications\Specific.cs" />
+    <Compile Include="OrganisationUnits\Division.cs" />
+    <Compile Include="Misc\Employee.cs" />
+    <Compile Include="OrganisationUnits\Faculty.cs" />
+    <Compile Include="OrganisationUnits\Institute.cs" />
+    <Compile Include="Misc\Journal.cs" />
+    <Compile Include="Misc\JournalEdition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publications\PublicationBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
