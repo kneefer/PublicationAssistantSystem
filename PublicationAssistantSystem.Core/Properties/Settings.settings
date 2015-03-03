@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PublicationAssistantSystem.Core.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PublicationAssistantSystem_Core_com_webofknowledge_search_WOKMWSAuthenticateService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://search.webofknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
