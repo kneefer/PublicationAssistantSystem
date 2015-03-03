@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using PublicationAssistantSystem.Model.OrganisationUnits;
-using PublicationAssistantSystem.Model.Publications;
+using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
-namespace PublicationAssistantSystem.Model.Misc
+namespace PublicationAssistantSystem.DAL.Models.Misc
 {
     public class Employee
     {

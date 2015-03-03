@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using PublicationAssistantSystem.Model.Misc;
+using PublicationAssistantSystem.DAL.Models.Misc;
 
-namespace PublicationAssistantSystem.Model.OrganisationUnits
+namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
 {
     public class Division
     {

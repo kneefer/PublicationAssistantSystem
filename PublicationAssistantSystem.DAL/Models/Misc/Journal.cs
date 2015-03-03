@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PublicationAssistantSystem.Model.Misc
+namespace PublicationAssistantSystem.DAL.Models.Misc
 {
     public class Journal
     {

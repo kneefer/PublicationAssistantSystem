@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using PublicationAssistantSystem.Model.Publications;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
-namespace PublicationAssistantSystem.Model.Misc
+namespace PublicationAssistantSystem.DAL.Models.Misc
 {
     public class JournalEdition
     {

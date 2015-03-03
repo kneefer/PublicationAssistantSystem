@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PublicationAssistantSystem.Model.OrganisationUnits
+namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
 {
     public class Institute
     {

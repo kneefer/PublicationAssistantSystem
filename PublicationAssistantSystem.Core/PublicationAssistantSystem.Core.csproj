@@ -63,9 +63,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PublicationAssistantSystem.Model\PublicationAssistantSystem.Model.csproj">
+    <ProjectReference Include="..\PublicationAssistantSystem.DAL\PublicationAssistantSystem.DAL.csproj">
       <Project>{a569a040-0932-4372-9313-42b2e031cbb0}</Project>
-      <Name>PublicationAssistantSystem.Model</Name>
+      <Name>PublicationAssistantSystem.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

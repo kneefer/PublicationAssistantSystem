@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using PublicationAssistantSystem.Model.Misc;
+using PublicationAssistantSystem.DAL.Models.Misc;
 
-namespace PublicationAssistantSystem.Model.Publications
+namespace PublicationAssistantSystem.DAL.Models.Publications
 {
     public class Article : PublicationBase
     {
