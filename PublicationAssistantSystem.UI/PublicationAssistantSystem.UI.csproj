@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PublicationAssistantSystem.Core\PublicationAssistantSystem.Core.csproj">
+      <Project>{01d0e6e8-0a41-4193-aa93-f4be0220c1cb}</Project>
+      <Name>PublicationAssistantSystem.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PublicationAssistantSystem.Model\PublicationAssistantSystem.Model.csproj">
       <Project>{a569a040-0932-4372-9313-42b2e031cbb0}</Project>
       <Name>PublicationAssistantSystem.Model</Name>
