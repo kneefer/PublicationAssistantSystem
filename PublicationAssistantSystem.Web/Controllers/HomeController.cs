@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using PublicationAssistantSystem.DAL.Context;
-using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 
 namespace PublicationAssistantSystem.Web.Controllers
 {
@@ -10,9 +9,6 @@ namespace PublicationAssistantSystem.Web.Controllers
 
         public ActionResult Index()
         {
-            _context.Faculties.Add(new Faculty());
-            _context.SaveChanges();
-
             return View();
         }
 

@@ -1,13 +1,10 @@
-﻿using System.Data.Entity.Migrations;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using PublicationAssistantSystem.DAL.Context;
-using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.Web.Models;
 
 namespace PublicationAssistantSystem.Web.Controllers
