@@ -21,7 +21,7 @@ namespace PublicationAssistantSystem.Web.Controllers
             return View(db.Faculties.ToList());
         }
 
-        /*
+        
         // GET: Faculty/FacultyDetails/5
         public ActionResult FacultyDetails(int? id)
         {
@@ -36,7 +36,6 @@ namespace PublicationAssistantSystem.Web.Controllers
             }
             return View(faculty);
         }
-        */
 
         // GET: Faculty/FacultyCreate
         public ActionResult FacultyCreate()

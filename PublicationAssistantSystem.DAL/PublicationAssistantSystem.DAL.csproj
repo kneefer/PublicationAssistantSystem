@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\PublicationAssistantContext.cs" />
+    <Compile Include="Miscellaneous\PublicationAssistantSystemDBInitializer.cs" />
     <Compile Include="Models\Publications\Specific.cs" />
     <Compile Include="Models\OrganisationUnits\Division.cs" />
     <Compile Include="Models\Misc\Employee.cs" />
