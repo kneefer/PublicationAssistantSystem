@@ -48,6 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\PublicationAssistantContext.cs" />
+    <Compile Include="Migrations\201503051845220_InitialCreate.cs" />
+    <Compile Include="Migrations\201503051845220_InitialCreate.Designer.cs">
+      <DependentUpon>201503051845220_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503051920124_Updated seed method.cs" />
+    <Compile Include="Migrations\201503051920124_Updated seed method.Designer.cs">
+      <DependentUpon>201503051920124_Updated seed method.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Publications\Specific.cs" />
     <Compile Include="Models\OrganisationUnits\Division.cs" />
     <Compile Include="Models\Misc\Employee.cs" />
@@ -66,7 +75,14 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201503051845220_InitialCreate.resx">
+      <DependentUpon>201503051845220_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503051920124_Updated seed method.resx">
+      <DependentUpon>201503051920124_Updated seed method.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
