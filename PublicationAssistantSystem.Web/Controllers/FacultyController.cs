@@ -22,20 +22,20 @@ namespace PublicationAssistantSystem.Web.Controllers
         }
 
         
-        // GET: Faculty/FacultyDetails/5
-        public ActionResult FacultyDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Faculty faculty = db.Faculties.Find(id);
-            if (faculty == null)
-            {
-                return HttpNotFound();
-            }
-            return View(faculty);
-        }
+        //// GET: Faculty/FacultyDetails/5
+        //public ActionResult FacultyDetails(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Faculty faculty = db.Faculties.Find(id);
+        //    if (faculty == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(faculty);
+        //}
 
         // GET: Faculty/FacultyCreate
         public ActionResult FacultyCreate()
