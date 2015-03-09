@@ -1,8 +1,5 @@
 ﻿using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml.Linq;
 
 namespace PublicationAssistantSystem.Core.Mappers.Common
 {

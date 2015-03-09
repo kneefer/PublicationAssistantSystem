@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace PublicationAssistantSystem.Core.Mappers.Common
 {
@@ -15,10 +12,10 @@ namespace PublicationAssistantSystem.Core.Mappers.Common
 
         public PublicationDateTime(WebOfKnowledgeApi.Search.liteRecord r)
         {
-            Year = int.Parse(r.source.Where(x => x.label == PublicationYearLabel).First().value[0]);
+            Year = int.Parse(r.source.First(x => x.label == PublicationYearLabel).value[0]);
             try
             {
-                ExtraPart = r.source.Where(x => x.label == PublicationDateLabel).First().value[0];
+                ExtraPart = r.source.First(x => x.label == PublicationDateLabel).value[0];
             }
             catch { }
         }

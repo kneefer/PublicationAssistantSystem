@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using PublicationAssistantSystem.Core.Clients;
 using PublicationAssistantSystem.Core.Infrastructure;
 using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;

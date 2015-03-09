@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
-using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
 
 namespace PublicationAssistantSystem.Core.Infrastructure
 {
