@@ -2,6 +2,9 @@
 using PublicationAssistantSystem.Core;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.Models.Publications;
+using PublicationAssistantSystem.Core.Mappers.Common;
+using PublicationAssistantSystem.Core.Infrastructure;
+using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
 
 namespace PublicationAssistantSystem.UI
 {
@@ -11,18 +14,17 @@ namespace PublicationAssistantSystem.UI
         {
             InitializeComponent();
 
-            using (var context = new PublicationAssistantContext())
-            {
-                //context.Database.Delete();
-                //context.Publications.Add(new Article());
-                //context.SaveChanges();
-            }
+            
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var test = new Test();
-            test.Run();
+            //var test = new Test();
+            //test.Run();
+            WOSRecordToIRecordConverter converter = new WOSRecordToIRecordConverter();
+            var res = Extensions.Deserialize<searchResults>();
+            var result = converter.ToIRecord(res);
+            System.Console.WriteLine("chuj");
         }
     }
 }

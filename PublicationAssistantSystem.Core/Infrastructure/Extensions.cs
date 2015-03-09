@@ -14,5 +14,13 @@ namespace PublicationAssistantSystem.Core.Infrastructure
                 serializer.Serialize(file, results);
             }
         }
+        public static T Deserialize<T>() where T:class
+        {
+            using (var file = File.Open("results.xml", FileMode.Open))
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                return serializer.Deserialize(file) as T;
+            }
+        }
     }
 }

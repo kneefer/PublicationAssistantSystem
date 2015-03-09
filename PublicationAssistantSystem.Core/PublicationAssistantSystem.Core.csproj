@@ -45,6 +45,14 @@
   <ItemGroup>
     <Compile Include="Clients\AuthenticationClient.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
+    <Compile Include="Mappers\Common\Author.cs" />
+    <Compile Include="Mappers\Common\IRecord.cs" />
+    <Compile Include="Mappers\Common\IRecordConverter.cs" />
+    <Compile Include="Mappers\MNISW\MNISWRecord.cs" />
+    <Compile Include="Mappers\MNISW\MNISWRecordToIRecordConverter.cs" />
+    <Compile Include="Mappers\Common\PublicationDateTime.cs" />
+    <Compile Include="Mappers\WOS\WOSRecord.cs" />
+    <Compile Include="Mappers\WOS\WOSRecordToIRecordConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -120,6 +128,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
