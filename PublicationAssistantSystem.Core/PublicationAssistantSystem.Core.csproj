@@ -51,6 +51,7 @@
     <Compile Include="Mappers\MNISW\MNISWRecord.cs" />
     <Compile Include="Mappers\MNISW\MNISWRecordToIRecordConverter.cs" />
     <Compile Include="Mappers\Common\PublicationDateTime.cs" />
+    <Compile Include="Mappers\MNISW\Models\Generated.cs" />
     <Compile Include="Mappers\WOS\WOSRecord.cs" />
     <Compile Include="Mappers\WOS\WOSRecordToIRecordConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

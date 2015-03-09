@@ -16,7 +16,7 @@ namespace PublicationAssistantSystem.UI
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             //var test = new Test();
-            //test.Run();
+            //test.Run();MN
             var converter = new WOSRecordToIRecordConverter();
             var res = Extensions.Deserialize<searchResults>();
             var result = converter.ToIRecord(res);
