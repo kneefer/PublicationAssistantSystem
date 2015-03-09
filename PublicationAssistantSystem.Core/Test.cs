@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using PublicationAssistantSystem.Core.Clients;
+using PublicationAssistantSystem.Core.Infrastructure;
 using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
 
 namespace PublicationAssistantSystem.Core
@@ -40,7 +41,8 @@ namespace PublicationAssistantSystem.Core
                     count = 10,
                     firstRecord = 1,
                 });
-                Console.WriteLine(results.ToString());
+
+                results.SerializeAndSave();
             }
             catch (Exception e)
             {
