@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="fullRecordSearchResults" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search.fullRecordSearchResults, Web References.WebOfKnowledgeApi.Search.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="searchResults" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search.searchResults</TypeInfo>
 </GenericObjectDataSource>

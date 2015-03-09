@@ -1,32 +1,51 @@
 ﻿using System;
-using System.Security;
 using System.Text;
+using PublicationAssistantSystem.Core.Clients;
 using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
 
 namespace PublicationAssistantSystem.Core
 {
     public class Test
     {
-        public const string UserName = "kneefer@gmail.com";
-        public const string Password = "P@ssw0rd";
-        public static string Cred { get; private set; }
-
-        static Test()
-        {
-            Cred = ConvertCredentialsToBasicAccessFormat(UserName, Password);
-        }
-
         public void Run()
         {
-            var x = new Client();
-            x.authenticate();
-        }
+            var x = new AuthenticationClient();
 
-        public static string ConvertCredentialsToBasicAccessFormat(string userName, string password)
-        {
-            var credentials = string.Format("{0}:{1}", userName, password);
-            var convertedCredentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
-            return "Basic " + convertedCredentials;
+            try
+            {
+                var sessionIdentifier = x.authenticate();
+                var searchClient = new SearchClient(sessionIdentifier);
+
+                var results = searchClient.search(new queryParameters
+                {
+                    databaseId = "WOS",
+                    editions = new[]
+                    {
+                        new editionDesc 
+                        { 
+                            collection = "WOS", 
+                            edition = "SCI" 
+                        }
+                    },
+                    queryLanguage = "en",
+                    timeSpan = new timeSpan
+                    {
+                        begin = "2000-01-01",
+                        end = DateTime.Now.ToString("yyyy-MM-dd")
+                    },
+                    userQuery = "TS=(cadmium OR lead)",
+                }, 
+                new retrieveParameters
+                {
+                    count = 10,
+                    firstRecord = 1,
+                });
+                Console.WriteLine(results.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

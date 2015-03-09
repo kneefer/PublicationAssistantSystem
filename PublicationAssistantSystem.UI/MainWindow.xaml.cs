@@ -14,8 +14,8 @@ namespace PublicationAssistantSystem.UI
             using (var context = new PublicationAssistantContext())
             {
                 //context.Database.Delete();
-                context.Publications.Add(new Article());
-                context.SaveChanges();
+                //context.Publications.Add(new Article());
+                //context.SaveChanges();
             }
         }
 

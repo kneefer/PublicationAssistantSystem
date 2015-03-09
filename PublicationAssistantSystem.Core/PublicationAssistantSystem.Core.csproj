@@ -43,13 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
+    <Compile Include="Clients\AuthenticationClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Clients\SearchClient.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Web References\WebOfKnowledgeApi.Authentication\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -83,16 +84,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>PublicationAssistantSystem_Core_WebOfKnowledgeApi_Authentication_WOKMWSAuthenticateService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://search.webofknowledge.com/esti/wokmws/ws/WokSearch%3fwsdl">
+    <WebReferenceUrl Include="http://search.webofknowledge.com/esti/wokmws/ws/WokSearchLite/%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\WebOfKnowledgeApi.Search\</RelPath>
-      <UpdateFromURL>http://search.webofknowledge.com/esti/wokmws/ws/WokSearch%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://search.webofknowledge.com/esti/wokmws/ws/WokSearchLite/%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>PublicationAssistantSystem_Core_WebOfKnowledgeApi_Search_WokSearchService</CachedSettingsPropName>
+      <CachedSettingsPropName>PublicationAssistantSystem_Core_WebOfKnowledgeApi_Search_WokSearchLiteService</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
@@ -106,23 +107,14 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\WebOfKnowledgeApi.Authentication\WOKMWSAuthenticateService.wsdl" />
-    <None Include="Web References\WebOfKnowledgeApi.Search\citedReference.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\WebOfKnowledgeApi.Search\citedReferencesSearchResults.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\WebOfKnowledgeApi.Search\fullRecordData.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\WebOfKnowledgeApi.Search\fullRecordSearchResults.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\WebOfKnowledgeApi.Search\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\WebOfKnowledgeApi.Search\WokSearchService.wsdl" />
+    <None Include="Web References\WebOfKnowledgeApi.Search\searchResults.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebOfKnowledgeApi.Search\WokSearchLiteService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
