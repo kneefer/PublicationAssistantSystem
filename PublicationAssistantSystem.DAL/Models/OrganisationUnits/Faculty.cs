@@ -13,15 +13,15 @@ namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
 
     public partial class FacultyMetadata
     {
-        [Display(Name = "Institutes")]
-        public Institute Institutes { get; set; }
 
-        [Required(ErrorMessage = "Please enter : Id")]
         [Display(Name = "Id")]
+        [Required(ErrorMessage = "Please enter : Id")]
         public int Id { get; set; }
 
         [Display(Name = "Name")]
         public string Name { get; set; }
-
+        
+        [Display(Name = "Institutes")]
+        public Institute Institutes { get; set; }
     }
 }

@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201503051920124_Updated seed method.Designer.cs">
       <DependentUpon>201503051920124_Updated seed method.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503121948591_Added annotations.cs" />
+    <Compile Include="Migrations\201503121948591_Added annotations.Designer.cs">
+      <DependentUpon>201503121948591_Added annotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Publications\Specific.cs" />
     <Compile Include="Models\OrganisationUnits\Division.cs" />
@@ -81,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503051920124_Updated seed method.resx">
       <DependentUpon>201503051920124_Updated seed method.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503121948591_Added annotations.resx">
+      <DependentUpon>201503121948591_Added annotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

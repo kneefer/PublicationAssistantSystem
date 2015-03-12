@@ -8,7 +8,6 @@ namespace PublicationAssistantSystem.DAL.Models.Misc
     {
         [Key]
         public string ISSN { get; set; }
-
         public Journal Journal { get; set; }
         public virtual ICollection<Article> Articles { get; set; }
     }
