@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\EFPublicationRepository.cs" />
+    <Compile Include="Context\IPublicationRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
     <Compile Include="Migrations\201503051845220_InitialCreate.cs" />
     <Compile Include="Migrations\201503051845220_InitialCreate.Designer.cs">

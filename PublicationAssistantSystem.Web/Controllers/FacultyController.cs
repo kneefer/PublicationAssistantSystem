@@ -13,7 +13,12 @@ namespace PublicationAssistantSystem.Web.Controllers
 {
     public class FacultyController : Controller
     {
-        private PublicationAssistantContext db = new PublicationAssistantContext();
+        private IPublicationRepository db;
+
+        public FacultyController(IPublicationRepository db)
+        {
+            this.db = db;
+        }
 
         // GET: Faculty/FacultyIndex
         public ActionResult FacultyIndex()
@@ -22,20 +27,20 @@ namespace PublicationAssistantSystem.Web.Controllers
         }
 
         
-        //// GET: Faculty/FacultyDetails/5
-        //public ActionResult FacultyDetails(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Faculty faculty = db.Faculties.Find(id);
-        //    if (faculty == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(faculty);
-        //}
+        // GET: Faculty/FacultyDetails/5
+        public ActionResult FacultyDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Faculty faculty = db.Faculties.Find(id);
+            if (faculty == null)
+            {
+                return HttpNotFound();
+            }
+            return View(faculty);
+        }
 
         // GET: Faculty/FacultyCreate
         public ActionResult FacultyCreate()
