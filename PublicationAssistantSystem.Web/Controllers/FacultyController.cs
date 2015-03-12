@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
+using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.Web.Controllers
 {
     public class FacultyController : Controller
     {
-        private IPublicationRepository db;
+        private readonly IPublicationAssistantContext _db;
+        private readonly IFacultyRepository _facultyRepository;
 
-        public FacultyController(IPublicationRepository db)
+        public FacultyController(
+            IPublicationAssistantContext db, 
+            IFacultyRepository facultyRepository)
         {
-            this.db = db;
+            _db = db;
+            _facultyRepository = facultyRepository;
         }
 
         // GET: Faculty/FacultyIndex
         public ActionResult FacultyIndex()
         {
-            return View(db.Faculties.ToList());
+            var temp = _facultyRepository.Get(x => x.Id < 2);
+            return View(temp);
         }
-
         
         // GET: Faculty/FacultyDetails/5
         public ActionResult FacultyDetails(int? id)
@@ -34,7 +34,7 @@ namespace PublicationAssistantSystem.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Faculty faculty = db.Faculties.Find(id);
+            Faculty faculty = _facultyRepository.GetByID(id);
             if (faculty == null)
             {
                 return HttpNotFound();
@@ -56,8 +56,8 @@ namespace PublicationAssistantSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Faculties.Add(faculty);
-                db.SaveChanges();
+                _facultyRepository.Insert(faculty);
+                _db.SaveChanges();
                 DisplaySuccessMessage("Has append a Faculty record");
                 return RedirectToAction("FacultyIndex");
             }
@@ -73,7 +73,7 @@ namespace PublicationAssistantSystem.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Faculty faculty = db.Faculties.Find(id);
+            Faculty faculty = _facultyRepository.GetByID(id);
             if (faculty == null)
             {
                 return HttpNotFound();
@@ -89,8 +89,8 @@ namespace PublicationAssistantSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(faculty).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(faculty).State = EntityState.Modified;
+                _db.SaveChanges();
                 DisplaySuccessMessage("Has update a Faculty record");
                 return RedirectToAction("FacultyIndex");
             }
@@ -118,9 +118,9 @@ namespace PublicationAssistantSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FacultyDeleteConfirmed(int id)
         {
-            Faculty faculty = db.Faculties.Find(id);
-            db.Faculties.Remove(faculty);
-            db.SaveChanges();
+            Faculty faculty = _facultyRepository.GetByID(id);
+            _facultyRepository.Delete(faculty);
+            _db.SaveChanges();
             DisplaySuccessMessage("Has delete a Faculty record");
             return RedirectToAction("FacultyIndex");
         }
@@ -133,15 +133,6 @@ namespace PublicationAssistantSystem.Web.Controllers
         private void DisplayErrorMessage()
         {
             TempData["ErrorMessage"] = "Save changes was unsuccessful.";
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

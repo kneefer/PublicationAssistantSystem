@@ -47,8 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\EFPublicationRepository.cs" />
-    <Compile Include="Context\IPublicationRepository.cs" />
+    <Compile Include="Context\IPublicationAssistantContext.cs" />
+    <Compile Include="Repositories\Generic\GenericRepository.cs" />
+    <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
     <Compile Include="Migrations\201503051845220_InitialCreate.cs" />
     <Compile Include="Migrations\201503051845220_InitialCreate.Designer.cs">
@@ -72,6 +73,8 @@
     <Compile Include="Models\Misc\JournalEdition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Publications\PublicationBase.cs" />
+    <Compile Include="Repositories\Specific\Implementations\SpecificRepositories.cs" />
+    <Compile Include="Repositories\Specific\Interfaces\ISpecificRepositories.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -92,6 +95,7 @@
       <DependentUpon>201503121948591_Added annotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

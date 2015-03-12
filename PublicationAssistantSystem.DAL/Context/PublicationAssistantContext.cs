@@ -6,7 +6,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace PublicationAssistantSystem.DAL.Context
 {
-    public class PublicationAssistantContext : DbContext
+    public class PublicationAssistantContext : DbContext, IPublicationAssistantContext
     {
         public PublicationAssistantContext()
             : base("PublicationAssistantContext")
