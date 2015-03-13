@@ -3,7 +3,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class CleanUp : DbMigration
     {
         public override void Up()
         {
@@ -25,8 +25,8 @@ namespace PublicationAssistantSystem.DAL.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         AcademicTitle = c.String(),
-                        FirstName = c.String(),
-                        LastName = c.String(),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
                         Division_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -38,7 +38,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
+                        Title = c.String(nullable: false),
                         PublicationDate = c.DateTime(),
                         IsOnMNISZW = c.Boolean(nullable: false),
                         IsOnWOS = c.Boolean(nullable: false),
@@ -51,7 +51,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                         Journal_ISSN = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.JournalEdition", t => t.Journal_ISSN)
+                .ForeignKey("dbo.JournalEdition", t => t.Journal_ISSN, cascadeDelete: true)
                 .Index(t => t.Journal_ISSN);
             
             CreateTable(
@@ -70,7 +70,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
+                        Title = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -79,7 +79,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(nullable: false),
                         Faculty_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -91,7 +91,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -114,8 +114,8 @@ namespace PublicationAssistantSystem.DAL.Migrations
         {
             DropForeignKey("dbo.Institute", "Faculty_Id", "dbo.Faculty");
             DropForeignKey("dbo.Division", "Institute_Id", "dbo.Institute");
-            DropForeignKey("dbo.JournalEdition", "Journal_Id", "dbo.Journal");
             DropForeignKey("dbo.PublicationBase", "Journal_ISSN", "dbo.JournalEdition");
+            DropForeignKey("dbo.JournalEdition", "Journal_Id", "dbo.Journal");
             DropForeignKey("dbo.PublicationBaseEmployee", "Employee_Id", "dbo.Employee");
             DropForeignKey("dbo.PublicationBaseEmployee", "PublicationBase_Id", "dbo.PublicationBase");
             DropForeignKey("dbo.Employee", "Division_Id", "dbo.Division");

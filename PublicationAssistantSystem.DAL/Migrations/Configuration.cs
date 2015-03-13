@@ -19,11 +19,11 @@ namespace PublicationAssistantSystem.DAL.Migrations
         {
             context.Faculties.AddOrUpdate(new[]
             {
-                new Faculty { Name = "AEiI", Institutes = new[]
+                new Faculty { Name = "Automatyki, Elektroniki i Informatyki", Institutes = new[]
                 {
                     new Institute{ Name = "Instytut Informatyki", Divisions = new[]
                     {
-                        new Division { Name = "Zak³ad Oprogramowania", Employees = new[]
+                        new Division { Name = "Zespó³ Oprogramowania", Employees = new[]
                         {
                             new Employee { AcademicTitle = "Doktor", FirstName = "Jacek", LastName = "Widuch", Publications = new[]
                             {
@@ -34,9 +34,29 @@ namespace PublicationAssistantSystem.DAL.Migrations
                             new Employee { AcademicTitle = "Profesor", FirstName = "Stanis³aw", LastName = "Kozielski"},
                             new Employee { AcademicTitle = "Magister", FirstName = "Ewa", LastName = "Lach"},
                         }},
+                        new Division { Name = "Zespó³ Teorii Informatyki" },
+                        new Division { Name = "Zespó³ Urz¹dzeñ Informatyki" },
+                        new Division { Name = "Zespó³ Mikroinformatyki i Teorii Automatów Cyfrowych" },
+                        new Division { Name = "Zespó³ Teorii i Projektowania Systemów Komputerowych" },
+                        new Division { Name = "Zak³ad Grafiki, Wizji i Symulacji Komputerowej" }
                     }},
-                    new Institute{ Name = "Instytut Automatyki"},
-                    new Institute{ Name = "Instytut Elektroniki"},
+                    new Institute{ Name = "Instytut Automatyki", Divisions = new[]
+                    {
+                        new Division{ Name = "Zak³ad Sterowania i Robotyki"}, 
+                        new Division{ Name = "Zak³ad Pomiarów i Systemów Sterowania"}, 
+                        new Division{ Name = "Zak³ad Urz¹dzeñ i Uk³adów Automatyki"}, 
+                        new Division{ Name = "Zak³ad In¿ynierii Systemów"}, 
+                        new Division{ Name = "Zak³ad Analizy Eksploracyjnej Danych"} 
+                    }},
+                    new Institute{ Name = "Instytut Elektroniki", Divisions = new[]
+                    {
+                        new Division{Name="Zak³ad Elektroniki Biomedycznej"}, 
+                        new Division{Name="Zak³ad Podstaw Elektroniki i Radiotechniki"}, 
+                        new Division{Name="Zak³ad Telekomunikacji"}, 
+                        new Division{Name="Zak³ad Teorii Obwodów i Sygna³ów"}, 
+                        new Division{Name="Zak³ad Uk³adów Cyfrowych i Mikroprocesorowych"}, 
+                        new Division{Name="Zak³ad Mikroelektroniki i Nanotechnologii"} 
+                    }},
                 }},
                 new Faculty { Name = "MT"},
                 new Faculty { Name = "GiG"},

@@ -44,6 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\AuthenticationClient.cs" />
+    <Compile Include="Exports\ExportToBIB.cs" />
+    <Compile Include="Exports\ExportToCSV.cs" />
+    <Compile Include="Exports\ExportToXML.cs" />
+    <Compile Include="Imports\ImportFromBIB.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Mappers\Common\Author.cs" />
     <Compile Include="Mappers\Common\IRecord.cs" />

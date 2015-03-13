@@ -23,7 +23,7 @@ namespace PublicationAssistantSystem.Web.Controllers
         // GET: Faculty/FacultyIndex
         public ActionResult FacultyIndex()
         {
-            var temp = _facultyRepository.Get(x => x.Id < 2);
+            var temp = _facultyRepository.Get();
             return View(temp);
         }
         

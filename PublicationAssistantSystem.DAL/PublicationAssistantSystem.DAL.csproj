@@ -32,10 +32,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,21 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\IPublicationAssistantContext.cs" />
+    <Compile Include="Migrations\201503131448465_CleanUp.cs" />
+    <Compile Include="Migrations\201503131448465_CleanUp.Designer.cs">
+      <DependentUpon>201503131448465_CleanUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
-    <Compile Include="Migrations\201503051845220_InitialCreate.cs" />
-    <Compile Include="Migrations\201503051845220_InitialCreate.Designer.cs">
-      <DependentUpon>201503051845220_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503051920124_Updated seed method.cs" />
-    <Compile Include="Migrations\201503051920124_Updated seed method.Designer.cs">
-      <DependentUpon>201503051920124_Updated seed method.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503121948591_Added annotations.cs" />
-    <Compile Include="Migrations\201503121948591_Added annotations.Designer.cs">
-      <DependentUpon>201503121948591_Added annotations.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Publications\Specific.cs" />
     <Compile Include="Models\OrganisationUnits\Division.cs" />
@@ -80,22 +73,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503051845220_InitialCreate.resx">
-      <DependentUpon>201503051845220_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503051920124_Updated seed method.resx">
-      <DependentUpon>201503051920124_Updated seed method.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503121948591_Added annotations.resx">
-      <DependentUpon>201503121948591_Added annotations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503131448465_CleanUp.resx">
+      <DependentUpon>201503131448465_CleanUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

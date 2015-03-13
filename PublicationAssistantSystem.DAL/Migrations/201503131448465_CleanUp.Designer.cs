@@ -6,14 +6,14 @@ namespace PublicationAssistantSystem.DAL.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class CleanUp : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CleanUp));
         
         string IMigrationMetadata.Id
         {
-            get { return "201503051845220_InitialCreate"; }
+            get { return "201503131448465_CleanUp"; }
         }
         
         string IMigrationMetadata.Source
