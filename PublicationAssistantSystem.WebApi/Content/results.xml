@@ -1,0 +1,672 @@
+<?xml version="1.0"?>
+<searchResults xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <queryId>1</queryId>
+  <recordsFound>489378</recordsFound>
+  <recordsSearched>20328963</recordsSearched>
+  <records>
+    <uid>WOS:000185655500013</uid>
+    <title>
+      <label>Title</label>
+      <value>The effect of adding cadmium and lead alone or in combination to the diet of pigs on their growth, carcase composition and reproduction</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>13</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>1357-1365</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>OCT</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2003</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>JOURNAL OF THE SCIENCE OF FOOD AND AGRICULTURE</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>83</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Phillips, C</value>
+      <value>Gyori, Z</value>
+      <value>Kovacs, B</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>cadmium</value>
+      <value>lead</value>
+      <value>pigs</value>
+      <value>growth</value>
+      <value>carcase composition</value>
+      <value>dietary supplement</value>
+      <value>swine</value>
+      <value>liver</value>
+      <value>kidney</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1002/jsfa.1548</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>727JU</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0022-5142</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1002/jsfa.1548</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000271163700012</uid>
+    <title>
+      <label>Title</label>
+      <value>Blood Cadmium and Lead and Chronic Kidney Disease in US Adults: A Joint Analysis</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>9</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>1156-1164</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>NOV 1</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2009</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>AMERICAN JOURNAL OF EPIDEMIOLOGY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>170</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Navas-Acien, Ana</value>
+      <value>Tellez-Plaza, Maria</value>
+      <value>Guallar, Eliseo</value>
+      <value>Muntner, Paul</value>
+      <value>Silbergeld, Ellen</value>
+      <value>Jaar, Bernard</value>
+      <value>Weaver, Virginia</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>albuminuria</value>
+      <value>cadmium</value>
+      <value>creatinine</value>
+      <value>glomerular filtration rate</value>
+      <value>kidney diseases</value>
+      <value>lead</value>
+      <value>metals</value>
+      <value>nutrition surveys</value>
+    </keywords>
+    <other>
+      <label>Contributor.ResearcherID.Names</label>
+      <value>Jaar, Bernard</value>
+      <value>Guallar, Eliseo</value>
+    </other>
+    <other>
+      <label>Contributor.ResearcherID.ResearcherIDs</label>
+      <value>B-5026-2011</value>
+      <value>D-3807-2014</value>
+    </other>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1093/aje/kwp248</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>511KR</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0002-9262</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000169097700002</uid>
+    <title>
+      <label>Title</label>
+      <value>Lead-cadmium interaction effect on the responsiveness of rat mesenteric vessels to norepinephrine and angiotensin II</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>3</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>157-170</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>MAY 21</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2001</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>TOXICOLOGY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>162</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Skoczynska, A</value>
+      <value>Wrobel, J</value>
+      <value>Andrzejak, R</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>mesenteric vessels</value>
+      <value>norepinephrine</value>
+      <value>angiotensin II</value>
+      <value>lead</value>
+      <value>cadmium</value>
+      <value>rats</value>
+    </keywords>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>439EK</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0300-483X</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1016/S0300-483X(01)00355-9</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000325781300004</uid>
+    <title>
+      <label>Title</label>
+      <value>EVALUATION OF SUITABILITY OF AMARANTHUS CAUDATUS L. AND RICINUS COMMUNIS L. IN PHYTOEXTRACTION OF CADMIUM AND LEAD FROM CONTAMINATED SUBSTRATES</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>3</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>47-59</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2013</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>ARCHIVES OF ENVIRONMENTAL PROTECTION</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>39</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Bosiacki, Maciej</value>
+      <value>Kleiber, Tomasz</value>
+      <value>Kaczmarek, Jakub</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>Phytoextraction</value>
+      <value>phytoremediation</value>
+      <value>cadmium</value>
+      <value>lead</value>
+      <value>heavy metals</value>
+      <value>ornamental plants</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.2478/aep-2013-0022</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>236FQ</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0324-8461</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000343719300007</uid>
+    <title>
+      <label>Title</label>
+      <value>Blood lead and cadmium levels and renal function in Korean adults</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>5</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>726-734</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>OCT</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2014</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>CLINICAL AND EXPERIMENTAL NEPHROLOGY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>18</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Chung, Sungjin</value>
+      <value>Chung, Jong Hee</value>
+      <value>Kim, Sung Jun</value>
+      <value>Koh, Eun Sil</value>
+      <value>Yoon, Hye Eun</value>
+      <value>Park, Cheol Whee</value>
+      <value>Chang, Yoon Sik</value>
+      <value>Shin, Seok Joon</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>Lead</value>
+      <value>Cadmium</value>
+      <value>Chronic kidney disease</value>
+      <value>Glomerular filtration rate</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1007/s10157-013-0913-6</value>
+    </other>
+    <other>
+      <label>Identifier.Eissn</label>
+      <value>1437-7799</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>AR6UT</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>1342-1751</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000223830400008</uid>
+    <title>
+      <label>Title</label>
+      <value>Using environmental concentrations of cadmium and lead to assess human exposure and dose</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>5</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>416-423</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>SEP</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2004</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>JOURNAL OF EXPOSURE ANALYSIS AND ENVIRONMENTAL EPIDEMIOLOGY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>14</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Hellstrom, L</value>
+      <value>Jarup, L</value>
+      <value>Persson, B</value>
+      <value>Axelson, O</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>GIS</value>
+      <value>environmental</value>
+      <value>cadmium</value>
+      <value>lead</value>
+      <value>human dose</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1038/sj.jea.7500340</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>853LZ</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>1053-4245</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1038/sj.jea.7500340</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000287589400006</uid>
+    <title>
+      <label>Title</label>
+      <value>Rapid coprecipitation-separation and flame atomic absorption spectrometric determination of lead and cadmium in water with cobalt (II) and ammonium pyrrolidine dithiocarbamate</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>3</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>263-271</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2011</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>INTERNATIONAL JOURNAL OF ENVIRONMENTAL ANALYTICAL CHEMISTRY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>91</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Hu, Xiaobin</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>rapid coprecipitation</value>
+      <value>internal standard method</value>
+      <value>lead</value>
+      <value>cadmium</value>
+      <value>flame atomic absorption spectrometry</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1080/03067310903509286</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>724PT</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0306-7319</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1080/03067310903509286</value>
+    </other>
+    <other>
+      <label>Identifier.article_no</label>
+      <value>PII 933808707</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000228405900024</uid>
+    <title>
+      <label>Title</label>
+      <value>Cadmium and lead in Hungarian porcine products and tissues</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>6</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>1049-1054</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>APR 30</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2005</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>JOURNAL OF THE SCIENCE OF FOOD AND AGRICULTURE</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>85</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Gyori, Z</value>
+      <value>Kovacs, B</value>
+      <value>Daniels, P</value>
+      <value>Szabo, P</value>
+      <value>Phillips, C</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>pig</value>
+      <value>cadmium</value>
+      <value>lead</value>
+      <value>toxicity</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1002/jsfa.2069</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>916SI</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0022-5142</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1002/jsfa.2069</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000242446900016</uid>
+    <title>
+      <label>Title</label>
+      <value>Tail hair as an indicator of environmental exposure of cows to lead and cadmium in different industrial areas</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>1</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>127-131</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>JAN</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2007</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>ECOTOXICOLOGY AND ENVIRONMENTAL SAFETY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>66</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Patra, R. C.</value>
+      <value>Swarup, D.</value>
+      <value>Naresh, Ram</value>
+      <value>Kumar, Puneet</value>
+      <value>Nandi, D.</value>
+      <value>Shekhar, Pallav</value>
+      <value>Roy, S.</value>
+      <value>Ali, S. L.</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>lead</value>
+      <value>cadmium</value>
+      <value>tail hair</value>
+      <value>cow</value>
+      <value>blood</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1016/j.ecoenv.2006.01.005</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>111JH</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0147-6513</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1016/j.ecoenv.2006.01.005</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+  <records>
+    <uid>WOS:000290889800002</uid>
+    <title>
+      <label>Title</label>
+      <value>Relation between occupational exposure to lead, cadmium, arsenic and concentration of cystatin C</value>
+    </title>
+    <source>
+      <label>Issue</label>
+      <value>2-3</value>
+    </source>
+    <source>
+      <label>Pages</label>
+      <value>88-95</value>
+    </source>
+    <source>
+      <label>Published.BiblioDate</label>
+      <value>MAY 10</value>
+    </source>
+    <source>
+      <label>Published.BiblioYear</label>
+      <value>2011</value>
+    </source>
+    <source>
+      <label>SourceTitle</label>
+      <value>TOXICOLOGY</value>
+    </source>
+    <source>
+      <label>Volume</label>
+      <value>283</value>
+    </source>
+    <authors>
+      <label>Authors</label>
+      <value>Poreba, Rafal</value>
+      <value>Gac, Paw</value>
+      <value>Poreba, Malgorzata</value>
+      <value>Antonowicz-Juchniewicz, Jolanta</value>
+      <value>Andrzejak, Ryszard</value>
+    </authors>
+    <keywords>
+      <label>Keywords</label>
+      <value>Exposure to lead, cadmium, arsenic</value>
+      <value>Cystatin C</value>
+      <value>Cardiovascular risk</value>
+    </keywords>
+    <other>
+      <label>Identifier.Doi</label>
+      <value>10.1016/j.tox.2011.02.008</value>
+    </other>
+    <other>
+      <label>Identifier.Ids</label>
+      <value>767WP</value>
+    </other>
+    <other>
+      <label>Identifier.Issn</label>
+      <value>0300-483X</value>
+    </other>
+    <other>
+      <label>Identifier.Xref_Doi</label>
+      <value>10.1016/j.tox.2011.02.008</value>
+    </other>
+    <other>
+      <label>ResearcherID.Disclaimer</label>
+      <value>ResearcherID data provided by Thomson Reuters</value>
+    </other>
+  </records>
+</searchResults>
