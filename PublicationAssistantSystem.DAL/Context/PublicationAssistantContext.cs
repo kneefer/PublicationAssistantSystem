@@ -11,6 +11,7 @@ namespace PublicationAssistantSystem.DAL.Context
         public PublicationAssistantContext()
             : base("PublicationAssistantContext")
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<PublicationAssistantContext>());
         }
 
         public DbSet<Employee> Employees { get; set; }
