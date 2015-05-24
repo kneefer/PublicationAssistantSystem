@@ -10,7 +10,8 @@ namespace PublicationAssistantSystem.DAL.Context
     {
         public PublicationAssistantContext()
             : base("PublicationAssistantContext")
-        { }
+        {
+        }
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Journal> Journals { get; set; }

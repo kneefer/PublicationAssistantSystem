@@ -57,6 +57,14 @@
     <Compile Include="Migrations\201503131448465_CleanUp.Designer.cs">
       <DependentUpon>201503131448465_CleanUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505241227565_Added abbreviation property to Faculty table.cs" />
+    <Compile Include="Migrations\201505241227565_Added abbreviation property to Faculty table.Designer.cs">
+      <DependentUpon>201505241227565_Added abbreviation property to Faculty table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505241234437_Removing database during each seed method running.cs" />
+    <Compile Include="Migrations\201505241234437_Removing database during each seed method running.Designer.cs">
+      <DependentUpon>201505241234437_Removing database during each seed method running.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
@@ -82,6 +90,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503131448465_CleanUp.resx">
       <DependentUpon>201503131448465_CleanUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505241227565_Added abbreviation property to Faculty table.resx">
+      <DependentUpon>201505241227565_Added abbreviation property to Faculty table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505241234437_Removing database during each seed method running.resx">
+      <DependentUpon>201505241234437_Removing database during each seed method running.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

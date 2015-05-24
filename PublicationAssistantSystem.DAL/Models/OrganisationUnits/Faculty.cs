@@ -11,6 +11,10 @@ namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
         [Required(ErrorMessage = "Please enter : Id")]
         public int Id { get; set; }
 
+        [MaxLength(10)]
+        [Display(Name = "Abbreviation")]
+        public string Abbreviation { get; set; }
+
         [MaxLength(50)]
         [Display(Name = "Name")]
         public string Name { get; set; }

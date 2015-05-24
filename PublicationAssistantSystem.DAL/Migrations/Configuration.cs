@@ -19,7 +19,10 @@ namespace PublicationAssistantSystem.DAL.Migrations
         {
             context.Faculties.AddOrUpdate(new[]
             {
-                new Faculty { Name = "Automatyki, Elektroniki i Informatyki", Institutes = new[]
+                new Faculty { 
+                    Name = "Automatyki, Elektroniki i Informatyki", 
+                    Abbreviation = "AEiI", 
+                    Institutes = new[]
                 {
                     new Institute{ Name = "Instytut Informatyki", Divisions = new[]
                     {
@@ -58,9 +61,9 @@ namespace PublicationAssistantSystem.DAL.Migrations
                         new Division{Name="Zak³ad Mikroelektroniki i Nanotechnologii"} 
                     }},
                 }},
-                new Faculty { Name = "MT"},
-                new Faculty { Name = "GiG"},
-                new Faculty { Name = "BUD"},
+                new Faculty { Abbreviation = "MT", Name = "Mechaniczno Technologiczny"},
+                new Faculty { Abbreviation = "GiG", Name = "Górnictwa i Geologii"},
+                new Faculty { Abbreviation = "BUD", Name = "Budownictwa"},
             });
 
             context.SaveChanges();
