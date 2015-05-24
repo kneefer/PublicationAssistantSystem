@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
@@ -12,10 +13,12 @@ namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
         public int Id { get; set; }
 
         [MaxLength(10)]
+        [Required]
         [Display(Name = "Abbreviation")]
         public string Abbreviation { get; set; }
 
         [MaxLength(50)]
+        [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
 

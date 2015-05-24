@@ -47,6 +47,7 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
         public virtual void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public virtual void Delete(object id)
@@ -62,12 +63,14 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
                 _dbSet.Attach(entityToDelete);
             }
             _dbSet.Remove(entityToDelete);
+            _context.SaveChanges();
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

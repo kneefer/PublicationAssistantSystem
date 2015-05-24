@@ -65,6 +65,10 @@
     <Compile Include="Migrations\201505241234437_Removing database during each seed method running.Designer.cs">
       <DependentUpon>201505241234437_Removing database during each seed method running.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505241427381_Made some properties required.cs" />
+    <Compile Include="Migrations\201505241427381_Made some properties required.Designer.cs">
+      <DependentUpon>201505241427381_Made some properties required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
@@ -96,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505241234437_Removing database during each seed method running.resx">
       <DependentUpon>201505241234437_Removing database during each seed method running.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505241427381_Made some properties required.resx">
+      <DependentUpon>201505241427381_Made some properties required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
