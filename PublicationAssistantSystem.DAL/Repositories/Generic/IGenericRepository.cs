@@ -11,13 +11,13 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
         IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
+            params string[] navigationProperties);
 
         TEntity GetByID(object id);
 
         void Insert(TEntity entity);
 
-        void Delete(object id);
+        //void Delete(object id);
 
         void Delete(TEntity entityToDelete);
 

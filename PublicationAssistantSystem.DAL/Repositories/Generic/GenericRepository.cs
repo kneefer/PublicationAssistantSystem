@@ -18,22 +18,21 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             this._context = context;
             this._dbSet = context.Set<TEntity>();
         }
-
+        
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+            params string[] navigationProperties)
         {
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
                 query = query.Where(filter);
             }
-
-            query = includeProperties
-                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-
+            
+            foreach (var navigationProperty in navigationProperties)
+                query = query.Include(navigationProperty);
+            
             return orderBy != null 
                 ? orderBy(query).ToList()
                 : query.ToList();
@@ -49,11 +48,11 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet.Add(entity);
         }
 
-        public virtual void Delete(object id)
-        {
-            TEntity entityToDelete = _dbSet.Find(id);
-            Delete(entityToDelete);
-        }
+        //public virtual void Delete(object id)
+        //{
+        //    TEntity entityToDelete = _dbSet.Find(id);
+        //    Delete(entityToDelete);
+        //}
 
         public virtual void Delete(TEntity entityToDelete)
         {

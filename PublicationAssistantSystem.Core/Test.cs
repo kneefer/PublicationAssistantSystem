@@ -40,6 +40,7 @@ namespace PublicationAssistantSystem.Core
                     count = 10,
                     firstRecord = 1,
                 });
+                x.closeSession();
 
                 results.SerializeAndSave();
             }
