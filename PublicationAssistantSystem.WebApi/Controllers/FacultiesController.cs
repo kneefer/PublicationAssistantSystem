@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
@@ -22,8 +20,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository = facultyRepository;
         }
 
-        /// <summary>   Gets all faculties. </summary>
-        /// <returns>   All faculties. </returns>
+        /// <summary> Gets all faculties. </summary>
+        /// <returns> All faculties. </returns>
         
         public IEnumerable<Faculty> GetAll()
         {
@@ -31,11 +29,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return results;
         }
 
-        /// <summary>   Adds the given faculty. </summary>
-        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
-        ///                                             null. </exception>
+        /// <summary> Adds the given faculty. </summary>
+        /// <exception cref="ArgumentNullException">    
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
         /// <param name="item"> The faculty to add. </param>
-        /// <returns>   The added faculty. </returns>
+        /// <returns> The added faculty. </returns>
         
         [HttpPost]
         public Faculty Add(Faculty item)
@@ -51,9 +50,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return item;
         }
 
-        /// <summary>   Deletes the given faculty. </summary>
-        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are null. </exception>
-        /// <param name="item"> The faculty to update. </param>
+        /// <summary> Deletes the given faculty. </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null. 
+        /// </exception>
+        /// <param name="item"> The faculty to delete. </param>
 
         [HttpDelete]
         public void Delete(Faculty item)
@@ -66,11 +67,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository.Delete(item);
             _db.SaveChanges();
         }
-        /// <summary>   Updates the faculty. </summary>
-        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
-        ///                                             null. </exception>
+        /// <summary> Updates the faculty. </summary>
+        /// <exception cref="ArgumentNullException"> 
+        /// Thrown when one or more required arguments are null. 
+        /// </exception>
         /// <param name="item"> The item with updated content. </param>
-        /// <returns>   An updated Faculty. </returns>
+        /// <returns> An updated Faculty. </returns>
         [HttpPatch]
         public Faculty Update(Faculty item)
         {

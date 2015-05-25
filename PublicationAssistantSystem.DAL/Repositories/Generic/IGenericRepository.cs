@@ -10,8 +10,12 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
     {
         IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
+
+        IEnumerable<TEntity> Get<TProperty>(
+            Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            params string[] navigationProperties);
+            params Expression<Func<TEntity, TProperty>>[] navProperty);
 
         TEntity GetByID(object id);
 

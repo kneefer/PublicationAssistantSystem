@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\IPublicationAssistantContext.cs" />
+    <Compile Include="DTO\DivisionDTO.cs" />
     <Compile Include="DTO\InstituteDTO.cs" />
     <Compile Include="Migrations\201503131448465_CleanUp.cs" />
     <Compile Include="Migrations\201503131448465_CleanUp.Designer.cs">

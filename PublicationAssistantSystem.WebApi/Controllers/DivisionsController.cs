@@ -12,113 +12,113 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     [RoutePrefix("api")]
-    public class InstitutesController : ApiController
+    public class DivisionsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
+        private readonly IDivisionRepository _divisionRepository;
         private readonly IInstituteRepository _instituteRepository;
-        private readonly IFacultyRepository _facultyRepository;
 
-        public InstitutesController(
+        public DivisionsController(
             IPublicationAssistantContext db,
-            IInstituteRepository instituteRepository, 
-            IFacultyRepository facultyRepository)
+            IDivisionRepository divisionRepository,
+            IInstituteRepository instituteRepository)
         {
             _db = db;
+            _divisionRepository = divisionRepository;
             _instituteRepository = instituteRepository;
-            _facultyRepository = facultyRepository;
         }
 
-        /// <summary> Gets all institutes. </summary>
-        /// <returns> All institutes. </returns>        
-        public IEnumerable<InstituteDTO> GetAll()
+        /// <summary> Gets all divisions. </summary>
+        /// <returns> All divisions. </returns>        
+        public IEnumerable<DivisionDTO> GetAll()
         {
-            var results =_instituteRepository
-                .Get(null, null, x => x.Faculty)
-                .Select((y) => new InstituteDTO(y));
+            var results = _divisionRepository
+                .Get(null, null, x => x.Institute)
+                .Select((y) => new DivisionDTO(y));
 
             return results;
         }
-        /// <summary> Adds the given institute. </summary>
+        /// <summary> Adds the given division. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
-        /// <param name="item"> The institute to add. </param>
-        /// <returns> The added institute. </returns>
+        /// <param name="item"> The division to add. </param>
+        /// <returns> The added division. </returns>
         [HttpPost]
-        public InstituteDTO Add(InstituteDTO item)
+        public DivisionDTO Add(DivisionDTO item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            var faculty = _facultyRepository.Get((x) => x.Id == item.FacultyId).FirstOrDefault();
-            if (faculty == null)
+            var institute = _instituteRepository.Get(x => x.Id == item.InstituteId).FirstOrDefault();
+            if (institute == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
 
-            var institute = new Institute
+            var division = new Division
             {
                 Id = item.Id,
                 Name = item.Name,
-                Faculty = faculty
+                Institute = institute
             };
 
-            _instituteRepository.Insert(institute);
+            _divisionRepository.Insert(division);
             _db.SaveChanges();
 
-            item.Id = institute.Id;
+            item.Id = division.Id;
 
             return item;
         }
 
-        /// <summary>   Deletes the given institute. </summary>
+        /// <summary>   Deletes the given division. </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        /// <param name="item"> The institute to delete. </param>
+        /// <param name="item"> The division to delete. </param>
         [HttpDelete]
-        public void Delete(Institute item)
+        public void Delete(Division item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _instituteRepository.Delete(item);
+            _divisionRepository.Delete(item);
             _db.SaveChanges();
         }
 
-        /// <summary> Updates the institute. </summary>
+        /// <summary> Updates the division. </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
         /// <param name="item"> The item with updated content. </param>
-        /// <returns> An updated institute. </returns>
+        /// <returns> An updated division. </returns>
         [HttpPatch]
-        public InstituteDTO Update(Institute item)
+        public DivisionDTO Update(Division item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _instituteRepository.Update(item);
+            _divisionRepository.Update(item);
             _db.SaveChanges();
 
-            return new InstituteDTO(item);
+            return new DivisionDTO(item);
         }
-        /// <summary> Gets the institutes of faculty with specified id. </summary>
-        /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
-        /// <returns> Institutes associated with specified faculty </returns>
-        [Route("Faculty/{facultyId}/Institutes")]
-        public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
+        /// <summary> Gets the divisions of institute with specified id. </summary>
+        /// <param name="facultyId"> Identifier of institute whose divisions will be returned. </param>
+        /// <returns> Divisions associated with specified institute </returns>
+        [Route("Institute/{instituteId}/Divisions")]
+        public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
         {
-            var results = _instituteRepository
-                .Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty)
-                .Select(y => new InstituteDTO(y));
+            var results = _divisionRepository
+                .Get(x => x.Institute.Id == instituteId, null, y => y.Institute)
+                .Select(y => new DivisionDTO(y));
 
             return results;
         }
