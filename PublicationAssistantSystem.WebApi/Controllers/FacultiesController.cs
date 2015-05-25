@@ -21,18 +21,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db = db;
             _facultyRepository = facultyRepository;
         }
+
         /// <summary>   Gets all faculties. </summary>
         /// <returns>   All faculties. </returns>
+        
         public IEnumerable<Faculty> GetAll()
         {
             var results = _facultyRepository.Get();
             return results;
         }
+
         /// <summary>   Adds the given faculty. </summary>
         /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
         ///                                             null. </exception>
         /// <param name="item"> The faculty to add. </param>
         /// <returns>   The added faculty. </returns>
+        
         [HttpPost]
         public Faculty Add(Faculty item)
         {
@@ -42,6 +46,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             }
 
             _facultyRepository.Insert(item);
+            _db.SaveChanges();
+
             return item;
         }
 
@@ -58,6 +64,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             }
 
             _facultyRepository.Delete(item);
+            _db.SaveChanges();
         }
         /// <summary>   Updates the faculty. </summary>
         /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
@@ -73,6 +80,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             }
 
             _facultyRepository.Update(item);
+            _db.SaveChanges();
+
             return item;
         }
     }
