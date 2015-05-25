@@ -10,11 +10,7 @@ namespace PublicationAssistantSystem.DAL.Models.Publications
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
-        public DateTime? PublicationDate { get; set; }
-
-        public bool IsOnMNISZW { get; set; }
-        public bool IsOnWOS { get; set; }
-        public bool IsOnJCR { get; set; }
+        public DateTime PublicationDate { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
     }

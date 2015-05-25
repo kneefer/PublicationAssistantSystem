@@ -19,10 +19,6 @@ namespace PublicationAssistantSystem.DAL.Models.Publications
         public string Publisher { get; set; }
     }
 
-    public class Chapter : PublicationBase
-    {
-    }
-
     public class Dataset : PublicationBase
     {
 
