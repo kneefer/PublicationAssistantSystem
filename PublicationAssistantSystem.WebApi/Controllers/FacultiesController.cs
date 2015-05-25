@@ -21,29 +21,18 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db = db;
             _facultyRepository = facultyRepository;
         }
-
         /// <summary>   Gets all faculties. </summary>
-        ///
-        /// <remarks>   Szymon, 2015-05-24. </remarks>
-        ///
         /// <returns>   All faculties. </returns>
-
         public IEnumerable<Faculty> GetAll()
         {
             var results = _facultyRepository.Get();
             return results;
         }
-
         /// <summary>   Adds the given faculty. </summary>
-        ///
-        /// <remarks>   Szymon, 2015-05-24. </remarks>
-        ///
-        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are null. </exception>
-        ///
+        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
+        ///                                             null. </exception>
         /// <param name="item"> The faculty to add. </param>
-        ///
         /// <returns>   The added faculty. </returns>
-
         [HttpPost]
         public Faculty Add(Faculty item)
         {
@@ -57,11 +46,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>   Deletes the given faculty. </summary>
-        ///
-        /// <remarks>   Szymon, 2015-05-24. </remarks>
-        ///
         /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are null. </exception>
-        ///
         /// <param name="item"> The faculty to update. </param>
 
         [HttpDelete]
@@ -74,17 +59,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             _facultyRepository.Delete(item);
         }
-
         /// <summary>   Updates the faculty. </summary>
-        ///
-        /// <remarks>   Szymon, 2015-05-24. </remarks>
-        ///
-        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are null. </exception>
-        ///
+        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
+        ///                                             null. </exception>
         /// <param name="item"> The item with updated content. </param>
-        ///
         /// <returns>   An updated Faculty. </returns>
-
         [HttpPatch]
         public Faculty Update(Faculty item)
         {
