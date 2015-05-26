@@ -503,54 +503,167 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetAll">
+            <summary> Gets all divisions. </summary>
+            <returns> All divisions. </returns>        
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Add(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.DivisionDTO)">
+            <summary> Adds the given division. </summary>
+            <exception cref="T:System.ArgumentNullException">   
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <exception cref="T:System.Web.Http.HttpResponseException">
+            Thrown when a HTTP Response error condition occurs. 
+            </exception>
+            <param name="item"> The division to add. </param>
+            <returns> The added division. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Delete(System.Int32)">
+            <summary>   Deletes the given division. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="divisionId"> The ID of division to delete. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Update(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Division)">
+            <summary> Updates the division. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The item with updated content. </param>
+            <returns> An updated division. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivisionsInInstitute(System.Int32)">
+            <summary> Gets the divisions of institute with specified id. </summary>
+            <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
+            <returns> Divisions associated with specified institute </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetAll">
+            <summary> Gets all employees. </summary>
+            <returns> All employees. </returns>        
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Add(PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
+            <summary> Adds the given employee. </summary>
+            <exception cref="T:System.ArgumentNullException">   
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <exception cref="T:System.Web.Http.HttpResponseException">
+            Thrown when a HTTP Response error condition occurs. 
+            </exception>
+            <param name="item"> The employee to add. </param>
+            <returns> The added employee. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Delete(System.Int32)">
+            <summary>   Deletes the given employee. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="employeeId"> The ID of employee to delete. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Update(PublicationAssistantSystem.DAL.Models.Misc.Employee)">
+            <summary> Updates the employee. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The item with updated content. </param>
+            <returns> An updated employee. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInDivision(System.Int32)">
+            <summary> Gets the employees of division with specified id. </summary>
+            <param name="divisionId"> Identifier of division whose employees will be returned. </param>
+            <returns> Employees associated with specified division </returns>
+        </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.GetAll">
-            <summary>   Gets all faculties. </summary>
-            <returns>   All faculties. </returns>
+            <summary> Gets all faculties. </summary>
+            <returns> All faculties. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Add(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Faculty)">
-            <summary>   Adds the given faculty. </summary>
-            <exception cref="T:System.ArgumentNullException">    Thrown when one or more required arguments are
-                                                        null. </exception>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Add(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.FacultyDTO)">
+            <summary> Adds the given faculty. </summary>
+            <exception cref="T:System.ArgumentNullException">    
+            Thrown when one or more required arguments are null.
+            </exception>
             <param name="item"> The faculty to add. </param>
-            <returns>   The added faculty. </returns>
+            <returns> The added faculty. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Delete(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Faculty)">
-            <summary>   Deletes the given faculty. </summary>
-            <exception cref="T:System.ArgumentNullException">    Thrown when one or more required arguments are null. </exception>
-            <param name="item"> The faculty to update. </param>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Delete(System.Int32)">
+            <summary> Deletes the given faculty. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="facultyId"> The ID of faculty to delete. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Update(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Faculty)">
-            <summary>   Updates the faculty. </summary>
-            <exception cref="T:System.ArgumentNullException">    Thrown when one or more required arguments are
-                                                        null. </exception>
+            <summary> Updates the faculty. </summary>
+            <exception cref="T:System.ArgumentNullException"> 
+            Thrown when one or more required arguments are null. 
+            </exception>
             <param name="item"> The item with updated content. </param>
-            <returns>   An updated Faculty. </returns>
+            <returns> An updated Faculty. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetAll">
             <summary> Gets all institutes. </summary>
             <returns> All institutes. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Add(PublicationAssistantSystem.DAL.DTO.InstituteDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Add(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.InstituteDTO)">
             <summary> Adds the given institute. </summary>
-            <exception cref="T:System.ArgumentNullException">
+            <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
             </exception>
-            <param name="item"> The faculty to add. </param>
-            <returns> The added faculty. </returns>
+            <exception cref="T:System.Web.Http.HttpResponseException">
+            Thrown when a HTTP Response error condition occurs. 
+            </exception>
+            <param name="item"> The institute to add. </param>
+            <returns> The added institute. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Delete(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Institute)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Delete(System.Int32)">
             <summary>   Deletes the given institute. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null.
             </exception>
-            <param name="item"> The institute to update. </param>
+            <param name="instituteId"> The ID of institute to delete. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Update(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Institute)">
-            <summary>   Updates the institute. </summary>
-            <exception cref="T:System.ArgumentNullException">    Thrown when one or more required arguments are
-                                                        null. </exception>
+            <summary> Updates the institute. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
             <param name="item"> The item with updated content. </param>
-            <returns>   An updated institute. </returns>
+            <returns> An updated institute. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetInstitutesInFaculty(System.Int32)">
+            <summary> Gets the institutes of faculty with specified id. </summary>
+            <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
+            <returns> Institutes associated with specified faculty </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetAll">
+            <summary> Gets all journals. </summary>
+            <returns> All journals. </returns>        
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalPostDTO)">
+            <summary> Adds the given journal. </summary>
+            <exception cref="T:System.ArgumentNullException">   
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <exception cref="T:System.Web.Http.HttpResponseException">
+            Thrown when a HTTP Response error condition occurs. 
+            </exception>
+            <param name="item"> The journal to add. </param>
+            <returns> The added journal. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Delete(System.Int32)">
+            <summary>   Deletes the given journal. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="journalId"> The ID of journal to delete. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalDTO)">
+            <summary> Updates the journal. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The item with updated content. </param>
+            <returns> An updated journal. </returns>
         </member>
     </members>
 </doc>

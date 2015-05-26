@@ -7,8 +7,8 @@ namespace PublicationAssistantSystem.DAL.DTO.OrganisationUnits
         public InstituteDTO() {}
         public InstituteDTO(Institute institute)
         {
-            Id = institute.Id;
-            Name = institute.Name;
+            Id        = institute.Id;
+            Name      = institute.Name;
             FacultyId = institute.Faculty.Id;
         }
         public int Id { get; set; }

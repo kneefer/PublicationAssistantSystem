@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\IPublicationAssistantContext.cs" />
+    <Compile Include="DTO\Misc\EmployeeDTO.cs" />
+    <Compile Include="DTO\Misc\JournalDTO.cs" />
+    <Compile Include="DTO\Misc\JournalEditionDTO.cs" />
     <Compile Include="DTO\OrganisationUnits\DivisionDTO.cs" />
     <Compile Include="DTO\OrganisationUnits\FacultyDTO.cs" />
     <Compile Include="DTO\OrganisationUnits\InstituteDTO.cs" />

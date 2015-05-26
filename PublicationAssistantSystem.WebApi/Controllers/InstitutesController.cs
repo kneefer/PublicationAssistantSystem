@@ -12,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/Institutes")]
     public class InstitutesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -34,18 +34,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public IEnumerable<InstituteDTO> GetAll()
         {
             var results =_instituteRepository
-                .Get(null, null, "Faculty")
+                .Get(null, null, x => x.Faculty)
                 .Select((y) => new InstituteDTO(y));
 
             return results;
         }
 
         /// <summary> Adds the given institute. </summary>
-        /// <exception cref="ArgumentNullException">
+        /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
-        /// <param name="item"> The faculty to add. </param>
-        /// <returns> The added faculty. </returns>
+        /// <exception cref="HttpResponseException">
+        /// Thrown when a HTTP Response error condition occurs. 
+        /// </exception>
+        /// <param name="item"> The institute to add. </param>
+        /// <returns> The added institute. </returns>
         [HttpPost]
         public InstituteDTO Add(InstituteDTO item)
         {
@@ -60,8 +63,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var institute = new Institute
             {
-                Id = item.Id,
-                Name = item.Name,
+                Id      = item.Id,
+                Name    = item.Name,
                 Faculty = faculty
             };
 
@@ -77,24 +80,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        /// <param name="item"> The institute to update. </param>
+        /// <param name="instituteId"> The ID of institute to delete. </param>
         [HttpDelete]
-        public void Delete(Institute item)
+        [Route("{instituteId:int}")]
+        public void Delete(int instituteId)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-
-            _instituteRepository.Delete(item);
+            _instituteRepository.Delete(instituteId);
             _db.SaveChanges();
         }
 
-        /// <summary>   Updates the institute. </summary>
-        /// <exception cref="ArgumentNullException">    Thrown when one or more required arguments are
-        ///                                             null. </exception>
+        /// <summary> Updates the institute. </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null. 
+        /// </exception>
         /// <param name="item"> The item with updated content. </param>
-        /// <returns>   An updated institute. </returns>
+        /// <returns> An updated institute. </returns>
         [HttpPatch]
         public InstituteDTO Update(Institute item)
         {
@@ -109,11 +109,16 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return new InstituteDTO(item);
         }
 
-        [Route("Faculty/{facultyId}/Institutes")]
+        /// <summary> Gets the institutes of faculty with specified id. </summary>
+        /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
+        /// <returns> Institutes associated with specified faculty </returns>
+        [Route("~/api/Faculties/{facultyId}/Institutes")]
         public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
         {
-            var results = _instituteRepository.Get((x) => x.Faculty.Id == facultyId, null, "Faculty")
-                                              .Select((y) => new InstituteDTO(y));
+            var results = _instituteRepository
+                .Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty)
+                .Select(y => new InstituteDTO(y));
+
             return results;
         }
     }

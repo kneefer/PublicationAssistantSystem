@@ -15,24 +15,40 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
 
         public GenericRepository(IPublicationAssistantContext context)
         {
-            this._context = context;
-            this._dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
-        
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            params string[] navigationProperties)
+
+        public IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>,
+            IOrderedQueryable<TEntity>> orderBy = null)
         {
             IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
                 query = query.Where(filter);
             }
-            
-            foreach (var navigationProperty in navigationProperties)
-                query = query.Include(navigationProperty);
-            
+
+            return orderBy != null
+                ? orderBy(query).ToList()
+                : query.ToList();
+        }
+
+        public virtual IEnumerable<TEntity> Get<TProperty>(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            params Expression<Func<TEntity, TProperty>>[] navProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var navProperty in navProperties)
+                query = query.Include(navProperty);
+                
+
             return orderBy != null 
                 ? orderBy(query).ToList()
                 : query.ToList();
@@ -48,11 +64,11 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet.Add(entity);
         }
 
-        //public virtual void Delete(object id)
-        //{
-        //    TEntity entityToDelete = _dbSet.Find(id);
-        //    Delete(entityToDelete);
-        //}
+        public virtual void Delete(int id)
+        {
+            var entityToDelete = _dbSet.Find(id);
+            Delete(entityToDelete);
+        }
 
         public virtual void Delete(TEntity entityToDelete)
         {

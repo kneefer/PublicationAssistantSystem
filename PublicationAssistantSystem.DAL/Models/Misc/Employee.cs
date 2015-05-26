@@ -9,8 +9,10 @@ namespace PublicationAssistantSystem.DAL.Models.Misc
     {
         public int Id { get; set; }
         public string AcademicTitle { get; set; }
+
         [Required]
         public string FirstName { get; set; }
+
         [Required]
         public string LastName { get; set; }
         public Division Division { get; set; }
