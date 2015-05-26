@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
+﻿using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 
-namespace PublicationAssistantSystem.DAL.DTO
+namespace PublicationAssistantSystem.DAL.DTO.OrganisationUnits
 {
     public class InstituteDTO
     {

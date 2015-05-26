@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\IPublicationAssistantContext.cs" />
-    <Compile Include="DTO\InstituteDTO.cs" />
+    <Compile Include="DTO\OrganisationUnits\DivisionDTO.cs" />
+    <Compile Include="DTO\OrganisationUnits\FacultyDTO.cs" />
+    <Compile Include="DTO\OrganisationUnits\InstituteDTO.cs" />
     <Compile Include="Migrations\201503131448465_CleanUp.cs" />
     <Compile Include="Migrations\201503131448465_CleanUp.Designer.cs">
       <DependentUpon>201503131448465_CleanUp.cs</DependentUpon>
@@ -73,6 +75,10 @@
     <Compile Include="Migrations\201505250756052_Modified structure of db.cs" />
     <Compile Include="Migrations\201505250756052_Modified structure of db.Designer.cs">
       <DependentUpon>201505250756052_Modified structure of db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505252147469_ModelCleanup.cs" />
+    <Compile Include="Migrations\201505252147469_ModelCleanup.Designer.cs">
+      <DependentUpon>201505252147469_ModelCleanup.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505250756052_Modified structure of db.resx">
       <DependentUpon>201505250756052_Modified structure of db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505252147469_ModelCleanup.resx">
+      <DependentUpon>201505252147469_ModelCleanup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

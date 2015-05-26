@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO;
+using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
