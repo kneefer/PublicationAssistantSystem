@@ -59,6 +59,8 @@
     <Compile Include="DTO\OrganisationUnits\DivisionDTO.cs" />
     <Compile Include="DTO\OrganisationUnits\FacultyDTO.cs" />
     <Compile Include="DTO\OrganisationUnits\InstituteDTO.cs" />
+    <Compile Include="DTO\Publications\PublicationBaseDTO.cs" />
+    <Compile Include="DTO\Publications\SpecificDTO.cs" />
     <Compile Include="Migrations\201503131448465_CleanUp.cs" />
     <Compile Include="Migrations\201503131448465_CleanUp.Designer.cs">
       <DependentUpon>201503131448465_CleanUp.cs</DependentUpon>
