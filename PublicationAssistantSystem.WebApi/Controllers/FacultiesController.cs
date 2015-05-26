@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
+using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
@@ -23,9 +25,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <summary> Gets all faculties. </summary>
         /// <returns> All faculties. </returns>
         
-        public IEnumerable<Faculty> GetAll()
+        public IEnumerable<FacultyDTO> GetAll()
         {
-            var results = _facultyRepository.Get();
+            var results = _facultyRepository
+                .Get()
+                .Select(x => new FacultyDTO(x));
+
             return results;
         }
 
@@ -37,15 +42,24 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> The added faculty. </returns>
         
         [HttpPost]
-        public Faculty Add(Faculty item)
+        public FacultyDTO Add(FacultyDTO item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _facultyRepository.Insert(item);
+            var faculty = new Faculty
+            {
+                Id           = item.Id,
+                Name         = item.Name,
+                Abbreviation = item.Name,
+            };
+
+            _facultyRepository.Insert(faculty);
             _db.SaveChanges();
+
+            item.Id = faculty.Id;
 
             return item;
         }
@@ -74,7 +88,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated Faculty. </returns>
         [HttpPatch]
-        public Faculty Update(Faculty item)
+        public FacultyDTO Update(Faculty item)
         {
             if (item == null)
             {
@@ -84,7 +98,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository.Update(item);
             _db.SaveChanges();
 
-            return item;
+            return new FacultyDTO(item);
         }
     }
 }

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
-using PublicationAssistantSystem.DAL.DTO;
+using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
@@ -61,8 +60,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var division = new Division
             {
-                Id = item.Id,
-                Name = item.Name,
+                Id        = item.Id,
+                Name      = item.Name,
                 Institute = institute
             };
 
@@ -111,7 +110,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return new DivisionDTO(item);
         }
         /// <summary> Gets the divisions of institute with specified id. </summary>
-        /// <param name="facultyId"> Identifier of institute whose divisions will be returned. </param>
+        /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
         /// <returns> Divisions associated with specified institute </returns>
         [Route("Institute/{instituteId}/Divisions")]
         public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)

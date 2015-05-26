@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO;
+using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
@@ -38,6 +39,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return results;
         }
+
         /// <summary> Adds the given institute. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
@@ -61,8 +63,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var institute = new Institute
             {
-                Id = item.Id,
-                Name = item.Name,
+                Id      = item.Id,
+                Name    = item.Name,
                 Faculty = faculty
             };
 
@@ -110,6 +112,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return new InstituteDTO(item);
         }
+
         /// <summary> Gets the institutes of faculty with specified id. </summary>
         /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
         /// <returns> Institutes associated with specified faculty </returns>
