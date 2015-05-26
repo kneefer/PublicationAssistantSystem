@@ -9,12 +9,20 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// Provides access to faculties repository
+    /// </summary>
     [RoutePrefix("api/Faculties")]
     public class FacultiesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IFacultyRepository _facultyRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="db">Db context</param>
+        /// <param name="facultyRepository">Repository of faculties</param>
         public FacultiesController(
             IPublicationAssistantContext db,
             IFacultyRepository facultyRepository)
@@ -25,7 +33,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary> Gets all faculties. </summary>
         /// <returns> All faculties. </returns>
-        
         public IEnumerable<FacultyDTO> GetAll()
         {
             var results = _facultyRepository
@@ -41,7 +48,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </exception>
         /// <param name="item"> The faculty to add. </param>
         /// <returns> The added faculty. </returns>
-        
         [HttpPost]
         public FacultyDTO Add(FacultyDTO item)
         {
@@ -70,7 +76,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// Thrown when one or more required arguments are null. 
         /// </exception>
         /// <param name="facultyId"> The ID of faculty to delete. </param>
-
         [HttpDelete]
         [Route("{facultyId:int}")]
         public void Delete(int facultyId)

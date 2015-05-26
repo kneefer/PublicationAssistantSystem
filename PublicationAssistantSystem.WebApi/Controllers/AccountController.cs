@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -19,17 +18,26 @@ using PublicationAssistantSystem.WebApi.Results;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// Provides access to accounts
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private const string LocalLoginProvider = "Local";
 
-        public AccountController()
-        {
-        }
+        /// <summary>
+        /// Parametrless constructor
+        /// </summary>
+        public AccountController() { }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="userManager"> Manager for users accounts. </param>
+        /// <param name="accessTokenFormat"> Format of access token. </param>
         public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
@@ -37,26 +45,30 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             AccessTokenFormat = accessTokenFormat;
         }
 
+        /// <summary>
+        /// Manager for users accounts.
+        /// </summary>
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
+        /// <summary>
+        /// Format of access token.
+        /// </summary>
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        /// <summary>
+        /// Returns user info.
+        /// </summary>
+        /// <remarks> GET api/Account/UserInfo </remarks>
+        /// <returns> User info VM. </returns>
         [Route("UserInfo")]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         public UserInfoViewModel GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             return new UserInfoViewModel
             {
@@ -66,7 +78,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             };
         }
 
-        // POST api/Account/Logout
+        /// <summary>
+        /// Logs out user.
+        /// </summary>
+        /// <remarks> POST api/Account/Logout </remarks>
+        /// <returns> Http action result status. </returns>
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
@@ -74,7 +90,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return Ok();
         }
 
-        // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
+        /// <summary>
+        /// Returns manager info.
+        /// </summary>
+        /// <param name="returnUrl"> URL to redirect after action completion. </param>
+        /// <param name="generateState"> If true, state is generated. </param>
+        /// <remarks> GET api/Account/ManageInfo?returnUrl=%2F&generateState=true </remarks>
+        /// <returns> Manage info VM. </returns>
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
@@ -85,9 +107,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return null;
             }
 
-            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
+            var logins = new List<UserLoginInfoViewModel>();
 
-            foreach (IdentityUserLogin linkedAccount in user.Logins)
+            foreach (var linkedAccount in user.Logins)
             {
                 logins.Add(new UserLoginInfoViewModel
                 {
@@ -114,7 +136,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             };
         }
 
-        // POST api/Account/ChangePassword
+        /// <summary>
+        /// Changes account password.
+        /// </summary>
+        /// <param name="model"> Change password model. </param>
+        /// <remarks> POST api/Account/ChangePassword </remarks>
+        /// <returns> Http action result status. </returns>
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -123,18 +150,18 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
             
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
-        // POST api/Account/SetPassword
+        /// <summary>
+        /// Sets password.
+        /// </summary>
+        /// <param name="model"> Set password model. </param>
+        /// <remarks> POST api/Account/SetPassword </remarks>
+        /// <returns> Http action result status. </returns>
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
@@ -143,17 +170,17 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+            var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
-        // POST api/Account/AddExternalLogin
+        /// <summary>
+        /// Adds external login.
+        /// </summary>
+        /// <param name="model"> Add external login model. </param>
+        /// <remarks> POST api/Account/AddExternalLogin </remarks>
+        /// <returns> Http action result status. </returns>
         [Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
@@ -164,7 +191,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-            AuthenticationTicket ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
+            var ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
 
             if (ticket == null || ticket.Identity == null || (ticket.Properties != null
                 && ticket.Properties.ExpiresUtc.HasValue
@@ -173,25 +200,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return BadRequest("External login failure.");
             }
 
-            ExternalLoginData externalData = ExternalLoginData.FromIdentity(ticket.Identity);
+            var externalData = ExternalLoginData.FromIdentity(ticket.Identity);
 
             if (externalData == null)
             {
                 return BadRequest("The external login is already associated with an account.");
             }
 
-            IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
+            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
                 new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
-        // POST api/Account/RemoveLogin
+        /// <summary>
+        /// Deletes login.
+        /// </summary>
+        /// <param name="model"> Remove login model. </param>
+        /// <remarks> POST api/Account/RemoveLogin </remarks>
+        /// <returns> Http action result status. </returns>
         [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
@@ -212,19 +239,20 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                     new UserLoginInfo(model.LoginProvider, model.ProviderKey));
             }
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
-        // GET api/Account/ExternalLogin
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        /// <summary>
+        /// Gets external logins.
+        /// </summary>
+        /// <param name="provider"> Login provided. </param>
+        /// <param name="error"> Error message. </param>
+        /// <remarks> GET api/Account/ExternalLogin </remarks>
+        /// <returns> Http action result status. </returns>
         [AllowAnonymous]
+        [OverrideAuthentication]
         [Route("ExternalLogin", Name = "ExternalLogin")]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
@@ -237,7 +265,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             if (externalLogin == null)
             {
@@ -250,7 +278,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            var user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -259,31 +287,37 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                var oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                var cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                var properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
-                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+                var identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 Authentication.SignIn(identity);
             }
 
             return Ok();
         }
 
-        // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
+        /// <summary>
+        /// Returns external logins.
+        /// </summary>
+        /// <param name="returnUrl"> URL to redirect after action. </param>
+        /// <param name="generateState"> If true, state is generated. </param>
+        /// <remarks> GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true </remarks>
+        /// <returns> External model VM. </returns>
         [AllowAnonymous]
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
-            IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
-            List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
+            var descriptions = Authentication.GetExternalAuthenticationTypes();
+            var logins = new List<ExternalLoginViewModel>();
 
             string state;
 
@@ -297,9 +331,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 state = null;
             }
 
-            foreach (AuthenticationDescription description in descriptions)
+            foreach (var description in descriptions)
             {
-                ExternalLoginViewModel login = new ExternalLoginViewModel
+                var login = new ExternalLoginViewModel
                 {
                     Name = description.Caption,
                     Url = Url.Route("ExternalLogin", new
@@ -318,7 +352,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return logins;
         }
 
-        // POST api/Account/Register
+        /// <summary>
+        /// Registers new account
+        /// </summary>
+        /// <param name="model"> Register model. </param>
+        /// <remarks> POST api/Account/Register </remarks>
+        /// <returns> Http action result status. </returns>
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
@@ -330,20 +369,20 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var result = await UserManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
-        // POST api/Account/RegisterExternal
+        /// <summary>
+        /// Registers external model
+        /// </summary>
+        /// <param name="model"> External model binding to register. </param>
+        /// <remarks> POST api/Account/RegisterExternal </remarks>
+        /// <returns> Http action result status. </returns>
         [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("RegisterExternal")]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -359,18 +398,14 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user);
+            var result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result); 
-            }
-            return Ok();
+            return result.Succeeded ? Ok() : GetErrorResult(result);
         }
 
         protected override void Dispose(bool disposing)
@@ -398,26 +433,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 return InternalServerError();
             }
 
-            if (!result.Succeeded)
+            if (result.Succeeded) return null;
+            if (result.Errors != null)
             {
-                if (result.Errors != null)
+                foreach (string error in result.Errors)
                 {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
+                    ModelState.AddModelError("", error);
                 }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
             }
 
-            return null;
+            if (ModelState.IsValid)
+            {
+                // No ModelState errors are available to send, so just return an empty BadRequest.
+                return BadRequest();
+            }
+
+            return BadRequest(ModelState);
         }
 
         private class ExternalLoginData
@@ -428,8 +459,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             public IList<Claim> GetClaims()
             {
-                IList<Claim> claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider)
+                };
 
                 if (UserName != null)
                 {
@@ -446,10 +479,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                     return null;
                 }
 
-                Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                var providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
-                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer)
-                    || String.IsNullOrEmpty(providerKeyClaim.Value))
+                if (providerKeyClaim == null || 
+                    string.IsNullOrEmpty(providerKeyClaim.Issuer) || 
+                    string.IsNullOrEmpty(providerKeyClaim.Value))
                 {
                     return null;
                 }
@@ -470,7 +504,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         private static class RandomOAuthStateGenerator
         {
-            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator Random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {
@@ -484,7 +518,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 int strengthInBytes = strengthInBits / bitsPerByte;
 
                 byte[] data = new byte[strengthInBytes];
-                _random.GetBytes(data);
+                Random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }

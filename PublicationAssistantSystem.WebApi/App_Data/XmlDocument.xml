@@ -4,6 +4,18 @@
         <name>PublicationAssistantSystem.WebApi</name>
     </assembly>
     <members>
+        <member name="T:PublicationAssistantSystem.WebApi.BundleConfig">
+            <summary>
+            Bundling configuration
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.BundleConfig.RegisterBundles(System.Web.Optimization.BundleCollection)">
+            <summary>
+            Registers scripts for bundling
+            </summary>
+            <remarks> For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862 </remarks>
+            <param name="bundles"> Collection of bundles. </param>
+        </member>
         <member name="M:PublicationAssistantSystem.WebApi.NinjectWebCommon.Start">
             <summary>
             Starts the application
@@ -25,6 +37,17 @@
             Load your modules or register your services here!
             </summary>
             <param name="kernel">The kernel.</param>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.RouteConfig">
+            <summary>
+            Routing configuration
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.RouteConfig.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            Registers route URLs for Web API.
+            </summary>
+            <param name="routes"> Collection of routes. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
@@ -503,6 +526,119 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.AccountController">
+            <summary>
+            Provides access to accounts
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.#ctor">
+            <summary>
+            Parametrless constructor
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.#ctor(PublicationAssistantSystem.WebApi.ApplicationUserManager,Microsoft.Owin.Security.ISecureDataFormat{Microsoft.Owin.Security.AuthenticationTicket})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="userManager"> Manager for users accounts. </param>
+            <param name="accessTokenFormat"> Format of access token. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.GetUserInfo">
+            <summary>
+            Returns user info.
+            </summary>
+            <remarks> GET api/Account/UserInfo </remarks>
+            <returns> User info VM. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.Logout">
+            <summary>
+            Logs out user.
+            </summary>
+            <remarks> POST api/Account/Logout </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PublicationAssistantSystem.WebApi.Controllers.AccountController.GetManageInfo(System.String,System.Boolean)" -->
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.ChangePassword(PublicationAssistantSystem.WebApi.Models.ChangePasswordBindingModel)">
+            <summary>
+            Changes account password.
+            </summary>
+            <param name="model"> Change password model. </param>
+            <remarks> POST api/Account/ChangePassword </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.SetPassword(PublicationAssistantSystem.WebApi.Models.SetPasswordBindingModel)">
+            <summary>
+            Sets password.
+            </summary>
+            <param name="model"> Set password model. </param>
+            <remarks> POST api/Account/SetPassword </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.AddExternalLogin(PublicationAssistantSystem.WebApi.Models.AddExternalLoginBindingModel)">
+            <summary>
+            Adds external login.
+            </summary>
+            <param name="model"> Add external login model. </param>
+            <remarks> POST api/Account/AddExternalLogin </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.RemoveLogin(PublicationAssistantSystem.WebApi.Models.RemoveLoginBindingModel)">
+            <summary>
+            Deletes login.
+            </summary>
+            <param name="model"> Remove login model. </param>
+            <remarks> POST api/Account/RemoveLogin </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.GetExternalLogin(System.String,System.String)">
+            <summary>
+            Gets external logins.
+            </summary>
+            <param name="provider"> Login provided. </param>
+            <param name="error"> Error message. </param>
+            <remarks> GET api/Account/ExternalLogin </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PublicationAssistantSystem.WebApi.Controllers.AccountController.GetExternalLogins(System.String,System.Boolean)" -->
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.Register(PublicationAssistantSystem.WebApi.Models.RegisterBindingModel)">
+            <summary>
+            Registers new account
+            </summary>
+            <param name="model"> Register model. </param>
+            <remarks> POST api/Account/Register </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.RegisterExternal(PublicationAssistantSystem.WebApi.Models.RegisterExternalBindingModel)">
+            <summary>
+            Registers external model
+            </summary>
+            <param name="model"> External model binding to register. </param>
+            <remarks> POST api/Account/RegisterExternal </remarks>
+            <returns> Http action result status. </returns>
+        </member>
+        <member name="P:PublicationAssistantSystem.WebApi.Controllers.AccountController.UserManager">
+            <summary>
+            Manager for users accounts.
+            </summary>
+        </member>
+        <member name="P:PublicationAssistantSystem.WebApi.Controllers.AccountController.AccessTokenFormat">
+            <summary>
+            Format of access token.
+            </summary>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.DivisionsController">
+            <summary>
+            Provides access to divisions repository
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IDivisionRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IInstituteRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="db">Db context</param>
+            <param name="divisionRepository">Repository of divisions</param>
+            <param name="instituteRepository">Repository of institutes</param>
+        </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetAll">
             <summary> Gets all divisions. </summary>
             <returns> All divisions. </returns>        
@@ -537,6 +673,19 @@
             <summary> Gets the divisions of institute with specified id. </summary>
             <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
             <returns> Divisions associated with specified institute </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.EmployeesController">
+            <summary>
+            Provides access to employees repository
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IDivisionRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="db">Db context</param>
+            <param name="employeeRepository">Repository of employees</param>
+            <param name="divisionRepository">Repository of divisions</param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetAll">
             <summary> Gets all employees. </summary>
@@ -573,6 +722,18 @@
             <param name="divisionId"> Identifier of division whose employees will be returned. </param>
             <returns> Employees associated with specified division </returns>
         </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.FacultiesController">
+            <summary>
+            Provides access to faculties repository
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IFacultyRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="db">Db context</param>
+            <param name="facultyRepository">Repository of faculties</param>
+        </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.GetAll">
             <summary> Gets all faculties. </summary>
             <returns> All faculties. </returns>
@@ -599,6 +760,19 @@
             </exception>
             <param name="item"> The item with updated content. </param>
             <returns> An updated Faculty. </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.InstitutesController">
+            <summary>
+            Provides access to institutes repository
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IInstituteRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IFacultyRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="db">Db context</param>
+            <param name="instituteRepository">Repository of institutes</param>
+            <param name="facultyRepository">Repository of faculties</param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetAll">
             <summary> Gets all institutes. </summary>
@@ -634,6 +808,18 @@
             <summary> Gets the institutes of faculty with specified id. </summary>
             <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
             <returns> Institutes associated with specified faculty </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalsController">
+            <summary>
+            Provides access to journals repository
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="db">Db context</param>
+            <param name="journalRepository">Repository of journals</param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetAll">
             <summary> Gets all journals. </summary>

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using PublicationAssistantSystem.WebApi.Providers;
 using PublicationAssistantSystem.WebApi.Models;
+using PublicationAssistantSystem.WebApi.Providers;
 
 namespace PublicationAssistantSystem.WebApi
 {

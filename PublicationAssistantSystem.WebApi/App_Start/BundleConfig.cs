@@ -1,11 +1,17 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace PublicationAssistantSystem.WebApi
 {
+    /// <summary>
+    /// Bundling configuration
+    /// </summary>
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// <summary>
+        /// Registers scripts for bundling
+        /// </summary>
+        /// <remarks> For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862 </remarks>
+        /// <param name="bundles"> Collection of bundles. </param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

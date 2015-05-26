@@ -10,6 +10,9 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// Provides access to divisions repository
+    /// </summary>
     [RoutePrefix("api/Divisions")]
     public class DivisionsController : ApiController
     {
@@ -17,6 +20,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IDivisionRepository _divisionRepository;
         private readonly IInstituteRepository _instituteRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="db">Db context</param>
+        /// <param name="divisionRepository">Repository of divisions</param>
+        /// <param name="instituteRepository">Repository of institutes</param>
         public DivisionsController(
             IPublicationAssistantContext db,
             IDivisionRepository divisionRepository,
@@ -33,7 +42,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var results = _divisionRepository
                 .Get(null, null, x => x.Institute)
-                .Select((y) => new DivisionDTO(y));
+                .Select(y => new DivisionDTO(y));
 
             return results;
         }

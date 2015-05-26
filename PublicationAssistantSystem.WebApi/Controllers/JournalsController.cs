@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
-using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.Misc;
-using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// Provides access to journals repository
+    /// </summary>
     [RoutePrefix("api/Journals")]
     public class JournalsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IJournalRepository _journalRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="db">Db context</param>
+        /// <param name="journalRepository">Repository of journals</param>
         public JournalsController(
             IPublicationAssistantContext db,
             IJournalRepository journalRepository)
@@ -36,6 +41,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return results;
         }
+
         /// <summary> Adds the given journal. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 

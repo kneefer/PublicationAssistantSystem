@@ -1,8 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
+using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 
 namespace PublicationAssistantSystem.WebApi.Models
 {
@@ -30,6 +31,6 @@ namespace PublicationAssistantSystem.WebApi.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<PublicationAssistantSystem.DAL.Models.OrganisationUnits.Faculty> Faculties { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
     }
 }

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
-using PublicationAssistantSystem.DAL.DTO;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// Provides access to institutes repository
+    /// </summary>
     [RoutePrefix("api/Institutes")]
     public class InstitutesController : ApiController
     {
@@ -19,6 +20,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IInstituteRepository _instituteRepository;
         private readonly IFacultyRepository _facultyRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="db">Db context</param>
+        /// <param name="instituteRepository">Repository of institutes</param>
+        /// <param name="facultyRepository">Repository of faculties</param>
         public InstitutesController(
             IPublicationAssistantContext db,
             IInstituteRepository instituteRepository, 
@@ -35,7 +42,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var results =_instituteRepository
                 .Get(null, null, x => x.Faculty)
-                .Select((y) => new InstituteDTO(y));
+                .Select(y => new InstituteDTO(y));
 
             return results;
         }
@@ -57,7 +64,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 throw new ArgumentNullException("item");
             }
 
-            var faculty = _facultyRepository.Get((x) => x.Id == item.FacultyId).FirstOrDefault();
+            var faculty = _facultyRepository.Get(x => x.Id == item.FacultyId).FirstOrDefault();
             if (faculty == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
 

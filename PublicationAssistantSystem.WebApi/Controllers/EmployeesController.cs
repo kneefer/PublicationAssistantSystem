@@ -5,13 +5,14 @@ using System.Net;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
-using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.Misc;
-using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// Provides access to employees repository
+    /// </summary>
     [RoutePrefix("api/Employees")]
     public class EmployeesController : ApiController
     {
@@ -19,6 +20,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDivisionRepository _divisionRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="db">Db context</param>
+        /// <param name="employeeRepository">Repository of employees</param>
+        /// <param name="divisionRepository">Repository of divisions</param>
         public EmployeesController(
             IPublicationAssistantContext db,
             IEmployeeRepository employeeRepository,
@@ -39,6 +46,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return results;
         }
+
         /// <summary> Adds the given employee. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
@@ -122,5 +130,5 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return results;
         }
-}
+    }
 }

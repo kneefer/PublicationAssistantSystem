@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace PublicationAssistantSystem.WebApi
 {
+    /// <summary>
+    /// Routing configuration
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Registers route URLs for Web API.
+        /// </summary>
+        /// <param name="routes"> Collection of routes. </param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
