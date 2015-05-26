@@ -105,17 +105,31 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated employee. </returns>
         [HttpPatch]
-        public EmployeeDTO Update(Employee item)
+        public EmployeeDTO Update(EmployeeDTO item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _employeeRepository.Update(item);
+            var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
+            if (division == null)
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            
+            var employee = new Employee
+            {
+                AcademicTitle = item.AcademicTitle,
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                Division = division,
+            };
+
+            _employeeRepository.Update(employee);
             _db.SaveChanges();
 
-            return new EmployeeDTO(item);
+            item.Id = employee.Id;
+
+            return item;
         }
 
         /// <summary> Gets the employees of division with specified id. </summary>

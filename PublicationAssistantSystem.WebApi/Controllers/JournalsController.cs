@@ -42,6 +42,50 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return results;
         }
 
+        /// <summary>
+        /// Returns journal found by ISSN
+        /// </summary>
+        /// <param name="issn">Journal ISSN</param>
+        /// <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        public JournalDTO GetByISSN(string issn)
+        {
+            var result = _journalRepository
+                .Get(x => x.ISSN.Equals(issn))
+                .Select(y => new JournalDTO(y))
+                .SingleOrDefault();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns journal found by eISSN
+        /// </summary>
+        /// <param name="eIssn">Journal eISSN</param>
+        /// <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        public JournalDTO GetByEISSN(string eIssn)
+        {
+            var result = _journalRepository
+                .Get(x => x.eISSN != null && x.eISSN.Equals(eIssn))
+                .Select(y => new JournalDTO(y))
+                .SingleOrDefault();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns journals with titles containing given part of title.
+        /// </summary>
+        /// <param name="titlePart"> Part of title to search with. </param>
+        /// <returns> Journals containing titlePart. </returns>
+        public IEnumerable<JournalDTO> GetWithTitleLike(string titlePart)
+        {
+            var results = _journalRepository
+                .Get(x => x.Title.Contains(titlePart))
+                .Select(y => new JournalDTO(y));
+
+            return results;
+        }
+
         /// <summary> Adds the given journal. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
@@ -68,11 +112,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             _journalRepository.Insert(journal);
             _db.SaveChanges();
-
+            
             return new JournalDTO(journal);
         }
 
-        /// <summary>   Deletes the given journal. </summary>
+        /// <summary> Deletes the given journal. </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
@@ -101,7 +145,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var journal = new Journal
             {
-                Id    = item.Id,
                 Title = item.Title,
                 ISSN  = item.ISSN,
                 eISSN = item.eISSN,
@@ -110,7 +153,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Update(journal);
             _db.SaveChanges();
 
-            return new JournalDTO(journal);
+            item.Id = journal.Id;
+
+            return item;
         }
     }
 }
