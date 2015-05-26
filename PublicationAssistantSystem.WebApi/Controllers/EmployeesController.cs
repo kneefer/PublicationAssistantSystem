@@ -116,7 +116,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <summary> Gets the employees of division with specified id. </summary>
         /// <param name="divisionId"> Identifier of division whose employees will be returned. </param>
         /// <returns> Employees associated with specified division </returns>
-        [Route("Division/{divisionId}/Employees")]
+        [Route("Divisions/{divisionId}/Employees")]
         public IEnumerable<EmployeeDTO> GetEmployeesInDivision(int divisionId)
         {
             var results = _employeeRepository
