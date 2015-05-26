@@ -9,6 +9,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    [RoutePrefix("api/Faculties")]
     public class FacultiesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -68,19 +69,16 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
-        /// <param name="item"> The faculty to delete. </param>
+        /// <param name="facultyId"> The ID of faculty to delete. </param>
 
         [HttpDelete]
-        public void Delete(Faculty item)
+        [Route("{facultyId:int}")]
+        public void Delete(int facultyId)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-
-            _facultyRepository.Delete(item);
+            _facultyRepository.Delete(facultyId);
             _db.SaveChanges();
         }
+
         /// <summary> Updates the faculty. </summary>
         /// <exception cref="ArgumentNullException"> 
         /// Thrown when one or more required arguments are null. 

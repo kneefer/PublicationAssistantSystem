@@ -64,11 +64,11 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet.Add(entity);
         }
 
-        //public virtual void Delete(object id)
-        //{
-        //    TEntity entityToDelete = _dbSet.Find(id);
-        //    Delete(entityToDelete);
-        //}
+        public virtual void Delete(int id)
+        {
+            var entityToDelete = _dbSet.Find(id);
+            Delete(entityToDelete);
+        }
 
         public virtual void Delete(TEntity entityToDelete)
         {

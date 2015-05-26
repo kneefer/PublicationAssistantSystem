@@ -12,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/Institutes")]
     public class InstitutesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -80,16 +80,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        /// <param name="item"> The institute to delete. </param>
+        /// <param name="instituteId"> The ID of institute to delete. </param>
         [HttpDelete]
-        public void Delete(Institute item)
+        [Route("{instituteId:int}")]
+        public void Delete(int instituteId)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-
-            _instituteRepository.Delete(item);
+            _instituteRepository.Delete(instituteId);
             _db.SaveChanges();
         }
 
@@ -116,7 +112,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <summary> Gets the institutes of faculty with specified id. </summary>
         /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
         /// <returns> Institutes associated with specified faculty </returns>
-        [Route("Faculties/{facultyId}/Institutes")]
+        [Route("~/api/Faculties/{facultyId}/Institutes")]
         public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
         {
             var results = _instituteRepository

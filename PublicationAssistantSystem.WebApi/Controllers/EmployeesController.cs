@@ -12,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/Employees")]
     public class EmployeesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -81,16 +81,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        /// <param name="item"> The employee to delete. </param>
+        /// <param name="employeeId"> The ID of employee to delete. </param>
         [HttpDelete]
-        public void Delete(Employee item)
+        [Route("{employeeId:int}")]
+        public void Delete(int employeeId)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-
-            _employeeRepository.Delete(item);
+            _employeeRepository.Delete(employeeId);
             _db.SaveChanges();
         }
 
@@ -113,10 +109,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return new EmployeeDTO(item);
         }
+
         /// <summary> Gets the employees of division with specified id. </summary>
         /// <param name="divisionId"> Identifier of division whose employees will be returned. </param>
         /// <returns> Employees associated with specified division </returns>
-        [Route("Divisions/{divisionId}/Employees")]
+        [Route("~/api/Divisions/{divisionId}/Employees")]
         public IEnumerable<EmployeeDTO> GetEmployeesInDivision(int divisionId)
         {
             var results = _employeeRepository

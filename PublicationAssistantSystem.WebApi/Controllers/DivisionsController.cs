@@ -10,7 +10,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/Divisions")]
     public class DivisionsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return results;
         }
+
         /// <summary> Adds the given division. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
@@ -77,16 +78,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        /// <param name="item"> The division to delete. </param>
+        /// <param name="divisionId"> The ID of division to delete. </param>
         [HttpDelete]
-        public void Delete(Division item)
+        [Route("{divisionId:int}")]
+        public void Delete(int divisionId)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException("item");
-            }
-
-            _divisionRepository.Delete(item);
+            _divisionRepository.Delete(divisionId);
             _db.SaveChanges();
         }
 
@@ -109,10 +106,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             return new DivisionDTO(item);
         }
+
         /// <summary> Gets the divisions of institute with specified id. </summary>
         /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
         /// <returns> Divisions associated with specified institute </returns>
-        [Route("Institutes/{instituteId}/Divisions")]
+        [Route("~/api/Institutes/{instituteId}/Divisions")]
         public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
         {
             var results = _divisionRepository

@@ -21,7 +21,7 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
 
         void Insert(TEntity entity);
 
-        //void Delete(object id);
+        void Delete(int id);
 
         void Delete(TEntity entityToDelete);
 
