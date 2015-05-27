@@ -103,17 +103,29 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated institute. </returns>
         [HttpPatch]
-        public InstituteDTO Update(Institute item)
+        public InstituteDTO Update(InstituteDTO item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _instituteRepository.Update(item);
+            var faculty = _facultyRepository.Get(x => x.Id == item.FacultyId).FirstOrDefault();
+            if(faculty == null)
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+
+            var institute = new Institute
+            {
+                Name = item.Name,
+                Faculty = faculty
+            };
+
+            _instituteRepository.Update(institute);
             _db.SaveChanges();
 
-            return new InstituteDTO(item);
+            item.Id = institute.Id;
+
+            return item;
         }
 
         /// <summary> Gets the institutes of faculty with specified id. </summary>

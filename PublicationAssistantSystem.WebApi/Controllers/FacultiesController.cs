@@ -91,17 +91,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated Faculty. </returns>
         [HttpPatch]
-        public FacultyDTO Update(Faculty item)
+        public FacultyDTO Update(FacultyDTO item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _facultyRepository.Update(item);
+            var faculty = new Faculty
+            {
+                Name = item.Name,
+                Abbreviation = item.Abbreviation,
+            };
+
+            _facultyRepository.Update(faculty);
             _db.SaveChanges();
 
-            return new FacultyDTO(item);
+            item.Id = faculty.Id;
+
+            return item;
         }
     }
 }

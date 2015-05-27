@@ -103,17 +103,29 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated division. </returns>
         [HttpPatch]
-        public DivisionDTO Update(Division item)
+        public DivisionDTO Update(DivisionDTO item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            _divisionRepository.Update(item);
+            var institute = _instituteRepository.Get(x => x.Id == item.InstituteId).FirstOrDefault();
+            if(institute == null)
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+
+            var division = new Division
+            {
+                Name = item.Name,
+                Institute = institute,
+            };
+            
+            _divisionRepository.Update(division);
             _db.SaveChanges();
 
-            return new DivisionDTO(item);
+            item.Id = division.Id;
+
+            return item;
         }
 
         /// <summary> Gets the divisions of institute with specified id. </summary>

@@ -661,7 +661,7 @@
             </exception>
             <param name="divisionId"> The ID of division to delete. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Update(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Division)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.DivisionDTO)">
             <summary> Updates the division. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
@@ -709,7 +709,7 @@
             </exception>
             <param name="employeeId"> The ID of employee to delete. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Update(PublicationAssistantSystem.DAL.Models.Misc.Employee)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Update(PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
             <summary> Updates the employee. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
@@ -753,13 +753,24 @@
             </exception>
             <param name="facultyId"> The ID of faculty to delete. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Update(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Faculty)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.FacultyDTO)">
             <summary> Updates the faculty. </summary>
             <exception cref="T:System.ArgumentNullException"> 
             Thrown when one or more required arguments are null. 
             </exception>
             <param name="item"> The item with updated content. </param>
             <returns> An updated Faculty. </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.HomeController">
+            <summary>
+            Main page controller.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.HomeController.Index">
+            <summary>
+            Returns home page view.
+            </summary>
+            <returns> Home page view. </returns>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.InstitutesController">
             <summary>
@@ -796,7 +807,7 @@
             </exception>
             <param name="instituteId"> The ID of institute to delete. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Update(PublicationAssistantSystem.DAL.Models.OrganisationUnits.Institute)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.InstituteDTO)">
             <summary> Updates the institute. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
@@ -808,6 +819,46 @@
             <summary> Gets the institutes of faculty with specified id. </summary>
             <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
             <returns> Institutes associated with specified faculty </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController">
+            <summary>
+            Provides access to journal editions repository
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalEditionRepository)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="db"> Db context. </param>
+            <param name="journalRepository"> Repository of journals. </param>
+            <param name="journalEditionRepository"> Repository of journal editions. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.GetAll">
+            <summary> Gets all journal editions. </summary>
+            <returns> All journal editions. </returns>        
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
+            <summary> Adds the given journal edition. </summary>
+            <exception cref="T:System.ArgumentNullException">   
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The journal edition to add. </param>
+            <returns> Added journal edition. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.Delete(System.Int32)">
+            <summary> Deletes the given journal edition. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="journalEditionId"> The ID of journal edition to delete. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
+            <summary> Updates the journal edition. </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The item with updated content. </param>
+            <returns> An updated journal edition. </returns>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalsController">
             <summary>
@@ -825,6 +876,27 @@
             <summary> Gets all journals. </summary>
             <returns> All journals. </returns>        
         </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetByISSN(System.String)">
+            <summary>
+            Returns journal found by ISSN
+            </summary>
+            <param name="issn">Journal ISSN</param>
+            <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetByEISSN(System.String)">
+            <summary>
+            Returns journal found by eISSN
+            </summary>
+            <param name="eIssn">Journal eISSN</param>
+            <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetWithTitleLike(System.String)">
+            <summary>
+            Returns journals with titles containing given part of title.
+            </summary>
+            <param name="titlePart"> Part of title to search with. </param>
+            <returns> Journals containing titlePart. </returns>
+        </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalPostDTO)">
             <summary> Adds the given journal. </summary>
             <exception cref="T:System.ArgumentNullException">   
@@ -837,7 +909,7 @@
             <returns> The added journal. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Delete(System.Int32)">
-            <summary>   Deletes the given journal. </summary>
+            <summary> Deletes the given journal. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null.
             </exception>
