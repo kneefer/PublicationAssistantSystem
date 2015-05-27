@@ -930,5 +930,24 @@
             <param name="item"> The item with updated content. </param>
             <returns> An updated journal. </returns>
         </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.PublicationsController">
+            <summary>
+            Provides access to publications repository.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.PublicationsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="db"> Db context. </param>
+            <param name="publicationBaseRepository"> Repository of publications. </param>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.PublicationsController.GetAll">
+            <summary>
+            Returns all publications
+            </summary>
+            <remarks> GET: api/Publications </remarks>
+            <returns> All publications. </returns>
+        </member>
     </members>
 </doc>

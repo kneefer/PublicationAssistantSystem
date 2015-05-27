@@ -25,7 +25,7 @@ namespace PublicationAssistantSystem.WebApi.UnitTests.FacultyControllerTests
 
             var contextMock = new Mock<IPublicationAssistantContext>();
             var repositoryMock = new Mock<IFacultyRepository>();
-            repositoryMock.Setup(m => m.Get(null, null)).Returns(testRepository);
+            //repositoryMock.Setup(m => m.Get(null, null)).Returns(testRepository);
 
             //var controller = new FacultyController(contextMock.Object, repositoryMock.Object);
 

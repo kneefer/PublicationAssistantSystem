@@ -8,11 +8,11 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
     public interface IGenericRepository<TEntity>
         where TEntity : class
     {
-        IEnumerable<TEntity> Get(
+        IQueryable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        IEnumerable<TEntity> Get<TProperty>(
+        IQueryable<TEntity> Get<TProperty>(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             params Expression<Func<TEntity, TProperty>>[] navProperty);

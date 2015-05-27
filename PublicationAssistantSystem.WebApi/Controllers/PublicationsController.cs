@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Mappers;
@@ -37,11 +39,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <remarks> GET: api/Publications </remarks>
         /// <returns> All publications. </returns>
-        public IEnumerable<PublicationBaseDTO> GetAll()
+        public IEnumerable<object> GetAll()
         {
-            var results = _publicationBaseRepository.Get().Select(y => y.ToDTO());
-
-            return results;
+            var results = _publicationBaseRepository.Get().ToList();
+            var x = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
+            var toReturn = x.ToList();           
+            return toReturn;
         }
     }
 }

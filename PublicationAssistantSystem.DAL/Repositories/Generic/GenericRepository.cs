@@ -19,7 +19,7 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> Get(
+        public IQueryable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>,
             IOrderedQueryable<TEntity>> orderBy = null)
         {
@@ -34,7 +34,7 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
                 : query;
         }
 
-        public virtual IEnumerable<TEntity> Get<TProperty>(
+        public virtual IQueryable<TEntity> Get<TProperty>(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             params Expression<Func<TEntity, TProperty>>[] navProperties)
