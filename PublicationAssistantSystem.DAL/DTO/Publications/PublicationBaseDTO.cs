@@ -19,5 +19,6 @@ namespace PublicationAssistantSystem.DAL.DTO.Publications
         [Required]
         public string Title { get; set; }
         public DateTime PublicationDate { get; set; }
+        public string Discriminator { get; set; }
     }
 }

@@ -820,12 +820,12 @@
             <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
             <returns> Institutes associated with specified faculty </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController">
             <summary>
             Provides access to journal editions repository
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalEditionRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalEditionRepository)">
             <summary>
             Constructor
             </summary>
@@ -833,11 +833,18 @@
             <param name="journalRepository"> Repository of journals. </param>
             <param name="journalEditionRepository"> Repository of journal editions. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.GetAll">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetAll">
             <summary> Gets all journal editions. </summary>
             <returns> All journal editions. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournalEditionsInJournal(System.Int32)">
+            <summary>
+            Returns all journal editions of journal
+            </summary>
+            <param name="journalId"> Journal identificator. </param>
+            <returns> Journal editions of journal. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
             <summary> Adds the given journal edition. </summary>
             <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
@@ -845,14 +852,14 @@
             <param name="item"> The journal edition to add. </param>
             <returns> Added journal edition. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.Delete(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Delete(System.Int32)">
             <summary> Deletes the given journal edition. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null.
             </exception>
             <param name="journalEditionId"> The ID of journal edition to delete. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
             <summary> Updates the journal edition. </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 

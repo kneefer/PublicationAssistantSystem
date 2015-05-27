@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
@@ -47,12 +48,16 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <param name="issn">Journal ISSN</param>
         /// <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        [Route("ISSN/{issn}")]
         public JournalDTO GetByISSN(string issn)
         {
             var result = _journalRepository
                 .Get(x => x.ISSN.Equals(issn))
                 .Select(y => new JournalDTO(y))
                 .SingleOrDefault();
+
+            if(result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return result;
         }
@@ -62,12 +67,16 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <param name="eIssn">Journal eISSN</param>
         /// <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        [Route("eISSN/{eIssn}")]
         public JournalDTO GetByEISSN(string eIssn)
         {
             var result = _journalRepository
                 .Get(x => x.eISSN != null && x.eISSN.Equals(eIssn))
                 .Select(y => new JournalDTO(y))
                 .SingleOrDefault();
+
+            if (result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return result;
         }
@@ -77,6 +86,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <param name="titlePart"> Part of title to search with. </param>
         /// <returns> Journals containing titlePart. </returns>
+        [Route("Like/{titlePart}")]
         public IEnumerable<JournalDTO> GetWithTitleLike(string titlePart)
         {
             var results = _journalRepository

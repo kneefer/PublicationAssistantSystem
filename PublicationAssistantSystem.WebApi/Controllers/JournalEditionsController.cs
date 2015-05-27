@@ -13,7 +13,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
     /// <summary>
     /// Provides access to journal editions repository
     /// </summary>
-    public class JournalEditionController : ApiController
+    [RoutePrefix("api/JournalEdition")]
+    public class JournalEditionsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IJournalRepository _journalRepository;
@@ -25,7 +26,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="db"> Db context. </param>
         /// <param name="journalRepository"> Repository of journals. </param>
         /// <param name="journalEditionRepository"> Repository of journal editions. </param>
-        public JournalEditionController(
+        public JournalEditionsController(
             IPublicationAssistantContext db,
             IJournalRepository journalRepository,
             IJournalEditionRepository journalEditionRepository)
@@ -46,6 +47,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return results;
         }
 
+        /// <summary>
+        /// Returns all journal editions of journal
+        /// </summary>
+        /// <param name="journalId"> Journal identificator. </param>
+        /// <returns> Journal editions of journal. </returns>
+        [Route("~/api/Journals/{journalId}/JournalEditions")]
+        public IEnumerable<JournalEditionDTO> GetJournalEditionsInJournal(int journalId)
+        {
+            var results = _journalEditionRepository
+                .Get(x => x.Journal.Id == journalId, null, y => y.Journal)
+                .Select(y => new JournalEditionDTO(y));
+
+            return results;
+        }
+            
         /// <summary> Adds the given journal edition. </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 

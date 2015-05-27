@@ -30,8 +30,8 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             }
 
             return orderBy != null
-                ? orderBy(query).ToList()
-                : query.ToList();
+                ? orderBy(query)
+                : query;
         }
 
         public virtual IEnumerable<TEntity> Get<TProperty>(
@@ -48,10 +48,9 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             foreach (var navProperty in navProperties)
                 query = query.Include(navProperty);
                 
-
             return orderBy != null 
-                ? orderBy(query).ToList()
-                : query.ToList();
+                ? orderBy(query)
+                : query;
         }
 
         public virtual TEntity GetByID(object id)
