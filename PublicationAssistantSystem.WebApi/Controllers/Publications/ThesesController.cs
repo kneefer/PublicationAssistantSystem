@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for theses in publications repository.
     /// </summary>
-    [RoutePrefix("Publications/Theses")]
+    [RoutePrefix("api/Publications/Theses")]
     public class ThesesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;

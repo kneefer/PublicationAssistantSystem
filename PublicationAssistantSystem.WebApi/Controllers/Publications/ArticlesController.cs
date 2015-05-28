@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for articles in publications repository.
     /// </summary>
-    [RoutePrefix("Publications/Articles")]
+    [RoutePrefix("api/Publications/Articles")]
     public class ArticlesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -52,7 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Article id. </param>
         /// <remarks> GET: api/Publications/Articles/Id </remarks>
         /// <returns> Article with specified id. </returns>
-        [Route("id:int")]
+        [Route("{id:int}")]
         public PublicationBaseDTO GetArticle(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is Article && p.Id == id).FirstOrDefault();

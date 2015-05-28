@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for technical reports in publications repository.
     /// </summary>
-    [RoutePrefix("Publications/TechnicalReports")]
+    [RoutePrefix("api/Publications/TechnicalReports")]
     public class TechnicalReportsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;

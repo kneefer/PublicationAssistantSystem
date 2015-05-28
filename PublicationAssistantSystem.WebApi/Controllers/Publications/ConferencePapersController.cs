@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for conference papers in publications repository.
     /// </summary>
-    [RoutePrefix("Publications/ConferencePapers")]
+    [RoutePrefix("api/Publications/ConferencePapers")]
     public class ConferencePapersController : ApiController
     {
         private readonly IPublicationAssistantContext _db;

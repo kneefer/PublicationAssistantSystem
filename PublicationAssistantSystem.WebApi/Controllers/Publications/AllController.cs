@@ -14,7 +14,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access to publications repository.
     /// </summary>
-    [RoutePrefix("Publications/All")]
+    [RoutePrefix("api/Publications/All")]
     public class AllController : ApiController
     {
         private readonly IPublicationAssistantContext _db;

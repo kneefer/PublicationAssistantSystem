@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for patents in publications repository.
     /// </summary>
-    [RoutePrefix("Publications/Patents")]
+    [RoutePrefix("api/Publications/Patents")]
     public class PatentsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;

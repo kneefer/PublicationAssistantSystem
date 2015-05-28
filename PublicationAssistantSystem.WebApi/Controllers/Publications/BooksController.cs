@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for books in publications repository.
     /// </summary>
-    [RoutePrefix("Publications/Books")]
+    [RoutePrefix("api/Publications/Books")]
     public class BooksController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
