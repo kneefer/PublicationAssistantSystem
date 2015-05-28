@@ -944,10 +944,21 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.PublicationsController.GetAll">
             <summary>
-            Returns all publications
+            Returns all publications.
             </summary>
             <remarks> GET: api/Publications </remarks>
             <returns> All publications. </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.WebApiApplication">
+            <summary>
+            Main application class.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.WebApiApplication.Application_Start">
+            <summary>
+            Executed on application start.
+            Initializes base settings of application.
+            </summary>
         </member>
     </members>
 </doc>

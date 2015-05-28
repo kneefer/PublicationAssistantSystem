@@ -2,11 +2,8 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
-using PublicationAssistantSystem.DAL.Mappers;
-using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
@@ -32,10 +29,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db = db;
             _publicationBaseRepository = publicationBaseRepository;
         }
-
         
         /// <summary>
-        /// Returns all publications
+        /// Returns all publications.
         /// </summary>
         /// <remarks> GET: api/Publications </remarks>
         /// <returns> All publications. </returns>

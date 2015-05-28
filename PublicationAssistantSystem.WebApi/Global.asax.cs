@@ -1,17 +1,23 @@
-﻿using System.Web.Http;
+﻿using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
-using PublicationAssistantSystem.Core.Mappers.MNISW.Models;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
-using PublicationAssistantSystem.WebApi.Infrastructure;
 
 namespace PublicationAssistantSystem.WebApi
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    /// <summary>
+    /// Main application class.
+    /// </summary>
+    public class WebApiApplication : HttpApplication
     {
+        /// <summary>
+        /// Executed on application start.
+        /// Initializes base settings of application.
+        /// </summary>
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -23,7 +29,7 @@ namespace PublicationAssistantSystem.WebApi
             ConfigureMapper();
         }
 
-        private void ConfigureMapper()
+        private static void ConfigureMapper()
         {
             Mapper.CreateMap<PublicationBase, PublicationBaseDTO>()
                 .Include<Article, ArticleDTO>()
@@ -35,13 +41,20 @@ namespace PublicationAssistantSystem.WebApi
                 .Include<Thesis, ThesisDTO>();
 
             Mapper.CreateMap<Article, ArticleDTO>()
-                .ForMember(dto => dto.JournalEditionId, conf => conf.MapFrom(ol => ol.Journal.Id));
-            Mapper.CreateMap<Book, BookDTO>();
-            Mapper.CreateMap<Dataset, DatasetDTO>();
-            Mapper.CreateMap<ConferencePaper, ConferencePaperDTO>();
-            Mapper.CreateMap<Patent, PatentDTO>();
-            Mapper.CreateMap<TechnicalReport, TechnicalReportDTO>();
-            Mapper.CreateMap<Thesis, ThesisDTO>();
+                .ForMember(dto => dto.JournalEditionId, conf => conf.MapFrom(ol => ol.Journal.Id))
+                .ForMember(dto=>dto.Discriminator, conf => conf.MapFrom(ol => "Article"));
+            Mapper.CreateMap<Book, BookDTO>()
+                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Book"));
+            Mapper.CreateMap<Dataset, DatasetDTO>()
+                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Dataset"));
+            Mapper.CreateMap<ConferencePaper, ConferencePaperDTO>()
+                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "ConferencePaper"));
+            Mapper.CreateMap<Patent, PatentDTO>()
+                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Patent"));
+            Mapper.CreateMap<TechnicalReport, TechnicalReportDTO>()
+                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "TechnicalReport"));
+            Mapper.CreateMap<Thesis, ThesisDTO>()
+                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Thesis"));
         }
     }
 }
