@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for technical reports in publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications/TechnicalReports")]
+    [RoutePrefix("Publications/TechnicalReports")]
     public class TechnicalReportsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications/TechnicalReports </remarks>
         /// <returns> All technical reports. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAllTechnicalReports()
         {
             var results = _publicationBaseRepository.Get(p => p is TechnicalReport).ToList();
@@ -51,6 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Technical report id. </param>
         /// <remarks> GET: api/Publications/TechnicalReports/Id </remarks>
         /// <returns> Technical report with specified id. </returns>
+        [Route("{id:int}")]
         public PublicationBaseDTO GetTechnicalReport(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is TechnicalReport && p.Id == id).FirstOrDefault();

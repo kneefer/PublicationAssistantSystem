@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for books in publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications/Datasets")]
+    [RoutePrefix("Publications/Datasets")]
     public class DatasetsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications/Datasets </remarks>
         /// <returns> All datasets. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAllDatasets()
         {
             var results = _publicationBaseRepository.Get(p => p is Dataset).ToList();
@@ -51,6 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Dataset id. </param>
         /// <remarks> GET: api/Publications/Datasets/Id </remarks>
         /// <returns> Dataset with specified id. </returns>
+        [Route("{id:int}")]
         public PublicationBaseDTO GetDataset(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is Dataset && p.Id == id).FirstOrDefault();

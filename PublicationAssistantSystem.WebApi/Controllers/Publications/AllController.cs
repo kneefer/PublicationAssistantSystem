@@ -14,7 +14,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access to publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications")]
+    [RoutePrefix("Publications/All")]
     public class AllController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -38,6 +38,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications </remarks>
         /// <returns> All publications. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAll()
         {
             var resultAll = _publicationBaseRepository.Get();

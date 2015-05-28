@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for theses in publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications/Theses")]
+    [RoutePrefix("Publications/Theses")]
     public class ThesesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications/Theses </remarks>
         /// <returns> All theses. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAllTheses()
         {
             var results = _publicationBaseRepository.Get(p => p is Thesis).ToList();
@@ -51,6 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Thesis id. </param>
         /// <remarks> GET: api/Publications/Theses/Id </remarks>
         /// <returns> Thesis with specified id. </returns>
+        [Route("{id:int}")]
         public PublicationBaseDTO GetThesis(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is Thesis && p.Id == id).FirstOrDefault();

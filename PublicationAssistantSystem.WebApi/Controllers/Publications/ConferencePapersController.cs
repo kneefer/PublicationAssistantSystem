@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for conference papers in publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications/ConferencePapers")]
+    [RoutePrefix("Publications/ConferencePapers")]
     public class ConferencePapersController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications/ConferencePapers </remarks>
         /// <returns> All conference papers. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAllConferencePapers()
         {
             var results = _publicationBaseRepository.Get(p => p is ConferencePaper).ToList();
@@ -51,6 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Conference paper id. </param>
         /// <remarks> GET: api/Publications/ConferencePapers/Id </remarks>
         /// <returns> Conference paper with specified id. </returns>
+        [Route("{id:int}")]
         public PublicationBaseDTO GetConferencePaper(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is ConferencePaper && p.Id == id).FirstOrDefault();

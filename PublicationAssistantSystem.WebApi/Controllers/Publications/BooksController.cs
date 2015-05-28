@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for books in publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications/Books")]
+    [RoutePrefix("Publications/Books")]
     public class BooksController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications/Books </remarks>
         /// <returns> All books. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAllBooks()
         {
             var results = _publicationBaseRepository.Get(p => p is Book).ToList();
@@ -51,6 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Book id. </param>
         /// <remarks> GET: api/Publications/Books/Id </remarks>
         /// <returns> Book with specified id. </returns>
+        [Route("{id:int}")]
         public PublicationBaseDTO GetBook(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is Book && p.Id == id).FirstOrDefault();

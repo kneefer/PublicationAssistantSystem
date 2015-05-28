@@ -13,7 +13,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     /// <summary>
     /// Provides access for patents in publications repository.
     /// </summary>
-    [RoutePrefix("api/Publications/Patents")]
+    [RoutePrefix("Publications/Patents")]
     public class PatentsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -37,6 +37,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <remarks> GET: api/Publications/Patents </remarks>
         /// <returns> All patents. </returns>
+        [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAllPatents()
         {
             var results = _publicationBaseRepository.Get(p => p is Patent).ToList();
@@ -51,6 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="id"> Patent id. </param>
         /// <remarks> GET: api/Publications/Patents/Id </remarks>
         /// <returns> Patent with specified id. </returns>
+        [Route("{id:int}")]
         public PublicationBaseDTO GetPatent(int id)
         {
             var result = _publicationBaseRepository.Get(p => p is Patent && p.Id == id).FirstOrDefault();

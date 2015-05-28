@@ -699,26 +699,26 @@
             <remarks> GET: api/Publications/TechnicalReports/Id </remarks>
             <returns> Technical report with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Controllers.ThesesController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.ThesesController">
             <summary>
             Provides access for theses in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.ThesesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ThesesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.ThesesController.GetAllTheses">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ThesesController.GetAllTheses">
             <summary>
             Returns all publications that are theses.
             </summary>
             <remarks> GET: api/Publications/Theses </remarks>
             <returns> All theses. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.ThesesController.GetThesis(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ThesesController.GetThesis(System.Int32)">
             <summary>
             Returns theses with given id.
             </summary>
