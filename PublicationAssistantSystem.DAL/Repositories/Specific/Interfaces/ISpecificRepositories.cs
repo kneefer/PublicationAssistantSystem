@@ -1,4 +1,5 @@
-﻿using PublicationAssistantSystem.DAL.Models.Misc;
+﻿using System;
+using PublicationAssistantSystem.DAL.Models.Misc;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Generic;
@@ -37,6 +38,6 @@ namespace PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces
 
     public interface IPublicationBaseRepository : IGenericRepository<PublicationBase>
     {
-
+    
     }
 }
