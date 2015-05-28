@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.DAL.DTO.Publications
 {

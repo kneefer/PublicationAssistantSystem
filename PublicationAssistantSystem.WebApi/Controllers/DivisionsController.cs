@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
@@ -40,11 +41,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All divisions. </returns>        
         public IEnumerable<DivisionDTO> GetAll()
         {
-            var results = _divisionRepository
-                .Get(null, null, x => x.Institute)
-                .Select(y => new DivisionDTO(y));
+            var results = _divisionRepository.Get(null, null, x => x.Institute).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
+        }
 
-            return results;
+        /// <summary> Gets the divisions of institute with specified id. </summary>
+        /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
+        /// <returns> Divisions associated with specified institute </returns>
+        [Route("~/api/Institutes/{instituteId}/Divisions")]
+        public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
+        {
+            var results = _divisionRepository.Get(x => x.Institute.Id == instituteId, null, y => y.Institute).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary> Adds the given division. </summary>
@@ -126,19 +138,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             item.Id = division.Id;
 
             return item;
-        }
-
-        /// <summary> Gets the divisions of institute with specified id. </summary>
-        /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
-        /// <returns> Divisions associated with specified institute </returns>
-        [Route("~/api/Institutes/{instituteId}/Divisions")]
-        public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
-        {
-            var results = _divisionRepository
-                .Get(x => x.Institute.Id == instituteId, null, y => y.Institute)
-                .Select(y => new DivisionDTO(y));
-
-            return results;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
 using PublicationAssistantSystem.DAL.Models.Misc;
@@ -36,11 +37,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All journals. </returns>        
         public IEnumerable<JournalDTO> GetAll()
         {
-            var results = _journalRepository
-                .Get()
-                .Select(x => new JournalDTO(x));
-
-            return results;
+            var results = _journalRepository.Get().ToList();
+            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary>
@@ -51,15 +51,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("ISSN/{issn}")]
         public JournalDTO GetByISSN(string issn)
         {
-            var result = _journalRepository
-                .Get(x => x.ISSN.Equals(issn))
-                .Select(y => new JournalDTO(y))
-                .SingleOrDefault();
-
+            var result = _journalRepository.Get(x => x.ISSN.Equals(issn)).SingleOrDefault();
             if(result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return result;
+            var mapped = Mapper.DynamicMap<JournalDTO>(result);
+
+            return mapped;
         }
 
         /// <summary>
@@ -70,15 +68,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("eISSN/{eIssn}")]
         public JournalDTO GetByEISSN(string eIssn)
         {
-            var result = _journalRepository
-                .Get(x => x.eISSN != null && x.eISSN.Equals(eIssn))
-                .Select(y => new JournalDTO(y))
-                .SingleOrDefault();
-
+            var result = _journalRepository.Get(x => x.eISSN != null && x.eISSN.Equals(eIssn)).SingleOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
+            
+            var mapped = Mapper.DynamicMap<JournalDTO>(result);
 
-            return result;
+            return mapped;
         }
 
         /// <summary>
@@ -89,11 +85,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("Like/{titlePart}")]
         public IEnumerable<JournalDTO> GetWithTitleLike(string titlePart)
         {
-            var results = _journalRepository
-                .Get(x => x.Title.Contains(titlePart))
-                .Select(y => new JournalDTO(y));
-
-            return results;
+            var results = _journalRepository.Get(x => x.Title.Contains(titlePart)).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary> Adds the given journal. </summary>
@@ -123,7 +118,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Insert(journal);
             _db.SaveChanges();
             
-            return new JournalDTO(journal);
+            return Mapper.DynamicMap<JournalDTO>(journal);
         }
 
         /// <summary> Deletes the given journal. </summary>

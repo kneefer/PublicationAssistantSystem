@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
@@ -40,11 +41,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All institutes. </returns>        
         public IEnumerable<InstituteDTO> GetAll()
         {
-            var results =_instituteRepository
-                .Get(null, null, x => x.Faculty)
-                .Select(y => new InstituteDTO(y));
+            var results =_instituteRepository.Get(null, null, i => i.Faculty).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<InstituteDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
+        }
 
-            return results;
+        /// <summary> Gets the institutes of faculty with specified id. </summary>
+        /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
+        /// <returns> Institutes associated with specified faculty </returns>
+        [Route("~/api/Faculties/{facultyId}/Institutes")]
+        public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
+        {
+            var results = _instituteRepository.Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty);
+            var mapped = results.Select(Mapper.DynamicMap<InstituteDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary> Adds the given institute. </summary>
@@ -126,19 +138,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             item.Id = institute.Id;
 
             return item;
-        }
-
-        /// <summary> Gets the institutes of faculty with specified id. </summary>
-        /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
-        /// <returns> Institutes associated with specified faculty </returns>
-        [Route("~/api/Faculties/{facultyId}/Institutes")]
-        public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
-        {
-            var results = _instituteRepository
-                .Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty)
-                .Select(y => new InstituteDTO(y));
-
-            return results;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
 using PublicationAssistantSystem.DAL.Models.Misc;
@@ -40,11 +41,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All journal editions. </returns>        
         public IEnumerable<JournalEditionDTO> GetAll()
         {
-            var results = _journalEditionRepository
-                .Get()
-                .Select(x => new JournalEditionDTO(x));
-
-            return results;
+            var results = _journalEditionRepository.Get().ToList();
+            var mapped = results.Select(Mapper.DynamicMap<JournalEditionDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary>
@@ -55,11 +55,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("~/api/Journals/{journalId}/JournalEditions")]
         public IEnumerable<JournalEditionDTO> GetJournalEditionsInJournal(int journalId)
         {
-            var results = _journalEditionRepository
-                .Get(x => x.Journal.Id == journalId, null, y => y.Journal)
-                .Select(y => new JournalEditionDTO(y));
-
-            return results;
+            var results = _journalEditionRepository.Get(x => x.Journal.Id == journalId, null, y => y.Journal).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<JournalEditionDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
             
         /// <summary> Adds the given journal edition. </summary>

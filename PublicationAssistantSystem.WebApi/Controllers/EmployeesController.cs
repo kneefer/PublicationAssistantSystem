@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
 using PublicationAssistantSystem.DAL.Models.Misc;
@@ -40,11 +41,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All employees. </returns>        
         public IEnumerable<EmployeeDTO> GetAll()
         {
-            var results = _employeeRepository
-                .Get(null, null, x => x.Division)
-                .Select(y => new EmployeeDTO(y));
+            var results = _employeeRepository.Get(null, null, x => x.Division).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
+        }
 
-            return results;
+        /// <summary> Gets the employees of division with specified id. </summary>
+        /// <param name="divisionId"> Identifier of division whose employees will be returned. </param>
+        /// <returns> Employees associated with specified division </returns>
+        [Route("~/api/Divisions/{divisionId}/Employees")]
+        public IEnumerable<EmployeeDTO> GetEmployeesInDivision(int divisionId)
+        {
+            var results = _employeeRepository.Get(x => x.Division.Id == divisionId, null, y => y.Division).ToList();
+            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary> Adds the given employee. </summary>
@@ -130,19 +142,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             item.Id = employee.Id;
 
             return item;
-        }
-
-        /// <summary> Gets the employees of division with specified id. </summary>
-        /// <param name="divisionId"> Identifier of division whose employees will be returned. </param>
-        /// <returns> Employees associated with specified division </returns>
-        [Route("~/api/Divisions/{divisionId}/Employees")]
-        public IEnumerable<EmployeeDTO> GetEmployeesInDivision(int divisionId)
-        {
-            var results = _employeeRepository
-                .Get(x => x.Division.Id == divisionId, null, y => y.Division)
-                .Select(y => new EmployeeDTO(y));
-
-            return results;
         }
     }
 }

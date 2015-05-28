@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
@@ -35,11 +36,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All faculties. </returns>
         public IEnumerable<FacultyDTO> GetAll()
         {
-            var results = _facultyRepository
-                .Get()
-                .Select(x => new FacultyDTO(x));
-
-            return results;
+            var results = _facultyRepository.Get().ToList();
+            var mapped = results.Select(Mapper.DynamicMap<FacultyDTO>);
+            var toReturn = mapped.ToList();
+            return toReturn;
         }
 
         /// <summary> Adds the given faculty. </summary>

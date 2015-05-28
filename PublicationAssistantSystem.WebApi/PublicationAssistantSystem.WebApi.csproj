@@ -222,6 +222,14 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\Publications\Controllers\ArticlesController.cs" />
+    <Compile Include="Areas\Publications\Controllers\BooksController.cs" />
+    <Compile Include="Areas\Publications\Controllers\ConferencePapersController.cs" />
+    <Compile Include="Areas\Publications\Controllers\DatasetsController.cs" />
+    <Compile Include="Areas\Publications\Controllers\PatentsController.cs" />
+    <Compile Include="Areas\Publications\Controllers\TechnicalReportsController.cs" />
+    <Compile Include="Areas\Publications\Controllers\ThesesController.cs" />
+    <Compile Include="Areas\Publications\PublicationsAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DivisionsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -230,7 +238,7 @@
     <Compile Include="Controllers\InstitutesController.cs" />
     <Compile Include="Controllers\JournalEditionsController.cs" />
     <Compile Include="Controllers\JournalsController.cs" />
-    <Compile Include="Controllers\PublicationsController.cs" />
+    <Compile Include="Areas\Publications\Controllers\AllController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -4,7 +4,11 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
+using PublicationAssistantSystem.DAL.DTO.Misc;
+using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
 using PublicationAssistantSystem.DAL.DTO.Publications;
+using PublicationAssistantSystem.DAL.Models.Misc;
+using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.WebApi
@@ -31,6 +35,19 @@ namespace PublicationAssistantSystem.WebApi
 
         private static void ConfigureMapper()
         {
+            Mapper.CreateMap<Faculty, FacultyDTO>();
+            Mapper.CreateMap<Institute, InstituteDTO>()
+                .ForMember(dto => dto.FacultyId, conf => conf.MapFrom(ol => ol.Faculty.Id));
+            Mapper.CreateMap<Division, DivisionDTO>()
+                .ForMember(dto => dto.InstituteId, conf => conf.MapFrom(ol => ol.Institute.Id));
+
+            Mapper.CreateMap<Employee, EmployeeDTO>()
+                .ForMember(dto => dto.DivisionId, conf => conf.MapFrom(ol => ol.Division.Id));
+
+            Mapper.CreateMap<Journal, JournalDTO>();
+            Mapper.CreateMap<JournalEdition, JournalEditionDTO>()
+                .ForMember(dto => dto.JournalId, conf => conf.MapFrom(ol => ol.Journal.Id));
+
             Mapper.CreateMap<PublicationBase, PublicationBaseDTO>()
                 .Include<Article, ArticleDTO>()
                 .Include<Book, BookDTO>()

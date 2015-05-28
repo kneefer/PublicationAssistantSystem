@@ -4,8 +4,15 @@ using Microsoft.Owin.Security.OAuth;
 
 namespace PublicationAssistantSystem.WebApi
 {
+    /// <summary>
+    /// Configures web api settings like routes and authentication.
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers routes for web api.
+        /// </summary>
+        /// <param name="config"> Configuration. </param>
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
@@ -18,11 +25,19 @@ namespace PublicationAssistantSystem.WebApi
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            // Publications area route
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                "DefaultPublicationsArea",
+                "api/Publications/{controller}/{id}",
+                new { area = "Publications", id = RouteParameter.Optional }
+                );
+
+            // Default route
+            config.Routes.MapHttpRoute(
+                "DefaultApi",
+                "api/{controller}/{id}",
+                new { id = RouteParameter.Optional }
+                );
         }
     }
 }

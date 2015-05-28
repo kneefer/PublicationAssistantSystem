@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.DAL.Models.Misc
