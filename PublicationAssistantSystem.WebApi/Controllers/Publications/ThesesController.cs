@@ -38,28 +38,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <remarks> GET: api/Publications/Theses </remarks>
         /// <returns> All theses. </returns>
         [Route("")]
-        public IEnumerable<PublicationBaseDTO> GetAllTheses()
+        public IEnumerable<ThesisDTO> GetAllTheses()
         {
-            var results = _publicationBaseRepository.Get(p => p is Thesis).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _publicationBaseRepository.GetOfType<Thesis>();
+
+            var mapped = results.Select(Mapper.Map<ThesisDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
         /// Returns theses with given id.
         /// </summary>
-        /// <param name="id"> Thesis id. </param>
+        /// <param name="thesisId"> Thesis id. </param>
         /// <remarks> GET: api/Publications/Theses/Id </remarks>
         /// <returns> Thesis with specified id. </returns>
-        [Route("{id:int}")]
-        public PublicationBaseDTO GetThesis(int id)
+        [Route("{thesisId:int}")]
+        public ThesisDTO GetThesis(int thesisId)
         {
-            var result = _publicationBaseRepository.Get(p => p is Thesis && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.GetOfType<Thesis>(x => x.Id == thesisId).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<ThesisDTO>(result);
             return mapped;
         }
     }

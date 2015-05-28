@@ -38,28 +38,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <remarks> GET: api/Publications/Books </remarks>
         /// <returns> All books. </returns>
         [Route("")]
-        public IEnumerable<PublicationBaseDTO> GetAllBooks()
+        public IEnumerable<BookDTO> GetAllBooks()
         {
-            var results = _publicationBaseRepository.Get(p => p is Book).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _publicationBaseRepository.GetOfType<Book>();
+
+            var mapped = results.Select(Mapper.Map<BookDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
         /// Returns book with given id.
         /// </summary>
-        /// <param name="id"> Book id. </param>
+        /// <param name="bookId"> Book id. </param>
         /// <remarks> GET: api/Publications/Books/Id </remarks>
         /// <returns> Book with specified id. </returns>
-        [Route("{id:int}")]
-        public PublicationBaseDTO GetBook(int id)
+        [Route("{bookId:int}")]
+        public BookDTO GetBook(int bookId)
         {
-            var result = _publicationBaseRepository.Get(p => p is Book && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.GetOfType<Book>(x => x.Id == bookId).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<BookDTO>(result);
             return mapped;
         }
     }

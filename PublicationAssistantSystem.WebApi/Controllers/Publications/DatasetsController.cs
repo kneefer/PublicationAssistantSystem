@@ -38,28 +38,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <remarks> GET: api/Publications/Datasets </remarks>
         /// <returns> All datasets. </returns>
         [Route("")]
-        public IEnumerable<PublicationBaseDTO> GetAllDatasets()
+        public IEnumerable<DatasetDTO> GetAllDatasets()
         {
-            var results = _publicationBaseRepository.Get(p => p is Dataset).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _publicationBaseRepository.GetOfType<Dataset>();
+
+            var mapped = results.Select(Mapper.Map<DatasetDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
         /// Returns dataset with given id.
         /// </summary>
-        /// <param name="id"> Dataset id. </param>
+        /// <param name="datasetId"> Dataset id. </param>
         /// <remarks> GET: api/Publications/Datasets/Id </remarks>
         /// <returns> Dataset with specified id. </returns>
-        [Route("{id:int}")]
-        public PublicationBaseDTO GetDataset(int id)
+        [Route("{datasetId:int}")]
+        public DatasetDTO GetDataset(int datasetId)
         {
-            var result = _publicationBaseRepository.Get(p => p is Dataset && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.GetOfType<Dataset>(x => x.Id == datasetId).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<DatasetDTO>(result);
             return mapped;
         }
     }

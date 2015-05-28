@@ -38,28 +38,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <remarks> GET: api/Publications/Patents </remarks>
         /// <returns> All patents. </returns>
         [Route("")]
-        public IEnumerable<PublicationBaseDTO> GetAllPatents()
+        public IEnumerable<PatentDTO> GetAllPatents()
         {
-            var results = _publicationBaseRepository.Get(p => p is Patent).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _publicationBaseRepository.GetOfType<Patent>();
+
+            var mapped = results.Select(Mapper.Map<PatentDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
         /// Returns patent with given id.
         /// </summary>
-        /// <param name="id"> Patent id. </param>
+        /// <param name="patentId"> Patent id. </param>
         /// <remarks> GET: api/Publications/Patents/Id </remarks>
         /// <returns> Patent with specified id. </returns>
-        [Route("{id:int}")]
-        public PublicationBaseDTO GetPatent(int id)
+        [Route("{patentId:int}")]
+        public PatentDTO GetPatent(int patentId)
         {
-            var result = _publicationBaseRepository.Get(p => p is Patent && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.GetOfType<Patent>(x => x.Id == patentId).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<PatentDTO>(result);
             return mapped;
         }
     }

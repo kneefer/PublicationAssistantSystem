@@ -38,28 +38,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <remarks> GET: api/Publications/TechnicalReports </remarks>
         /// <returns> All technical reports. </returns>
         [Route("")]
-        public IEnumerable<PublicationBaseDTO> GetAllTechnicalReports()
+        public IEnumerable<TechnicalReportDTO> GetAllTechnicalReports()
         {
-            var results = _publicationBaseRepository.Get(p => p is TechnicalReport).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _publicationBaseRepository.GetOfType<TechnicalReport>();
+
+            var mapped = results.Select(Mapper.Map<TechnicalReportDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
         /// Returns technical report with given id.
         /// </summary>
-        /// <param name="id"> Technical report id. </param>
+        /// <param name="technicalReportId"> Technical report id. </param>
         /// <remarks> GET: api/Publications/TechnicalReports/Id </remarks>
         /// <returns> Technical report with specified id. </returns>
-        [Route("{id:int}")]
-        public PublicationBaseDTO GetTechnicalReport(int id)
+        [Route("{technicalReportId:int}")]
+        public TechnicalReportDTO GetTechnicalReport(int technicalReportId)
         {
-            var result = _publicationBaseRepository.Get(p => p is TechnicalReport && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.GetOfType<TechnicalReport>(x => x.Id == technicalReportId).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<TechnicalReportDTO>(result);
             return mapped;
         }
     }

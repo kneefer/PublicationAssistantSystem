@@ -38,28 +38,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <remarks> GET: api/Publications/ConferencePapers </remarks>
         /// <returns> All conference papers. </returns>
         [Route("")]
-        public IEnumerable<PublicationBaseDTO> GetAllConferencePapers()
+        public IEnumerable<ConferencePaperDTO> GetAllConferencePapers()
         {
-            var results = _publicationBaseRepository.Get(p => p is ConferencePaper).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _publicationBaseRepository.GetOfType<ConferencePaper>();
+
+            var mapped = results.Select(Mapper.Map<ConferencePaperDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
         /// Returns conference paper with given id.
         /// </summary>
-        /// <param name="id"> Conference paper id. </param>
+        /// <param name="conferencePaperId"> Conference paper id. </param>
         /// <remarks> GET: api/Publications/ConferencePapers/Id </remarks>
         /// <returns> Conference paper with specified id. </returns>
-        [Route("{id:int}")]
-        public PublicationBaseDTO GetConferencePaper(int id)
+        [Route("{conferencePaperd:int}")]
+        public ConferencePaperDTO GetConferencePaper(int conferencePaperId)
         {
-            var result = _publicationBaseRepository.Get(p => p is ConferencePaper && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.GetOfType<ConferencePaper>(x => x.Id == conferencePaperId).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<ConferencePaperDTO>(result);
             return mapped;
         }
     }

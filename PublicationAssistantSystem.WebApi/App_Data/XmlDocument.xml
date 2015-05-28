@@ -560,7 +560,7 @@
             <summary>
             Returns article with given id.
             </summary>
-            <param name="id"> Article id. </param>
+            <param name="articleId"> Article id. </param>
             <remarks> GET: api/Publications/Articles/Id </remarks>
             <returns> Article with specified id. </returns>
         </member>
@@ -587,7 +587,7 @@
             <summary>
             Returns book with given id.
             </summary>
-            <param name="id"> Book id. </param>
+            <param name="bookId"> Book id. </param>
             <remarks> GET: api/Publications/Books/Id </remarks>
             <returns> Book with specified id. </returns>
         </member>
@@ -614,7 +614,7 @@
             <summary>
             Returns conference paper with given id.
             </summary>
-            <param name="id"> Conference paper id. </param>
+            <param name="conferencePaperId"> Conference paper id. </param>
             <remarks> GET: api/Publications/ConferencePapers/Id </remarks>
             <returns> Conference paper with specified id. </returns>
         </member>
@@ -641,7 +641,7 @@
             <summary>
             Returns dataset with given id.
             </summary>
-            <param name="id"> Dataset id. </param>
+            <param name="datasetId"> Dataset id. </param>
             <remarks> GET: api/Publications/Datasets/Id </remarks>
             <returns> Dataset with specified id. </returns>
         </member>
@@ -668,7 +668,7 @@
             <summary>
             Returns patent with given id.
             </summary>
-            <param name="id"> Patent id. </param>
+            <param name="patentId"> Patent id. </param>
             <remarks> GET: api/Publications/Patents/Id </remarks>
             <returns> Patent with specified id. </returns>
         </member>
@@ -695,7 +695,7 @@
             <summary>
             Returns technical report with given id.
             </summary>
-            <param name="id"> Technical report id. </param>
+            <param name="technicalReportId"> Technical report id. </param>
             <remarks> GET: api/Publications/TechnicalReports/Id </remarks>
             <returns> Technical report with specified id. </returns>
         </member>
@@ -722,7 +722,7 @@
             <summary>
             Returns theses with given id.
             </summary>
-            <param name="id"> Thesis id. </param>
+            <param name="thesisId"> Thesis id. </param>
             <remarks> GET: api/Publications/Theses/Id </remarks>
             <returns> Thesis with specified id. </returns>
         </member>
