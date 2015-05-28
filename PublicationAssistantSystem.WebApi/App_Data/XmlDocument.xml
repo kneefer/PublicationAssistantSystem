@@ -1153,7 +1153,7 @@
             <summary>
             Returns publication with given id.
             </summary>
-            <param name="id"> Publication id. </param>
+            <param name="publicationId"> Publication id. </param>
             <returns> Publication with specified id. </returns>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.WebApiApplication">
