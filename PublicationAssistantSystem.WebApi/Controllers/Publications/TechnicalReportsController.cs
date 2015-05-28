@@ -8,12 +8,13 @@ using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
-namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
+namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
     /// <summary>
-    /// Provides access for books in publications repository.
+    /// Provides access for technical reports in publications repository.
     /// </summary>
-    public class DatasetsController : ApiController
+    [RoutePrefix("api/Publications/TechnicalReports")]
+    public class TechnicalReportsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IPublicationBaseRepository _publicationBaseRepository;
@@ -23,8 +24,8 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         /// </summary>
         /// <param name="db"> Db context. </param>
         /// <param name="publicationBaseRepository"> Repository of publications. </param>
-        public DatasetsController(
-            IPublicationAssistantContext db, 
+        public TechnicalReportsController(
+            IPublicationAssistantContext db,
             IPublicationBaseRepository publicationBaseRepository)
         {
             _db = db;
@@ -32,27 +33,27 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         }
 
         /// <summary>
-        /// Returns all publications that are datasets.
+        /// Returns all publications that are technical reports.
         /// </summary>
-        /// <remarks> GET: api/Publications/Datasets </remarks>
-        /// <returns> All datasets. </returns>
-        public IEnumerable<PublicationBaseDTO> GetAllDatasets()
+        /// <remarks> GET: api/Publications/TechnicalReports </remarks>
+        /// <returns> All technical reports. </returns>
+        public IEnumerable<PublicationBaseDTO> GetAllTechnicalReports()
         {
-            var results = _publicationBaseRepository.Get(p => p is Dataset).ToList();
+            var results = _publicationBaseRepository.Get(p => p is TechnicalReport).ToList();
             var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
             var toReturn = mapped.ToList();
             return toReturn;
         }
 
         /// <summary>
-        /// Returns dataset with given id.
+        /// Returns technical report with given id.
         /// </summary>
-        /// <param name="id"> Dataset id. </param>
-        /// <remarks> GET: api/Publications/Datasets/Id </remarks>
-        /// <returns> Dataset with specified id. </returns>
-        public PublicationBaseDTO GetDataset(int id)
+        /// <param name="id"> Technical report id. </param>
+        /// <remarks> GET: api/Publications/TechnicalReports/Id </remarks>
+        /// <returns> Technical report with specified id. </returns>
+        public PublicationBaseDTO GetTechnicalReport(int id)
         {
-            var result = _publicationBaseRepository.Get(p => p is Dataset && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.Get(p => p is TechnicalReport && p.Id == id).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

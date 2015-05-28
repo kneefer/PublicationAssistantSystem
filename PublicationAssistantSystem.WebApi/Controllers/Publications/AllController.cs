@@ -9,11 +9,12 @@ using PublicationAssistantSystem.DAL.Models.Misc;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
-namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
+namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
     /// <summary>
     /// Provides access to publications repository.
     /// </summary>
+    [RoutePrefix("api/Publications")]
     public class AllController : ApiController
     {
         private readonly IPublicationAssistantContext _db;

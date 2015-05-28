@@ -8,12 +8,13 @@ using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
-namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
+namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
     /// <summary>
-    /// Provides access for books in publications repository.
+    /// Provides access for theses in publications repository.
     /// </summary>
-    public class BooksController : ApiController
+    [RoutePrefix("api/Publications/Theses")]
+    public class ThesesController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IPublicationBaseRepository _publicationBaseRepository;
@@ -23,8 +24,8 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         /// </summary>
         /// <param name="db"> Db context. </param>
         /// <param name="publicationBaseRepository"> Repository of publications. </param>
-        public BooksController(
-            IPublicationAssistantContext db, 
+        public ThesesController(
+            IPublicationAssistantContext db,
             IPublicationBaseRepository publicationBaseRepository)
         {
             _db = db;
@@ -32,27 +33,27 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         }
 
         /// <summary>
-        /// Returns all publications that are books.
+        /// Returns all publications that are theses.
         /// </summary>
-        /// <remarks> GET: api/Publications/Books </remarks>
-        /// <returns> All books. </returns>
-        public IEnumerable<PublicationBaseDTO> GetAllBooks()
+        /// <remarks> GET: api/Publications/Theses </remarks>
+        /// <returns> All theses. </returns>
+        public IEnumerable<PublicationBaseDTO> GetAllTheses()
         {
-            var results = _publicationBaseRepository.Get(p => p is Book).ToList();
+            var results = _publicationBaseRepository.Get(p => p is Thesis).ToList();
             var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
             var toReturn = mapped.ToList();
             return toReturn;
         }
 
         /// <summary>
-        /// Returns book with given id.
+        /// Returns theses with given id.
         /// </summary>
-        /// <param name="id"> Book id. </param>
-        /// <remarks> GET: api/Publications/Books/Id </remarks>
-        /// <returns> Book with specified id. </returns>
-        public PublicationBaseDTO GetBook(int id)
+        /// <param name="id"> Thesis id. </param>
+        /// <remarks> GET: api/Publications/Theses/Id </remarks>
+        /// <returns> Thesis with specified id. </returns>
+        public PublicationBaseDTO GetThesis(int id)
         {
-            var result = _publicationBaseRepository.Get(p => p is Book && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.Get(p => p is Thesis && p.Id == id).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

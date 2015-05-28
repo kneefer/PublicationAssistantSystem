@@ -8,12 +8,13 @@ using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
-namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
+namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
     /// <summary>
-    /// Provides access for patents in publications repository.
+    /// Provides access for books in publications repository.
     /// </summary>
-    public class PatentsController : ApiController
+    [RoutePrefix("api/Publications/Books")]
+    public class BooksController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IPublicationBaseRepository _publicationBaseRepository;
@@ -23,8 +24,8 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         /// </summary>
         /// <param name="db"> Db context. </param>
         /// <param name="publicationBaseRepository"> Repository of publications. </param>
-        public PatentsController(
-            IPublicationAssistantContext db,
+        public BooksController(
+            IPublicationAssistantContext db, 
             IPublicationBaseRepository publicationBaseRepository)
         {
             _db = db;
@@ -32,27 +33,27 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         }
 
         /// <summary>
-        /// Returns all publications that are patents.
+        /// Returns all publications that are books.
         /// </summary>
-        /// <remarks> GET: api/Publications/Patents </remarks>
-        /// <returns> All patents. </returns>
-        public IEnumerable<PublicationBaseDTO> GetAllPatents()
+        /// <remarks> GET: api/Publications/Books </remarks>
+        /// <returns> All books. </returns>
+        public IEnumerable<PublicationBaseDTO> GetAllBooks()
         {
-            var results = _publicationBaseRepository.Get(p => p is Patent).ToList();
+            var results = _publicationBaseRepository.Get(p => p is Book).ToList();
             var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
             var toReturn = mapped.ToList();
             return toReturn;
         }
 
         /// <summary>
-        /// Returns patent with given id.
+        /// Returns book with given id.
         /// </summary>
-        /// <param name="id"> Patent id. </param>
-        /// <remarks> GET: api/Publications/Patents/Id </remarks>
-        /// <returns> Patent with specified id. </returns>
-        public PublicationBaseDTO GetPatent(int id)
+        /// <param name="id"> Book id. </param>
+        /// <remarks> GET: api/Publications/Books/Id </remarks>
+        /// <returns> Book with specified id. </returns>
+        public PublicationBaseDTO GetBook(int id)
         {
-            var result = _publicationBaseRepository.Get(p => p is Patent && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.Get(p => p is Book && p.Id == id).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

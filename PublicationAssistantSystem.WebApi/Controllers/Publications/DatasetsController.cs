@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
@@ -10,12 +8,13 @@ using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
-namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
+namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
     /// <summary>
-    /// Provides access for conference papers in publications repository.
+    /// Provides access for books in publications repository.
     /// </summary>
-    public class ConferencePapersController : ApiController
+    [RoutePrefix("api/Publications/Datasets")]
+    public class DatasetsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
         private readonly IPublicationBaseRepository _publicationBaseRepository;
@@ -25,7 +24,7 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         /// </summary>
         /// <param name="db"> Db context. </param>
         /// <param name="publicationBaseRepository"> Repository of publications. </param>
-        public ConferencePapersController(
+        public DatasetsController(
             IPublicationAssistantContext db, 
             IPublicationBaseRepository publicationBaseRepository)
         {
@@ -34,27 +33,27 @@ namespace PublicationAssistantSystem.WebApi.Areas.Publications.Controllers
         }
 
         /// <summary>
-        /// Returns all publications that are conference papers.
+        /// Returns all publications that are datasets.
         /// </summary>
-        /// <remarks> GET: api/Publications/ConferencePapers </remarks>
-        /// <returns> All conference papers. </returns>
-        public IEnumerable<PublicationBaseDTO> GetAllConferencePapers()
+        /// <remarks> GET: api/Publications/Datasets </remarks>
+        /// <returns> All datasets. </returns>
+        public IEnumerable<PublicationBaseDTO> GetAllDatasets()
         {
-            var results = _publicationBaseRepository.Get(p => p is ConferencePaper).ToList();
+            var results = _publicationBaseRepository.Get(p => p is Dataset).ToList();
             var mapped = results.Select(Mapper.DynamicMap<PublicationBaseDTO>);
             var toReturn = mapped.ToList();
             return toReturn;
         }
 
         /// <summary>
-        /// Returns conference paper with given id.
+        /// Returns dataset with given id.
         /// </summary>
-        /// <param name="id"> Conference paper id. </param>
-        /// <remarks> GET: api/Publications/ConferencePapers/Id </remarks>
-        /// <returns> Conference paper with specified id. </returns>
-        public PublicationBaseDTO GetConferencePaper(int id)
+        /// <param name="id"> Dataset id. </param>
+        /// <remarks> GET: api/Publications/Datasets/Id </remarks>
+        /// <returns> Dataset with specified id. </returns>
+        public PublicationBaseDTO GetDataset(int id)
         {
-            var result = _publicationBaseRepository.Get(p => p is ConferencePaper && p.Id == id).FirstOrDefault();
+            var result = _publicationBaseRepository.Get(p => p is Dataset && p.Id == id).FirstOrDefault();
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

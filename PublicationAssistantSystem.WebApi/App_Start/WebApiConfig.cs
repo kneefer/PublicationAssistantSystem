@@ -24,14 +24,7 @@ namespace PublicationAssistantSystem.WebApi
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-            // Publications area route
-            config.Routes.MapHttpRoute(
-                "DefaultPublicationsArea",
-                "api/Publications/{controller}/{id}",
-                new { area = "Publications", id = RouteParameter.Optional }
-                );
-
+            
             // Default route
             config.Routes.MapHttpRoute(
                 "DefaultApi",

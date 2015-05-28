@@ -537,26 +537,26 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ArticlesController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController">
             <summary>
             Provides access for articles in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ArticlesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ArticlesController.GetAllArticles">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetAllArticles">
             <summary>
             Returns all publications that are articles.
             </summary>
             <remarks> GET: api/Publications/Articles </remarks>
             <returns> All articles. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ArticlesController.GetArticle(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetArticle(System.Int32)">
             <summary>
             Returns article with given id.
             </summary>
@@ -564,26 +564,26 @@
             <remarks> GET: api/Publications/Articles/Id </remarks>
             <returns> Article with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.BooksController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController">
             <summary>
             Provides access for books in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.BooksController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.BooksController.GetAllBooks">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetAllBooks">
             <summary>
             Returns all publications that are books.
             </summary>
             <remarks> GET: api/Publications/Books </remarks>
             <returns> All books. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.BooksController.GetBook(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetBook(System.Int32)">
             <summary>
             Returns book with given id.
             </summary>
@@ -591,26 +591,26 @@
             <remarks> GET: api/Publications/Books/Id </remarks>
             <returns> Book with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ConferencePapersController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.ConferencePapersController">
             <summary>
             Provides access for conference papers in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ConferencePapersController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ConferencePapersController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ConferencePapersController.GetAllConferencePapers">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ConferencePapersController.GetAllConferencePapers">
             <summary>
             Returns all publications that are conference papers.
             </summary>
             <remarks> GET: api/Publications/ConferencePapers </remarks>
             <returns> All conference papers. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ConferencePapersController.GetConferencePaper(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ConferencePapersController.GetConferencePaper(System.Int32)">
             <summary>
             Returns conference paper with given id.
             </summary>
@@ -618,26 +618,26 @@
             <remarks> GET: api/Publications/ConferencePapers/Id </remarks>
             <returns> Conference paper with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.DatasetsController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.DatasetsController">
             <summary>
             Provides access for books in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.DatasetsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.DatasetsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.DatasetsController.GetAllDatasets">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.DatasetsController.GetAllDatasets">
             <summary>
             Returns all publications that are datasets.
             </summary>
             <remarks> GET: api/Publications/Datasets </remarks>
             <returns> All datasets. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.DatasetsController.GetDataset(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.DatasetsController.GetDataset(System.Int32)">
             <summary>
             Returns dataset with given id.
             </summary>
@@ -645,26 +645,26 @@
             <remarks> GET: api/Publications/Datasets/Id </remarks>
             <returns> Dataset with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.PatentsController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.PatentsController">
             <summary>
             Provides access for patents in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.PatentsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.PatentsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.PatentsController.GetAllPatents">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.PatentsController.GetAllPatents">
             <summary>
             Returns all publications that are patents.
             </summary>
             <remarks> GET: api/Publications/Patents </remarks>
             <returns> All patents. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.PatentsController.GetPatent(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.PatentsController.GetPatent(System.Int32)">
             <summary>
             Returns patent with given id.
             </summary>
@@ -672,26 +672,26 @@
             <remarks> GET: api/Publications/Patents/Id </remarks>
             <returns> Patent with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.TechnicalReportsController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.TechnicalReportsController">
             <summary>
             Provides access for technical reports in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.TechnicalReportsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.TechnicalReportsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.TechnicalReportsController.GetAllTechnicalReports">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.TechnicalReportsController.GetAllTechnicalReports">
             <summary>
             Returns all publications that are technical reports.
             </summary>
             <remarks> GET: api/Publications/TechnicalReports </remarks>
             <returns> All technical reports. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.TechnicalReportsController.GetTechnicalReport(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.TechnicalReportsController.GetTechnicalReport(System.Int32)">
             <summary>
             Returns technical report with given id.
             </summary>
@@ -699,26 +699,26 @@
             <remarks> GET: api/Publications/TechnicalReports/Id </remarks>
             <returns> Technical report with specified id. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ThesesController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.ThesesController">
             <summary>
             Provides access for theses in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ThesesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.ThesesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ThesesController.GetAllTheses">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.ThesesController.GetAllTheses">
             <summary>
             Returns all publications that are theses.
             </summary>
             <remarks> GET: api/Publications/Theses </remarks>
             <returns> All theses. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.ThesesController.GetThesis(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.ThesesController.GetThesis(System.Int32)">
             <summary>
             Returns theses with given id.
             </summary>
@@ -1130,26 +1130,26 @@
             <param name="item"> The item with updated content. </param>
             <returns> An updated journal. </returns>
         </member>
-        <member name="T:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.AllController">
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController">
             <summary>
             Provides access to publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.AllController.GetAll">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAll">
             <summary>
             Returns all publications.
             </summary>
             <remarks> GET: api/Publications </remarks>
             <returns> All publications. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Areas.Publications.Controllers.AllController.GetPublication(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublication(System.Int32)">
             <summary>
             Returns publication with given id.
             </summary>
