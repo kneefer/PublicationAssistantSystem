@@ -41,10 +41,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All institutes. </returns>        
         public IEnumerable<InstituteDTO> GetAll()
         {
-            var results =_instituteRepository.Get(null, null, i => i.Faculty).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<InstituteDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results =_instituteRepository.Get(null, null, i => i.Faculty);
+            
+            var mapped = results.Select(Mapper.DynamicMap<InstituteDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Gets the institutes of faculty with specified id. </summary>
@@ -54,9 +54,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
         {
             var results = _instituteRepository.Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty);
-            var mapped = results.Select(Mapper.DynamicMap<InstituteDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            
+            var mapped = results.Select(Mapper.DynamicMap<InstituteDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Adds the given institute. </summary>
@@ -118,12 +118,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public InstituteDTO Update(InstituteDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var faculty = _facultyRepository.Get(x => x.Id == item.FacultyId).FirstOrDefault();
-            if(faculty == null)
+            if (faculty == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
 
             var institute = new Institute

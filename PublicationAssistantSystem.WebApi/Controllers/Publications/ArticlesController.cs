@@ -43,7 +43,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         {
             var results = _publicationBaseRepository.GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
             
-            var mapped = results.Select(Mapper.Map<ArticleDTO>);
+            var mapped = results.Select(Mapper.Map<ArticleDTO>).ToList();
             return mapped;
         }
 

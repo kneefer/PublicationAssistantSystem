@@ -37,10 +37,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All journals. </returns>        
         public IEnumerable<JournalDTO> GetAll()
         {
-            var results = _journalRepository.Get().ToList();
-            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _journalRepository.Get();
+            
+            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
@@ -52,11 +52,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public JournalDTO GetByISSN(string issn)
         {
             var result = _journalRepository.Get(x => x.ISSN.Equals(issn)).SingleOrDefault();
-            if(result == null)
+            if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             var mapped = Mapper.DynamicMap<JournalDTO>(result);
-
             return mapped;
         }
 
@@ -73,7 +72,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             
             var mapped = Mapper.DynamicMap<JournalDTO>(result);
-
             return mapped;
         }
 
@@ -85,10 +83,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("Like/{titlePart}")]
         public IEnumerable<JournalDTO> GetWithTitleLike(string titlePart)
         {
-            var results = _journalRepository.Get(x => x.Title.Contains(titlePart)).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _journalRepository.Get(x => x.Title.Contains(titlePart));
+
+            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Adds the given journal. </summary>
@@ -104,9 +102,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public JournalDTO Add(JournalPostDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var journal = new Journal
             {
@@ -118,7 +114,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Insert(journal);
             _db.SaveChanges();
             
-            return Mapper.DynamicMap<JournalDTO>(journal);
+            var mapped = Mapper.Map<JournalDTO>(journal);
+            return mapped;
         }
 
         /// <summary> Deletes the given journal. </summary>

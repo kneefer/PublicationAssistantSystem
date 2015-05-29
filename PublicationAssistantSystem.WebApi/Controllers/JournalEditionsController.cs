@@ -41,10 +41,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All journal editions. </returns>        
         public IEnumerable<JournalEditionDTO> GetAll()
         {
-            var results = _journalEditionRepository.Get().ToList();
-            var mapped = results.Select(Mapper.DynamicMap<JournalEditionDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _journalEditionRepository.Get();
+
+            var mapped = results.Select(Mapper.Map<JournalEditionDTO>).ToList();
+            return mapped;
         }
 
         /// <summary>
@@ -55,10 +55,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("~/api/Journals/{journalId}/JournalEditions")]
         public IEnumerable<JournalEditionDTO> GetJournalEditionsInJournal(int journalId)
         {
-            var results = _journalEditionRepository.Get(x => x.Journal.Id == journalId, null, y => y.Journal).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<JournalEditionDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _journalEditionRepository.Get(x => x.Journal.Id == journalId, null, y => y.Journal);
+            
+            var mapped = results.Select(Mapper.Map<JournalEditionDTO>).ToList();
+            return mapped;
         }
             
         /// <summary> Adds the given journal edition. </summary>
@@ -118,9 +118,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public JournalEditionDTO Update(JournalEditionDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var journal = _journalRepository.Get(x => x.Id == item.JournalId).FirstOrDefault();
             if (journal == null)

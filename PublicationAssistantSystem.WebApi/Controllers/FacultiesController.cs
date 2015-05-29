@@ -36,10 +36,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All faculties. </returns>
         public IEnumerable<FacultyDTO> GetAll()
         {
-            var results = _facultyRepository.Get().ToList();
-            var mapped = results.Select(Mapper.DynamicMap<FacultyDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _facultyRepository.Get();
+            
+            var mapped = results.Select(Mapper.DynamicMap<FacultyDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Adds the given faculty. </summary>

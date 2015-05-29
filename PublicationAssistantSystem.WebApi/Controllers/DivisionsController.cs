@@ -41,10 +41,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All divisions. </returns>        
         public IEnumerable<DivisionDTO> GetAll()
         {
-            var results = _divisionRepository.Get(null, null, x => x.Institute).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _divisionRepository.Get(null, null, x => x.Institute);
+
+            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Gets the divisions of institute with specified id. </summary>
@@ -53,10 +53,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("~/api/Institutes/{instituteId}/Divisions")]
         public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
         {
-            var results = _divisionRepository.Get(x => x.Institute.Id == instituteId, null, y => y.Institute).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _divisionRepository.Get(x => x.Institute.Id == instituteId, null, y => y.Institute);
+
+            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Adds the given division. </summary>
@@ -72,9 +72,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public DivisionDTO Add(DivisionDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var institute = _instituteRepository.Get(x => x.Id == item.InstituteId).FirstOrDefault();
             if (institute == null)
@@ -118,12 +116,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public DivisionDTO Update(DivisionDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var institute = _instituteRepository.Get(x => x.Id == item.InstituteId).FirstOrDefault();
-            if(institute == null)
+            if (institute == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
 
             var division = new Division

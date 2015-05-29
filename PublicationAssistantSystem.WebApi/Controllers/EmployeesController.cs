@@ -41,10 +41,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <returns> All employees. </returns>        
         public IEnumerable<EmployeeDTO> GetAll()
         {
-            var results = _employeeRepository.Get(null, null, x => x.Division).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _employeeRepository.Get(null, null, x => x.Division);
+
+            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Gets the employees of division with specified id. </summary>
@@ -53,10 +53,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("~/api/Divisions/{divisionId}/Employees")]
         public IEnumerable<EmployeeDTO> GetEmployeesInDivision(int divisionId)
         {
-            var results = _employeeRepository.Get(x => x.Division.Id == divisionId, null, y => y.Division).ToList();
-            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>);
-            var toReturn = mapped.ToList();
-            return toReturn;
+            var results = _employeeRepository.Get(x => x.Division.Id == divisionId, null, y => y.Division);
+
+            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>).ToList();
+            return mapped;
         }
 
         /// <summary> Adds the given employee. </summary>
@@ -72,9 +72,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public EmployeeDTO Add(EmployeeDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
             if (division == null)
@@ -120,9 +118,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public EmployeeDTO Update(EmployeeDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
             if (division == null)
