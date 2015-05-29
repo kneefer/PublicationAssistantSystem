@@ -1,13 +1,14 @@
-﻿using System.Data.Entity;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 
 namespace PublicationAssistantSystem.WebApi.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    /// <summary>
+    /// Specifies application user and login type.
+    /// </summary>
+    /// <remarks> http://go.microsoft.com/fwlink/?LinkID=317594 </remarks>
     public class ApplicationUser : IdentityUser
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
@@ -19,18 +20,26 @@ namespace PublicationAssistantSystem.WebApi.Models
         }
     }
 
+    /// <summary>
+    /// Specifies application database context.
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
         
+        /// <summary>
+        /// Creates database context.
+        /// </summary>
+        /// <returns> Db context. </returns>
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-
-        public DbSet<Faculty> Faculties { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     /// <summary>
-    /// Provides access to journals repository
+    /// Provides access to journals repository.
     /// </summary>
     [RoutePrefix("api/Journals")]
     public class JournalsController : ApiController
@@ -21,10 +21,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IJournalRepository _journalRepository;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="db">Db context</param>
-        /// <param name="journalRepository">Repository of journals</param>
+        /// <param name="db"> Db context. </param>
+        /// <param name="journalRepository"> Repository of journals. </param>
         public JournalsController(
             IPublicationAssistantContext db,
             IJournalRepository journalRepository)
@@ -33,7 +33,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository = journalRepository;
         }
 
-        /// <summary> Gets all journals. </summary>
+        /// <summary>
+        /// Gets all journals.
+        /// </summary>
         /// <returns> All journals. </returns>        
         [Route("")]  
         public IEnumerable<JournalDTO> GetAll()
@@ -62,9 +64,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>
-        /// Returns journal found by ISSN
+        /// Returns journal found by ISSN.
         /// </summary>
-        /// <param name="issn">Journal ISSN</param>
+        /// <param name="issn"> Journal ISSN. </param>
         /// <returns> Journal DTO with specified ISSN. </returns>
         [Route("ISSN/{issn}")]
         public JournalDTO GetByISSN(string issn)
@@ -78,9 +80,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>
-        /// Returns journal found by eISSN
+        /// Returns journal found by eISSN.
         /// </summary>
-        /// <param name="eIssn">Journal eISSN</param>
+        /// <param name="eIssn"> Journal eISSN. </param>
         /// <returns> Journal DTO with specified eISSN. </returns>
         [Route("eISSN/{eIssn}")]
         public JournalDTO GetByEISSN(string eIssn)
@@ -107,7 +109,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Adds the given journal. </summary>
+        /// <summary>
+        /// Adds the given journal.
+        /// </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
@@ -136,7 +140,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Deletes the given journal. </summary>
+        /// <summary>
+        /// Deletes the given journal.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
@@ -149,7 +155,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db.SaveChanges();
         }
 
-        /// <summary> Updates the journal. </summary>
+        /// <summary>
+        /// Updates the journal.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>

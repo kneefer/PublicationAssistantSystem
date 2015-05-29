@@ -123,6 +123,9 @@ namespace PublicationAssistantSystem.WebApi.Areas.HelpPage
         /// </summary>
         public HashSet<string> ParameterNames { get; private set; }
 
+        /// <summary>
+        /// Gets the parameter type.
+        /// </summary>
         public Type ParameterType { get; private set; }
 
         /// <summary>

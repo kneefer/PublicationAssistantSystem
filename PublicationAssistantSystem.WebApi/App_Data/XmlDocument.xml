@@ -728,17 +728,17 @@
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.AccountController">
             <summary>
-            Provides access to accounts
+            Provides access to accounts.
             </summary>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.#ctor">
             <summary>
-            Parametrless constructor
+            Parametrless constructor.
             </summary>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.AccountController.#ctor(PublicationAssistantSystem.WebApi.ApplicationUserManager,Microsoft.Owin.Security.ISecureDataFormat{Microsoft.Owin.Security.AuthenticationTicket})">
             <summary>
-            Constructor
+            Constructor.
             </summary>
             <param name="userManager"> Manager for users accounts. </param>
             <param name="accessTokenFormat"> Format of access token. </param>
@@ -883,20 +883,22 @@
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.EmployeesController">
             <summary>
-            Provides access to employees repository
+            Provides access to employees repository.
             </summary>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IDivisionRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
-            Constructor
+            Constructor.
             </summary>
-            <param name="db">Db context</param>
-            <param name="employeeRepository">Repository of employees</param>
-            <param name="divisionRepository">Repository of divisions</param>
-            <param name="publicationRepository">Repository of publications</param>
+            <param name="db"> Db context. </param>
+            <param name="employeeRepository"> Repository of employees. </param>
+            <param name="divisionRepository"> Repository of divisions. </param>
+            <param name="publicationRepository"> Repository of publications. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetAll">
-            <summary> Gets all employees. </summary>
+            <summary> 
+            Gets all employees.
+            </summary>
             <returns> All employees. </returns>        
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeeById(System.Int32)">
@@ -907,17 +909,23 @@
             <returns> Employee with specified id. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInDivision(System.Int32)">
-            <summary> Gets the employees of division with specified id. </summary>
+            <summary> 
+            Gets the employees of division with specified id.
+            </summary>
             <param name="divisionId"> Identifier of division whose employees will be returned. </param>
-            <returns> Employees associated with specified division </returns>
+            <returns> Employees associated with specified division. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInPublication(System.Int32)">
-            <summary> Gets the employees of publication with specified id. </summary>
+            <summary> 
+            Gets the employees of publication with specified id.
+            </summary>
             <param name="publicationId"> Identifier of division whose employees will be returned. </param>
-            <returns> Employees associated with specified division </returns>
+            <returns> Employees associated with specified division. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Add(PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
-            <summary> Adds the given employee. </summary>
+            <summary>
+            Adds the given employee.
+            </summary>
             <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
             </exception>
@@ -937,7 +945,9 @@
             <param name="employeeId"> The ID of employee to delete. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Update(PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
-            <summary> Updates the employee. </summary>
+            <summary>
+            Updates the employee.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
@@ -957,7 +967,9 @@
             <param name="facultyRepository"> Repository of faculties. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.GetAll">
-            <summary> Gets all faculties. </summary>
+            <summary>
+            Gets all faculties.
+            </summary>
             <returns> All faculties. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.GetFacultyById(System.Int32)">
@@ -968,7 +980,9 @@
             <returns> Faculty with specified id. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Add(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.FacultyDTO)">
-            <summary> Adds the given faculty. </summary>
+            <summary>
+            Adds the given faculty.
+            </summary>
             <exception cref="T:System.ArgumentNullException">    
             Thrown when one or more required arguments are null.
             </exception>
@@ -976,14 +990,18 @@
             <returns> The added faculty. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Delete(System.Int32)">
-            <summary> Deletes the given faculty. </summary>
+            <summary>
+            Deletes the given faculty.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
             <param name="facultyId"> The ID of faculty to delete. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.FacultyDTO)">
-            <summary> Updates the faculty. </summary>
+            <summary>
+            Updates the faculty.
+            </summary>
             <exception cref="T:System.ArgumentNullException"> 
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1015,7 +1033,9 @@
             <param name="facultyRepository"> Repository of faculties. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetAll">
-            <summary> Gets all institutes. </summary>
+            <summary>
+            Gets all institutes.
+            </summary>
             <returns> All institutes. </returns>        
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetInstituteById(System.Int32)">
@@ -1035,7 +1055,7 @@
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Add(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.InstituteDTO)">
             <summary>
             Adds the given institute.
-             </summary>
+            </summary>
             <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1048,7 +1068,7 @@
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.InstituteDTO)">
             <summary>
             Updates the institute.
-             </summary>
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1078,7 +1098,9 @@
             <param name="journalEditionRepository"> Repository of journal editions. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetAll">
-            <summary> Gets all journal editions. </summary>
+            <summary>
+            Gets all journal editions.
+            </summary>
             <returns> All journal editions. </returns>        
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournalById(System.Int32)">
@@ -1096,7 +1118,9 @@
             <returns> Journal editions of journal. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
-            <summary> Adds the given journal edition. </summary>
+            <summary>
+            Adds the given journal edition.
+            </summary>
             <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1104,14 +1128,18 @@
             <returns> Added journal edition. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Delete(System.Int32)">
-            <summary> Deletes the given journal edition. </summary>
+            <summary>
+            Deletes the given journal edition.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null.
             </exception>
             <param name="journalEditionId"> The ID of journal edition to delete. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
-            <summary> Updates the journal edition. </summary>
+            <summary>
+            Updates the journal edition.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1120,18 +1148,20 @@
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalsController">
             <summary>
-            Provides access to journals repository
+            Provides access to journals repository.
             </summary>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository)">
             <summary>
-            Constructor
+            Constructor.
             </summary>
-            <param name="db">Db context</param>
-            <param name="journalRepository">Repository of journals</param>
+            <param name="db"> Db context. </param>
+            <param name="journalRepository"> Repository of journals. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetAll">
-            <summary> Gets all journals. </summary>
+            <summary>
+            Gets all journals.
+            </summary>
             <returns> All journals. </returns>        
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetJournalById(System.Int32)">
@@ -1143,16 +1173,16 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetByISSN(System.String)">
             <summary>
-            Returns journal found by ISSN
+            Returns journal found by ISSN.
             </summary>
-            <param name="issn">Journal ISSN</param>
+            <param name="issn"> Journal ISSN. </param>
             <returns> Journal DTO with specified ISSN. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetByEISSN(System.String)">
             <summary>
-            Returns journal found by eISSN
+            Returns journal found by eISSN.
             </summary>
-            <param name="eIssn">Journal eISSN</param>
+            <param name="eIssn"> Journal eISSN. </param>
             <returns> Journal DTO with specified eISSN. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetWithTitleLike(System.String)">
@@ -1163,7 +1193,9 @@
             <returns> Journals containing titlePart. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Add(PublicationAssistantSystem.DAL.DTO.Misc.JournalPostDTO)">
-            <summary> Adds the given journal. </summary>
+            <summary>
+            Adds the given journal.
+            </summary>
             <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1174,14 +1206,18 @@
             <returns> The added journal. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Delete(System.Int32)">
-            <summary> Deletes the given journal. </summary>
+            <summary>
+            Deletes the given journal.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null.
             </exception>
             <param name="journalId"> The ID of journal to delete. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalDTO)">
-            <summary> Updates the journal. </summary>
+            <summary>
+            Updates the journal.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
@@ -1199,7 +1235,7 @@
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
-            <param name="employeeRepository"> Repository of employees </param>
+            <param name="employeeRepository"> Repository of employees. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAll">
             <summary>
@@ -1216,9 +1252,23 @@
             <returns> Publication with specified id. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationsOfEmployee(System.Int32)">
-            <summary> Gets the publications of employee with specified id. </summary>
+            <summary> 
+            Gets the publications of employee with specified id.
+             </summary>
             <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
-            <returns> Publications associated with specified employee </returns>
+            <returns> Publications associated with specified employee. </returns>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Controllers.TestController">
+            <summary>
+            For testing purposes
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.TestController.Get">
+            <summary>
+            Gets something.
+            </summary>
+            <remarks> GET: api/Test </remarks>
+            <returns> Something special for you. </returns>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.WebApiApplication">
             <summary>
@@ -1230,6 +1280,33 @@
             Executed on application start.
             Initializes base settings of application.
             </summary>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Infrastructure.NinjectScope">
+            <summary>
+            Scope for range of dependencies.
+            </summary>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Models.ApplicationUser">
+            <summary>
+            Specifies application user and login type.
+            </summary>
+            <remarks> http://go.microsoft.com/fwlink/?LinkID=317594 </remarks>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Models.ApplicationDbContext">
+            <summary>
+            Specifies application database context.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Models.ApplicationDbContext.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Models.ApplicationDbContext.Create">
+            <summary>
+            Creates database context.
+            </summary>
+            <returns> Db context. </returns>
         </member>
     </members>
 </doc>

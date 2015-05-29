@@ -37,7 +37,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository = facultyRepository;
         }
 
-        /// <summary> Gets all institutes. </summary>
+        /// <summary>
+        /// Gets all institutes.
+        /// </summary>
         /// <returns> All institutes. </returns>        
         [Route("")]    
         public IEnumerable<InstituteDTO> GetAll()
@@ -80,7 +82,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary>
         /// Adds the given institute.
-        ///  </summary>
+        /// </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
@@ -116,7 +118,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary>
         /// Updates the institute.
-        ///  </summary>
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>

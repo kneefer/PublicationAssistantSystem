@@ -9,13 +9,19 @@ using PublicationAssistantSystem.WebApi.Providers;
 
 namespace PublicationAssistantSystem.WebApi
 {
+    /// <summary>
+    /// Provides application startup actions.
+    /// </summary>
     public partial class Startup
     {
+        public static string PublicClientId { get; private set; }
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public static string PublicClientId { get; private set; }
-
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+        /// <summary>
+        /// Configures autohrisation.
+        /// </summary>
+        /// <remarks> http://go.microsoft.com/fwlink/?LinkId=301864 </remarks>
+        /// <param name="app"> Application to configure. </param>
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
@@ -40,25 +46,6 @@ namespace PublicationAssistantSystem.WebApi
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
-
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
-
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
-
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
         }
     }
 }

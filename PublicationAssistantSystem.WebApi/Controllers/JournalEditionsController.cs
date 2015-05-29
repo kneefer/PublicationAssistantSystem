@@ -37,7 +37,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalEditionRepository = journalEditionRepository;
         }
 
-        /// <summary> Gets all journal editions. </summary>
+        /// <summary>
+        /// Gets all journal editions.
+        /// </summary>
         /// <returns> All journal editions. </returns>        
         [Route("")]        
         public IEnumerable<JournalEditionDTO> GetAll()
@@ -61,7 +63,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             var mapped = Mapper.Map<JournalEditionDTO>(result);
-
             return mapped;
         }
 
@@ -79,7 +80,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
             
-        /// <summary> Adds the given journal edition. </summary>
+        /// <summary>
+        /// Adds the given journal edition.
+        /// </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
@@ -111,7 +114,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return item;
         }
 
-        /// <summary> Deletes the given journal edition. </summary>
+        /// <summary>
+        /// Deletes the given journal edition.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
@@ -124,7 +129,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db.SaveChanges();
         }
 
-        /// <summary> Updates the journal edition. </summary>
+        /// <summary>
+        /// Updates the journal edition.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>

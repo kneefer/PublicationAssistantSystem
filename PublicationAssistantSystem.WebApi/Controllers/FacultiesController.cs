@@ -33,7 +33,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository = facultyRepository;
         }
 
-        /// <summary> Gets all faculties. </summary>
+        /// <summary>
+        /// Gets all faculties.
+        /// </summary>
         /// <returns> All faculties. </returns>
         [Route("")]
         public IEnumerable<FacultyDTO> GetAll()
@@ -60,7 +62,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Adds the given faculty. </summary>
+        /// <summary>
+        /// Adds the given faculty.
+        /// </summary>
         /// <exception cref="ArgumentNullException">    
         /// Thrown when one or more required arguments are null.
         /// </exception>
@@ -87,7 +91,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return item;
         }
 
-        /// <summary> Deletes the given faculty. </summary>
+        /// <summary>
+        /// Deletes the given faculty.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
@@ -100,7 +106,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db.SaveChanges();
         }
 
-        /// <summary> Updates the faculty. </summary>
+        /// <summary>
+        /// Updates the faculty.
+        /// </summary>
         /// <exception cref="ArgumentNullException"> 
         /// Thrown when one or more required arguments are null. 
         /// </exception>

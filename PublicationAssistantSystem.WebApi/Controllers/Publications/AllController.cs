@@ -26,7 +26,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// </summary>
         /// <param name="db"> Db context. </param>
         /// <param name="publicationBaseRepository"> Repository of publications. </param>
-        /// <param name="employeeRepository"> Repository of employees </param>
+        /// <param name="employeeRepository"> Repository of employees. </param>
         public AllController(
             IPublicationAssistantContext db, 
             IPublicationBaseRepository publicationBaseRepository, IEmployeeRepository employeeRepository)
@@ -68,15 +68,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             var article = result as Article;
             if (article != null)
-                article.Journal = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == article.Id, null, x => x.Journal).SingleOrDefault().Journal;
+            {
+                var singleJournal = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == article.Id, null, x => x.Journal).SingleOrDefault();
+                if (singleJournal != null)
+                    article.Journal = singleJournal.Journal;
+            }
 
             var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
             return mapped;
         }
 
-        /// <summary> Gets the publications of employee with specified id. </summary>
+        /// <summary> 
+        /// Gets the publications of employee with specified id.
+        ///  </summary>
         /// <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
-        /// <returns> Publications associated with specified employee </returns>
+        /// <returns> Publications associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId}/Publications")]
         public IEnumerable<PublicationBaseDTO> GetPublicationsOfEmployee(int employeeId)
         {

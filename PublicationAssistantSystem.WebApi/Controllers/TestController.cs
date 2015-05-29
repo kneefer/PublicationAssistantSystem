@@ -6,9 +6,16 @@ using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
 
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
+    /// <summary>
+    /// For testing purposes
+    /// </summary>
     public class TestController : ApiController
     {
-        // GET: api/Test
+        /// <summary>
+        /// Gets something.
+        /// </summary>
+        /// <remarks> GET: api/Test </remarks>
+        /// <returns> Something special for you. </returns>
         public IEnumerable<string> Get()
         {
             //var test = new Test();

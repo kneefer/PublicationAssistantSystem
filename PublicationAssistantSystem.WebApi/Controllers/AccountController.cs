@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -19,7 +20,7 @@ using PublicationAssistantSystem.WebApi.Results;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     /// <summary>
-    /// Provides access to accounts
+    /// Provides access to accounts.
     /// </summary>
     [Authorize]
     [RoutePrefix("api/Account")]
@@ -29,12 +30,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private const string LocalLoginProvider = "Local";
 
         /// <summary>
-        /// Parametrless constructor
+        /// Parametrless constructor.
         /// </summary>
         public AccountController() { }
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         /// <param name="userManager"> Manager for users accounts. </param>
         /// <param name="accessTokenFormat"> Format of access token. </param>
@@ -103,20 +104,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
             if (user == null)
-            {
                 return null;
-            }
 
-            var logins = new List<UserLoginInfoViewModel>();
-
-            foreach (var linkedAccount in user.Logins)
+            var logins = user.Logins.Select(x => new UserLoginInfoViewModel
             {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = linkedAccount.LoginProvider,
-                    ProviderKey = linkedAccount.ProviderKey
-                });
-            }
+                LoginProvider = x.LoginProvider, ProviderKey = x.ProviderKey
+            }).ToList();
 
             if (user.PasswordHash != null)
             {
@@ -146,9 +139,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
@@ -166,9 +157,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
@@ -185,9 +174,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
@@ -203,9 +190,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             var externalData = ExternalLoginData.FromIdentity(ticket.Identity);
 
             if (externalData == null)
-            {
                 return BadRequest("The external login is already associated with an account.");
-            }
 
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
                 new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
@@ -223,9 +208,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             IdentityResult result;
 
@@ -256,21 +239,15 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
-            {
                 return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
-            }
 
             if (!User.Identity.IsAuthenticated)
-            {
                 return new ChallengeResult(provider, this);
-            }
 
             var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             if (externalLogin == null)
-            {
                 return InternalServerError();
-            }
 
             if (externalLogin.LoginProvider != provider)
             {
@@ -316,10 +293,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
+            string state;
             var descriptions = Authentication.GetExternalAuthenticationTypes();
             var logins = new List<ExternalLoginViewModel>();
-
-            string state;
 
             if (generateState)
             {
@@ -363,12 +339,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
             var result = await UserManager.CreateAsync(user, model.Password);
 
             return result.Succeeded ? Ok() : GetErrorResult(result);
@@ -386,23 +359,17 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var info = await Authentication.GetExternalLoginInfoAsync();
             if (info == null)
-            {
                 return InternalServerError();
-            }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             var result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
-            {
                 return GetErrorResult(result);
-            }
 
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             return result.Succeeded ? Ok() : GetErrorResult(result);
@@ -429,24 +396,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
-            {
                 return InternalServerError();
-            }
 
-            if (result.Succeeded) return null;
+            if (result.Succeeded) 
+                return null;
+
             if (result.Errors != null)
             {
-                foreach (string error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error);
                 }
             }
 
             if (ModelState.IsValid)
-            {
-                // No ModelState errors are available to send, so just return an empty BadRequest.
                 return BadRequest();
-            }
 
             return BadRequest(ModelState);
         }
@@ -475,9 +439,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
             {
                 if (identity == null)
-                {
                     return null;
-                }
 
                 var providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -489,9 +451,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 }
 
                 if (providerKeyClaim.Issuer == ClaimsIdentity.DefaultIssuer)
-                {
                     return null;
-                }
 
                 return new ExternalLoginData
                 {
@@ -511,13 +471,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 const int bitsPerByte = 8;
 
                 if (strengthInBits % bitsPerByte != 0)
-                {
                     throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
-                }
 
-                int strengthInBytes = strengthInBits / bitsPerByte;
+                var strengthInBytes = strengthInBits / bitsPerByte;
 
-                byte[] data = new byte[strengthInBytes];
+                var data = new byte[strengthInBytes];
                 Random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }

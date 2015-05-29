@@ -12,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     /// <summary>
-    /// Provides access to employees repository
+    /// Provides access to employees repository.
     /// </summary>
     [RoutePrefix("api/Employees")]
     public class EmployeesController : ApiController
@@ -23,12 +23,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IPublicationBaseRepository _publicationRepository;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="db">Db context</param>
-        /// <param name="employeeRepository">Repository of employees</param>
-        /// <param name="divisionRepository">Repository of divisions</param>
-        /// <param name="publicationRepository">Repository of publications</param>
+        /// <param name="db"> Db context. </param>
+        /// <param name="employeeRepository"> Repository of employees. </param>
+        /// <param name="divisionRepository"> Repository of divisions. </param>
+        /// <param name="publicationRepository"> Repository of publications. </param>
         public EmployeesController(
             IPublicationAssistantContext db,
             IEmployeeRepository employeeRepository,
@@ -41,7 +41,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _publicationRepository = publicationRepository;
         }
 
-        /// <summary> Gets all employees. </summary>
+        /// <summary> 
+        /// Gets all employees.
+        /// </summary>
         /// <returns> All employees. </returns>        
         [Route("")]
         public IEnumerable<EmployeeDTO> GetAll()
@@ -68,9 +70,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Gets the employees of division with specified id. </summary>
+        /// <summary> 
+        /// Gets the employees of division with specified id.
+        /// </summary>
         /// <param name="divisionId"> Identifier of division whose employees will be returned. </param>
-        /// <returns> Employees associated with specified division </returns>
+        /// <returns> Employees associated with specified division. </returns>
         [Route("~/api/Divisions/{divisionId}/Employees")]
         public IEnumerable<EmployeeDTO> GetEmployeesInDivision(int divisionId)
         {
@@ -80,9 +84,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Gets the employees of publication with specified id. </summary>
+        /// <summary> 
+        /// Gets the employees of publication with specified id.
+        /// </summary>
         /// <param name="publicationId"> Identifier of division whose employees will be returned. </param>
-        /// <returns> Employees associated with specified division </returns>
+        /// <returns> Employees associated with specified division. </returns>
         [Route("~/api/Publications/{publicationId}/Employees")]
         public IEnumerable<EmployeeDTO> GetEmployeesInPublication(int publicationId)
         {
@@ -99,7 +105,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Adds the given employee. </summary>
+        /// <summary>
+        /// Adds the given employee.
+        /// </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
@@ -150,7 +158,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db.SaveChanges();
         }
 
-        /// <summary> Updates the employee. </summary>
+        /// <summary>
+        /// Updates the employee.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
