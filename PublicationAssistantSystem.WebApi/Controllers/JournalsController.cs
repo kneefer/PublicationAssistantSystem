@@ -35,11 +35,29 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary> Gets all journals. </summary>
         /// <returns> All journals. </returns>        
+        [Route("")]  
         public IEnumerable<JournalDTO> GetAll()
         {
             var results = _journalRepository.Get();
             
-            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<JournalDTO>).ToList();
+            return mapped;
+        }
+
+        /// <summary>
+        /// Returns journal with given id.
+        /// </summary>
+        /// <param name="journalId"> Journal id. </param>
+        /// <returns> Journal DTO with specified id. </returns>
+        [Route("{journalId:int}")]
+        public JournalDTO GetJournalById(int journalId)
+        {
+            var result = _journalRepository.Get(x => x.Id == journalId).SingleOrDefault();
+            if (result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var mapped = Mapper.Map<JournalDTO>(result);
+
             return mapped;
         }
 
@@ -47,7 +65,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// Returns journal found by ISSN
         /// </summary>
         /// <param name="issn">Journal ISSN</param>
-        /// <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        /// <returns> Journal DTO with specified ISSN. </returns>
         [Route("ISSN/{issn}")]
         public JournalDTO GetByISSN(string issn)
         {
@@ -55,7 +73,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.DynamicMap<JournalDTO>(result);
+            var mapped = Mapper.Map<JournalDTO>(result);
             return mapped;
         }
 
@@ -63,7 +81,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// Returns journal found by eISSN
         /// </summary>
         /// <param name="eIssn">Journal eISSN</param>
-        /// <returns> Journal DTO with specified ISSN or null, if not found. </returns>
+        /// <returns> Journal DTO with specified eISSN. </returns>
         [Route("eISSN/{eIssn}")]
         public JournalDTO GetByEISSN(string eIssn)
         {
@@ -71,7 +89,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             
-            var mapped = Mapper.DynamicMap<JournalDTO>(result);
+            var mapped = Mapper.Map<JournalDTO>(result);
             return mapped;
         }
 
@@ -85,7 +103,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var results = _journalRepository.Get(x => x.Title.Contains(titlePart));
 
-            var mapped = results.Select(Mapper.DynamicMap<JournalDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<JournalDTO>).ToList();
             return mapped;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Http;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
@@ -11,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     /// <summary>
-    /// Provides access to faculties repository
+    /// Provides access to faculties repository.
     /// </summary>
     [RoutePrefix("api/Faculties")]
     public class FacultiesController : ApiController
@@ -20,10 +21,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IFacultyRepository _facultyRepository;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="db">Db context</param>
-        /// <param name="facultyRepository">Repository of faculties</param>
+        /// <param name="db"> Db context. </param>
+        /// <param name="facultyRepository"> Repository of faculties. </param>
         public FacultiesController(
             IPublicationAssistantContext db,
             IFacultyRepository facultyRepository)
@@ -34,11 +35,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary> Gets all faculties. </summary>
         /// <returns> All faculties. </returns>
+        [Route("")]
         public IEnumerable<FacultyDTO> GetAll()
         {
             var results = _facultyRepository.Get();
             
-            var mapped = results.Select(Mapper.DynamicMap<FacultyDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<FacultyDTO>).ToList();
+            return mapped;
+        }
+
+        /// <summary>
+        /// Returns faculty with given id.
+        /// </summary>
+        /// <param name="facultyId"> Faculy id. </param>
+        /// <returns> Faculty with specified id. </returns>
+        [Route("facultyId:int")]
+        public FacultyDTO GetFacultyById(int facultyId)
+        {
+            var result = _facultyRepository.Get(f => f.Id == facultyId).SingleOrDefault();
+            if (result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var mapped = Mapper.Map<FacultyDTO>(result);
             return mapped;
         }
 
@@ -52,9 +70,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public FacultyDTO Add(FacultyDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var faculty = new Faculty
             {
@@ -94,9 +110,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public FacultyDTO Update(FacultyDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var faculty = new Faculty
             {

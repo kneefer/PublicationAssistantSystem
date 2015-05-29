@@ -12,9 +12,9 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     /// <summary>
-    /// Provides access to journal editions repository
+    /// Provides access to journal editions repository.
     /// </summary>
-    [RoutePrefix("api/JournalEdition")]
+    [RoutePrefix("api/JournalEditions")]
     public class JournalEditionsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
@@ -39,6 +39,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary> Gets all journal editions. </summary>
         /// <returns> All journal editions. </returns>        
+        [Route("")]        
         public IEnumerable<JournalEditionDTO> GetAll()
         {
             var results = _journalEditionRepository.Get();
@@ -48,7 +49,24 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>
-        /// Returns all journal editions of journal
+        /// Returns journal edition with given id.
+        /// </summary>
+        /// <param name="journalEditionId"> Journal edition id. </param>
+        /// <returns> JournalEdition DTO with specified id. </returns>
+        [Route("{journalEditionId:int}")]
+        public JournalEditionDTO GetJournalById(int journalEditionId)
+        {
+            var result = _journalEditionRepository.Get(j => j.Id == journalEditionId, null, j => j.Journal).SingleOrDefault();
+            if (result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var mapped = Mapper.Map<JournalEditionDTO>(result);
+
+            return mapped;
+        }
+
+        /// <summary>
+        /// Returns all journal editions of journal.
         /// </summary>
         /// <param name="journalId"> Journal identificator. </param>
         /// <returns> Journal editions of journal. </returns>

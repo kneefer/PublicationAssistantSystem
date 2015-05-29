@@ -12,7 +12,7 @@ using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 namespace PublicationAssistantSystem.WebApi.Controllers
 {
     /// <summary>
-    /// Provides access to divisions repository
+    /// Provides access to divisions repository.
     /// </summary>
     [RoutePrefix("api/Divisions")]
     public class DivisionsController : ApiController
@@ -22,11 +22,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IInstituteRepository _instituteRepository;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="db">Db context</param>
-        /// <param name="divisionRepository">Repository of divisions</param>
-        /// <param name="instituteRepository">Repository of institutes</param>
+        /// <param name="db"> Db context. </param>
+        /// <param name="divisionRepository"> Repository of divisions. </param>
+        /// <param name="instituteRepository"> Repository of institutes. </param>
         public DivisionsController(
             IPublicationAssistantContext db,
             IDivisionRepository divisionRepository,
@@ -39,11 +39,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary> Gets all divisions. </summary>
         /// <returns> All divisions. </returns>        
+        [Route("")]     
         public IEnumerable<DivisionDTO> GetAll()
         {
             var results = _divisionRepository.Get(null, null, x => x.Institute);
 
-            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<DivisionDTO>).ToList();
+            return mapped;
+        }
+
+        /// <summary>
+        /// Returns division with given id.
+        /// </summary>
+        /// <param name="divisonId"> Division id. </param>
+        /// <returns> Division with specified id. </returns>
+        [Route("{divisonId:int}")]
+        public DivisionDTO GetDivisionById(int divisonId)
+        {
+            var result = _divisionRepository.Get(d => d.Id == divisonId, null, d => d.Institute).SingleOrDefault();
+            if (result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var mapped = Mapper.Map<DivisionDTO>(result);
             return mapped;
         }
 
@@ -55,7 +72,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var results = _divisionRepository.Get(x => x.Institute.Id == instituteId, null, y => y.Institute);
 
-            var mapped = results.Select(Mapper.DynamicMap<DivisionDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<DivisionDTO>).ToList();
             return mapped;
         }
 

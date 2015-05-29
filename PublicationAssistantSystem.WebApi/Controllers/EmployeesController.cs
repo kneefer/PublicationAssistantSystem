@@ -39,11 +39,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
         /// <summary> Gets all employees. </summary>
         /// <returns> All employees. </returns>        
+        [Route("")]
         public IEnumerable<EmployeeDTO> GetAll()
         {
             var results = _employeeRepository.Get(null, null, x => x.Division);
 
-            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<EmployeeDTO>).ToList();
+            return mapped;
+        }
+
+        /// <summary>
+        /// Returns employee with given id.
+        /// </summary>
+        /// <param name="employeeId"> Employee id. </param>
+        /// <returns> Employee with specified id. </returns>
+        [Route("{employeeId:int}")]
+        public EmployeeDTO GetEmployeeById(int employeeId)
+        {
+            var result = _employeeRepository.Get(e => e.Id == employeeId).SingleOrDefault();
+            if(result == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var mapped = Mapper.Map<EmployeeDTO>(result);
             return mapped;
         }
 
@@ -55,7 +72,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var results = _employeeRepository.Get(x => x.Division.Id == divisionId, null, y => y.Division);
 
-            var mapped = results.Select(Mapper.DynamicMap<EmployeeDTO>).ToList();
+            var mapped = results.Select(Mapper.Map<EmployeeDTO>).ToList();
             return mapped;
         }
 
@@ -95,7 +112,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return item;
         }
 
-        /// <summary>   Deletes the given employee. </summary>
+        /// <summary> 
+        /// Deletes the given employee. 
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
