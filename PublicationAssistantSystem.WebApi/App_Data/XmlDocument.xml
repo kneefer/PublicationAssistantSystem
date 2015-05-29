@@ -16,9 +16,20 @@
             <remarks> For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862 </remarks>
             <param name="bundles"> Collection of bundles. </param>
         </member>
+        <member name="T:PublicationAssistantSystem.WebApi.FilterConfig">
+            <summary>
+            Filter configuration.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.FilterConfig.RegisterGlobalFilters(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>
+            Registers filters collection.
+            </summary>
+            <param name="filters"> Filter collection. </param>
+        </member>
         <member name="M:PublicationAssistantSystem.WebApi.NinjectWebCommon.Start">
             <summary>
-            Starts the application
+            Starts the application.
             </summary>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.NinjectWebCommon.Stop">
@@ -30,13 +41,13 @@
             <summary>
             Creates the kernel that will manage your application.
             </summary>
-            <returns>The created kernel.</returns>
+            <returns> The created kernel. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.NinjectWebCommon.RegisterServices(Ninject.IKernel)">
             <summary>
-            Load your modules or register your services here!
+            Loads modules and register services.
             </summary>
-            <param name="kernel">The kernel.</param>
+            <param name="kernel"> The kernel. </param>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.RouteConfig">
             <summary>
@@ -48,6 +59,18 @@
             Registers route URLs for Web API.
             </summary>
             <param name="routes"> Collection of routes. </param>
+        </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Startup">
+            <summary>
+            Provides application startup actions.
+            </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Startup.ConfigureAuth(Owin.IAppBuilder)">
+            <summary>
+            Configures autohrisation.
+            </summary>
+            <remarks> http://go.microsoft.com/fwlink/?LinkId=301864 </remarks>
+            <param name="app"> Application to configure. </param>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.WebApiConfig">
             <summary>
@@ -474,6 +497,11 @@
             Gets the parameter names.
             </summary>
         </member>
+        <member name="P:PublicationAssistantSystem.WebApi.Areas.HelpPage.HelpPageSampleKey.ParameterType">
+            <summary>
+            Gets the parameter type.
+            </summary>
+        </member>
         <member name="P:PublicationAssistantSystem.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
             <summary>
             Gets the <see cref="P:PublicationAssistantSystem.WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
@@ -542,11 +570,13 @@
             Provides access for articles in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalEditionRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
+            <param name="employeeRepository"> Repository of employees. </param>
+            <param name="journalEditionRepository"> Repository of journal editions. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetAllArticles">
@@ -556,13 +586,56 @@
             <remarks> GET: api/Publications/Articles </remarks>
             <returns> All articles. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetArticle(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetArticleById(System.Int32)">
             <summary>
             Returns article with given id.
             </summary>
             <param name="articleId"> Article id. </param>
             <remarks> GET: api/Publications/Articles/Id </remarks>
             <returns> Article with specified id. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetArticlesOfEmployee(System.Int32)">
+            <summary> 
+            Gets the publications that are articles of employee with specified id.
+             </summary>
+            <param name="employeeId"> Identifier of employee whose articles will be returned. </param>
+            /// <remarks> GET: api/Employees/Id/Articles </remarks>
+            <returns> Articles associated with specified employee. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Add(PublicationAssistantSystem.DAL.DTO.Publications.ArticleDTO)">
+            <summary>
+            Adds the given article.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">   
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <exception cref="T:System.Web.Http.HttpResponseException">
+            Thrown when a HTTP Response error condition occurs. 
+            </exception>
+            <param name="item"> The article to add. </param>
+            <remarks> POST api/Publications/Articles </remarks>
+            <returns> The added article DTO. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Update(PublicationAssistantSystem.DAL.DTO.Publications.ArticleDTO)">
+            <summary>
+            Updates the article.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The item with updated content. </param>
+            <remarks> PATCH api/Publications/Articles </remarks>
+            <returns> An updated article DTO. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Delete(System.Int32)">
+            <summary>
+            Deletes the article with given id.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="articleId"> The id of article to delete. </param>
+            <remarks> DELETE api/Publications/Articles </remarks>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController">
             <summary>
@@ -840,7 +913,10 @@
             <param name="instituteRepository"> Repository of institutes. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetAll">
-            <summary> Gets all divisions. </summary>
+            <summary>
+            Gets all divisions.
+            </summary>
+            <remarks> GET: api/Divisions </remarks>
             <returns> All divisions. </returns>        
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivisionById(System.Int32)">
@@ -848,15 +924,21 @@
             Returns division with given id.
             </summary>
             <param name="divisonId"> Division id. </param>
+            <remarks> GET: api/Divisions/Id </remarks>
             <returns> Division with specified id. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivisionsInInstitute(System.Int32)">
-            <summary> Gets the divisions of institute with specified id. </summary>
+            <summary>
+            Gets the divisions of institute with specified id.
+            </summary>
             <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
+            <remarks>GET api/Institutes/Id/Divisions </remarks>
             <returns> Divisions associated with specified institute </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Add(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.DivisionDTO)">
-            <summary> Adds the given division. </summary>
+            <summary>
+            Adds the given division.
+            </summary>
             <exception cref="T:System.ArgumentNullException">   
             Thrown when one or more required arguments are null. 
             </exception>
@@ -864,22 +946,29 @@
             Thrown when a HTTP Response error condition occurs. 
             </exception>
             <param name="item"> The division to add. </param>
-            <returns> The added division. </returns>
-        </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Delete(System.Int32)">
-            <summary>   Deletes the given division. </summary>
-            <exception cref="T:System.ArgumentNullException">
-            Thrown when one or more required arguments are null.
-            </exception>
-            <param name="divisionId"> The ID of division to delete. </param>
+            <remarks> POST api/Divisions </remarks>
+            <returns> The added division DTO. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.DivisionDTO)">
-            <summary> Updates the division. </summary>
+            <summary>
+            Updates the division.
+            </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
             <param name="item"> The item with updated content. </param>
-            <returns> An updated division. </returns>
+            <remarks> PATCH api/Divisions </remarks>
+            <returns> An updated division DTO. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Delete(System.Int32)">
+            <summary>
+            Deletes the division with given id.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="divisionId"> The id of division to delete. </param>
+            <remarks> DELETE api/Divisions </remarks>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.EmployeesController">
             <summary>
@@ -1241,7 +1330,7 @@
             <summary>
             Returns all publications.
             </summary>
-            <remarks> GET: api/Publications </remarks>
+            <remarks> GET: api/Publications/All </remarks>
             <returns> All publications. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublication(System.Int32)">
@@ -1249,6 +1338,7 @@
             Returns publication with given id.
             </summary>
             <param name="publicationId"> Publication id. </param>
+            /// <remarks> GET: api/Publications/All/Id </remarks>
             <returns> Publication with specified id. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationsOfEmployee(System.Int32)">
@@ -1256,7 +1346,18 @@
             Gets the publications of employee with specified id.
              </summary>
             <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
+            /// <remarks> GET: api/Employees/Id/Publications </remarks>
             <returns> Publications associated with specified employee. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.Delete(System.Int32)">
+            <summary>
+            Deletes the publication with given id.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="publicationId"> The id of publication to delete. </param>
+            <remarks> DELETE api/Publications/Id </remarks>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.TestController">
             <summary>
@@ -1281,10 +1382,21 @@
             Initializes base settings of application.
             </summary>
         </member>
+        <member name="T:PublicationAssistantSystem.WebApi.Infrastructure.NinjectHttpResolver">
+            <summary>
+            Dependency injection http resolver.
+            </summary>
+        </member>
         <member name="T:PublicationAssistantSystem.WebApi.Infrastructure.NinjectScope">
             <summary>
             Scope for range of dependencies.
             </summary>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Infrastructure.NinjectHttpResolver.#ctor(Ninject.IKernel)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="kernel"> Super-factory object that can create any other objects. </param>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Models.ApplicationUser">
             <summary>

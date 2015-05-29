@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
@@ -39,18 +40,18 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <summary>
         /// Returns all publications.
         /// </summary>
-        /// <remarks> GET: api/Publications </remarks>
+        /// <remarks> GET: api/Publications/All </remarks>
         /// <returns> All publications. </returns>
         [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAll()
         {
             var resultAll = _publicationBaseRepository.Get();
-            var resultsArticles = _publicationBaseRepository.GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
+            var filledArticles = _publicationBaseRepository.GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
 
             foreach (var record in resultAll.OfType<Article>())
-                record.Journal = resultsArticles.Single(x => x.Id == record.Id).Journal;
+                record.Journal = filledArticles.Single(x => x.Id == record.Id).Journal;
 
-            var mapped = resultAll.Select(Mapper.DynamicMap<PublicationBaseDTO>);
+            var mapped = resultAll.Select(Mapper.Map<PublicationBaseDTO>);
             return mapped;
         }
 
@@ -58,6 +59,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// Returns publication with given id.
         /// </summary>
         /// <param name="publicationId"> Publication id. </param>
+        /// /// <remarks> GET: api/Publications/All/Id </remarks>
         /// <returns> Publication with specified id. </returns>
         [Route("{publicationId:int}")]
         public PublicationBaseDTO GetPublication(int publicationId)
@@ -69,12 +71,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             var article = result as Article;
             if (article != null)
             {
-                var singleJournal = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == article.Id, null, x => x.Journal).SingleOrDefault();
-                if (singleJournal != null)
-                    article.Journal = singleJournal.Journal;
+                var filledArticle = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == article.Id, null, x => x.Journal).SingleOrDefault();
+                if (filledArticle != null)
+                    article.Journal = filledArticle.Journal;
             }
 
-            var mapped = Mapper.DynamicMap<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<PublicationBaseDTO>(result);
             return mapped;
         }
 
@@ -82,6 +84,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// Gets the publications of employee with specified id.
         ///  </summary>
         /// <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
+        /// /// <remarks> GET: api/Employees/Id/Publications </remarks>
         /// <returns> Publications associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId}/Publications")]
         public IEnumerable<PublicationBaseDTO> GetPublicationsOfEmployee(int employeeId)
@@ -91,10 +94,31 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
 
             foreach (var article in employee.Publications.OfType<Article>())
-                article.Journal = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == article.Id, null, x => x.Journal).SingleOrDefault().Journal;
+            {
+                var tmp = article;
+                var filledArticle = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == tmp.Id, null, x => x.Journal).SingleOrDefault();
+                if (filledArticle != null)
+                    article.Journal = filledArticle.Journal;
+            }
 
-            var mapped = employee.Publications.Select(Mapper.DynamicMap<PublicationBaseDTO>).ToList();
+            var mapped = employee.Publications.Select(Mapper.Map<PublicationBaseDTO>).ToList();
             return mapped;
-        } 
+        }
+
+        /// <summary>
+        /// Deletes the publication with given id.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
+        /// <param name="publicationId"> The id of publication to delete. </param>
+        /// <remarks> DELETE api/Publications/Id </remarks>
+        [HttpDelete]
+        [Route("~/api/Publications/{publicationId:int}")]
+        public void Delete(int publicationId)
+        {
+            _publicationBaseRepository.Delete(publicationId);
+            _db.SaveChanges();
+        }
     }
 }

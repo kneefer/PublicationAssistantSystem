@@ -36,6 +36,4 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
 
         void Update(TEntity entityToUpdate);
     }
-
-    
 }

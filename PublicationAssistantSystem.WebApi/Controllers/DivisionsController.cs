@@ -37,7 +37,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _instituteRepository = instituteRepository;
         }
 
-        /// <summary> Gets all divisions. </summary>
+        /// <summary>
+        /// Gets all divisions.
+        /// </summary>
+        /// <remarks> GET: api/Divisions </remarks>
         /// <returns> All divisions. </returns>        
         [Route("")]     
         public IEnumerable<DivisionDTO> GetAll()
@@ -52,6 +55,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// Returns division with given id.
         /// </summary>
         /// <param name="divisonId"> Division id. </param>
+        /// <remarks> GET: api/Divisions/Id </remarks>
         /// <returns> Division with specified id. </returns>
         [Route("{divisonId:int}")]
         public DivisionDTO GetDivisionById(int divisonId)
@@ -64,8 +68,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Gets the divisions of institute with specified id. </summary>
+        /// <summary>
+        /// Gets the divisions of institute with specified id.
+        /// </summary>
         /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
+        /// <remarks>GET api/Institutes/Id/Divisions </remarks>
         /// <returns> Divisions associated with specified institute </returns>
         [Route("~/api/Institutes/{instituteId}/Divisions")]
         public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
@@ -76,7 +83,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return mapped;
         }
 
-        /// <summary> Adds the given division. </summary>
+        /// <summary>
+        /// Adds the given division.
+        /// </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
@@ -84,7 +93,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
         /// <param name="item"> The division to add. </param>
-        /// <returns> The added division. </returns>
+        /// <remarks> POST api/Divisions </remarks>
+        /// <returns> The added division DTO. </returns>
         [HttpPost]
         public DivisionDTO Add(DivisionDTO item)
         {
@@ -110,25 +120,15 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return item;
         }
 
-        /// <summary>   Deletes the given division. </summary>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when one or more required arguments are null.
-        /// </exception>
-        /// <param name="divisionId"> The ID of division to delete. </param>
-        [HttpDelete]
-        [Route("{divisionId:int}")]
-        public void Delete(int divisionId)
-        {
-            _divisionRepository.Delete(divisionId);
-            _db.SaveChanges();
-        }
-
-        /// <summary> Updates the division. </summary>
+        /// <summary>
+        /// Updates the division.
+        /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
         /// <param name="item"> The item with updated content. </param>
-        /// <returns> An updated division. </returns>
+        /// <remarks> PATCH api/Divisions </remarks>
+        /// <returns> An updated division DTO. </returns>
         [HttpPatch]
         public DivisionDTO Update(DivisionDTO item)
         {
@@ -144,13 +144,29 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 Name = item.Name,
                 Institute = institute,
             };
-            
+
             _divisionRepository.Update(division);
             _db.SaveChanges();
 
             item.Id = division.Id;
 
             return item;
+        }
+
+        /// <summary>
+        /// Deletes the division with given id.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
+        /// <param name="divisionId"> The id of division to delete. </param>
+        /// <remarks> DELETE api/Divisions </remarks>
+        [HttpDelete]
+        [Route("{divisionId:int}")]
+        public void Delete(int divisionId)
+        {
+            _divisionRepository.Delete(divisionId);
+            _db.SaveChanges();
         }
     }
 }
