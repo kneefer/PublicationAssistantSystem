@@ -20,6 +20,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         private readonly IPublicationAssistantContext _db;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDivisionRepository _divisionRepository;
+        private readonly IPublicationBaseRepository _publicationRepository;
 
         /// <summary>
         /// Constructor
@@ -27,14 +28,17 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="db">Db context</param>
         /// <param name="employeeRepository">Repository of employees</param>
         /// <param name="divisionRepository">Repository of divisions</param>
+        /// <param name="publicationRepository">Repository of publications</param>
         public EmployeesController(
             IPublicationAssistantContext db,
             IEmployeeRepository employeeRepository,
-            IDivisionRepository divisionRepository)
+            IDivisionRepository divisionRepository, 
+            IPublicationBaseRepository publicationRepository)
         {
             _db = db;
             _divisionRepository = divisionRepository;
             _employeeRepository = employeeRepository;
+            _publicationRepository = publicationRepository;
         }
 
         /// <summary> Gets all employees. </summary>
@@ -73,6 +77,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             var results = _employeeRepository.Get(x => x.Division.Id == divisionId, null, y => y.Division);
 
             var mapped = results.Select(Mapper.Map<EmployeeDTO>).ToList();
+            return mapped;
+        }
+
+        /// <summary> Gets the employees of publication with specified id. </summary>
+        /// <param name="publicationId"> Identifier of division whose employees will be returned. </param>
+        /// <returns> Employees associated with specified division </returns>
+        [Route("~/api/Publications/{publicationId}/Employees")]
+        public IEnumerable<EmployeeDTO> GetEmployeesInPublication(int publicationId)
+        {
+            var publication = _publicationRepository.Get(x => x.Id == publicationId, null, x => x.Employees).SingleOrDefault();
+            if (publication == null)
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+
+            var employees = publication.Employees;
+
+            foreach (var employee in employees)
+                employee.Division = _employeeRepository.Get(x => x.Id == employee.Id, null, x => x.Division).SingleOrDefault().Division;
+
+            var mapped = publication.Employees.Select(Mapper.Map<EmployeeDTO>).ToList();
             return mapped;
         }
 

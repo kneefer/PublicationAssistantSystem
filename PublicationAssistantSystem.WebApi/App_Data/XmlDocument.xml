@@ -841,9 +841,9 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetAll">
             <summary> Gets all divisions. </summary>
-            <returns> All divisions. </returns>
+            <returns> All divisions. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivision(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivisionById(System.Int32)">
             <summary>
             Returns division with given id.
             </summary>
@@ -886,19 +886,20 @@
             Provides access to employees repository
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IDivisionRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IDivisionRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor
             </summary>
             <param name="db">Db context</param>
             <param name="employeeRepository">Repository of employees</param>
             <param name="divisionRepository">Repository of divisions</param>
+            <param name="publicationRepository">Repository of publications</param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetAll">
             <summary> Gets all employees. </summary>
-            <returns> All employees. </returns>
+            <returns> All employees. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployee(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeeById(System.Int32)">
             <summary>
             Returns employee with given id.
             </summary>
@@ -908,6 +909,11 @@
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInDivision(System.Int32)">
             <summary> Gets the employees of division with specified id. </summary>
             <param name="divisionId"> Identifier of division whose employees will be returned. </param>
+            <returns> Employees associated with specified division </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInPublication(System.Int32)">
+            <summary> Gets the employees of publication with specified id. </summary>
+            <param name="publicationId"> Identifier of division whose employees will be returned. </param>
             <returns> Employees associated with specified division </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Add(PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
@@ -954,7 +960,7 @@
             <summary> Gets all faculties. </summary>
             <returns> All faculties. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.GetFaculty(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.GetFacultyById(System.Int32)">
             <summary>
             Returns faculty with given id.
             </summary>
@@ -1010,9 +1016,9 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetAll">
             <summary> Gets all institutes. </summary>
-            <returns> All institutes. </returns>
+            <returns> All institutes. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetInstitute(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetInstituteById(System.Int32)">
             <summary>
             Returns institute with given id.
             </summary>
@@ -1060,7 +1066,7 @@
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController">
             <summary>
-            Provides access to journal editions repository
+            Provides access to journal editions repository.
             </summary>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalEditionRepository)">
@@ -1073,9 +1079,9 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetAll">
             <summary> Gets all journal editions. </summary>
-            <returns> All journal editions. </returns>
+            <returns> All journal editions. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournal(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournalById(System.Int32)">
             <summary>
             Returns journal edition with given id.
             </summary>
@@ -1084,7 +1090,7 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournalEditionsInJournal(System.Int32)">
             <summary>
-            Returns all journal editions of journal
+            Returns all journal editions of journal.
             </summary>
             <param name="journalId"> Journal identificator. </param>
             <returns> Journal editions of journal. </returns>
@@ -1126,9 +1132,9 @@
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetAll">
             <summary> Gets all journals. </summary>
-            <returns> All journals. </returns>
+            <returns> All journals. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetJournal(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.GetJournalById(System.Int32)">
             <summary>
             Returns journal with given id.
             </summary>
@@ -1187,12 +1193,13 @@
             Provides access to publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
+            <param name="employeeRepository"> Repository of employees </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAll">
             <summary>
@@ -1207,6 +1214,11 @@
             </summary>
             <param name="publicationId"> Publication id. </param>
             <returns> Publication with specified id. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationsOfEmployee(System.Int32)">
+            <summary> Gets the publications of employee with specified id. </summary>
+            <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
+            <returns> Publications associated with specified employee </returns>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.WebApiApplication">
             <summary>

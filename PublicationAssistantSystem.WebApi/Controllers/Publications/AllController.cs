@@ -80,7 +80,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("~/api/Employees/{employeeId}/Publications")]
         public IEnumerable<PublicationBaseDTO> GetPublicationsOfEmployee(int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).FirstOrDefault();
+            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
             if (employee == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
 

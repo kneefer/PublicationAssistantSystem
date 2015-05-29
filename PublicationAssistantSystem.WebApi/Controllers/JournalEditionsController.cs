@@ -89,9 +89,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         public JournalEditionDTO Add(JournalEditionDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
             var journal = _journalRepository.Get(x => x.Id == item.JournalId).FirstOrDefault();
             if (journal == null)
