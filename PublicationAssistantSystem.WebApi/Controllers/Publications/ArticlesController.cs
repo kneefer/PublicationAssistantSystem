@@ -75,7 +75,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
         /// <summary> 
         /// Gets the publications that are articles of employee with specified id.
-        ///  </summary>
+        /// </summary>
         /// <param name="employeeId"> Identifier of employee whose articles will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Articles </remarks>
         /// <returns> Articles associated with specified employee. </returns>

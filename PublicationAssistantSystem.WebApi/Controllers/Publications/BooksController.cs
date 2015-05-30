@@ -70,7 +70,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
         /// <summary> 
         /// Gets the publications that are books of employee with specified id.
-        ///  </summary>
+        /// </summary>
         /// <param name="employeeId"> Identifier of employee whose books will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Books </remarks>
         /// <returns> Books associated with specified employee. </returns>
@@ -137,7 +137,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             _publicationBaseRepository.Update(book);
             _db.SaveChanges();
 
-            return item;
+            var mapped = Mapper.Map<BookDTO>(book);
+            return mapped;
         }
 
         /// <summary>

@@ -661,7 +661,7 @@
             <summary>
             Returns book with given id.
             </summary>
-            <param name="bookId"> Book id. </param>
+            <param name="conferencePaperId"> Book id. </param>
             <remarks> GET: api/Publications/Books/Id </remarks>
             <returns> Book with specified id. </returns>
         </member>
@@ -705,7 +705,7 @@
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null.
             </exception>
-            <param name="bookId"> The id of book to delete. </param>
+            <param name="conferencePaperId"> The id of book to delete. </param>
             <remarks> DELETE api/Publications/Books </remarks>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.ConferencePapersController">
