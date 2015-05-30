@@ -144,21 +144,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary> 
-        /// Deletes the given employee. 
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when one or more required arguments are null.
-        /// </exception>
-        /// <param name="employeeId"> The ID of employee to delete. </param>
-        [HttpDelete]
-        [Route("{employeeId:int}")]
-        public void Delete(int employeeId)
-        {
-            _employeeRepository.Delete(employeeId);
-            _db.SaveChanges();
-        }
-
-        /// <summary>
         /// Updates the employee.
         /// </summary>
         /// <exception cref="ArgumentNullException">
@@ -189,6 +174,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var mapped = Mapper.Map<EmployeeDTO>(employee);
             return mapped;
+        }
+
+        /// <summary> 
+        /// Deletes the given employee. 
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
+        /// <param name="employeeId"> The ID of employee to delete. </param>
+        [HttpDelete]
+        [Route("{employeeId:int}")]
+        public void Delete(int employeeId)
+        {
+            _employeeRepository.Delete(employeeId);
+            _db.SaveChanges();
         }
     }
 }

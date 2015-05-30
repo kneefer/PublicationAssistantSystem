@@ -115,21 +115,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>
-        /// Deletes the given journal edition.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when one or more required arguments are null.
-        /// </exception>
-        /// <param name="journalEditionId"> The ID of journal edition to delete. </param>
-        [HttpDelete]
-        [Route("{journalEditionId:int}")]
-        public void Delete(int journalEditionId)
-        {
-            _journalEditionRepository.Delete(journalEditionId);
-            _db.SaveChanges();
-        }
-
-        /// <summary>
         /// Updates the journal edition.
         /// </summary>
         /// <exception cref="ArgumentNullException">
@@ -159,6 +144,21 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var mapped = Mapper.Map<JournalEditionDTO>(journalEdition);
             return mapped;
+        }
+
+        /// <summary>
+        /// Deletes the given journal edition.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
+        /// <param name="journalEditionId"> The ID of journal edition to delete. </param>
+        [HttpDelete]
+        [Route("{journalEditionId:int}")]
+        public void Delete(int journalEditionId)
+        {
+            _journalEditionRepository.Delete(journalEditionId);
+            _db.SaveChanges();
         }
     }
 }

@@ -642,11 +642,12 @@
             Provides access for books in publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
+            <param name="employeeRepository"> Repository of employees. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetAllBooks">
@@ -656,13 +657,56 @@
             <remarks> GET: api/Publications/Books </remarks>
             <returns> All books. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetBook(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetBookById(System.Int32)">
             <summary>
             Returns book with given id.
             </summary>
             <param name="bookId"> Book id. </param>
             <remarks> GET: api/Publications/Books/Id </remarks>
             <returns> Book with specified id. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetBooksOfEmployee(System.Int32)">
+            <summary> 
+            Gets the publications that are books of employee with specified id.
+             </summary>
+            <param name="employeeId"> Identifier of employee whose books will be returned. </param>
+            /// <remarks> GET: api/Employees/Id/Books </remarks>
+            <returns> Books associated with specified employee. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Add(PublicationAssistantSystem.DAL.DTO.Publications.BookDTO)">
+            <summary>
+            Adds the given book.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">   
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <exception cref="T:System.Web.Http.HttpResponseException">
+            Thrown when a HTTP Response error condition occurs. 
+            </exception>
+            <param name="item"> The book to add. </param>
+            <remarks> POST api/Publications/Books </remarks>
+            <returns> The added book DTO. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Update(PublicationAssistantSystem.DAL.DTO.Publications.BookDTO)">
+            <summary>
+            Updates the book.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null. 
+            </exception>
+            <param name="item"> The item with updated content. </param>
+            <remarks> PATCH api/Publications/Books </remarks>
+            <returns> An updated book DTO. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Delete(System.Int32)">
+            <summary>
+            Deletes the book with given id.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when one or more required arguments are null.
+            </exception>
+            <param name="bookId"> The id of book to delete. </param>
+            <remarks> DELETE api/Publications/Books </remarks>
         </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.Publications.ConferencePapersController">
             <summary>

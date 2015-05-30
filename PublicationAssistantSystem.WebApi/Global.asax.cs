@@ -65,6 +65,8 @@ namespace PublicationAssistantSystem.WebApi
 
             Mapper.CreateMap<Book, BookDTO>()
                 .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Book"));
+            Mapper.CreateMap<BookDTO, Book>();
+
             Mapper.CreateMap<Dataset, DatasetDTO>()
                 .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Dataset"));
             Mapper.CreateMap<ConferencePaper, ConferencePaperDTO>()
