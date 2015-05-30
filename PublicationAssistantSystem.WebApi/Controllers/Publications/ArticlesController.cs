@@ -52,7 +52,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         {
             var results = _publicationBaseRepository.GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
             
-            var mapped = Enumerable.ToList(results.Select(Mapper.Map<ArticleDTO>));
+            var mapped = results.Select(Mapper.Map<ArticleDTO>).ToList();
             return mapped;
         }
 
@@ -95,7 +95,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
                 results.Add(_publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == tmp, null, x => x.Journal).SingleOrDefault());
             }
 
-            var mapped = Enumerable.ToList(results.Select(Mapper.Map<ArticleDTO>));
+            var mapped = results.Select(Mapper.Map<ArticleDTO>).ToList();
             return mapped;
         }
 
@@ -158,8 +158,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             _publicationBaseRepository.Update(article);
             _db.SaveChanges();
-
-            item.Id = article.Id;
 
             return item;
         }

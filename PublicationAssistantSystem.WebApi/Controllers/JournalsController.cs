@@ -141,21 +141,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>
-        /// Deletes the given journal.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when one or more required arguments are null.
-        /// </exception>
-        /// <param name="journalId"> The ID of journal to delete. </param>
-        [HttpDelete]
-        [Route("{journalId:int}")]
-        public void Delete(int journalId)
-        {
-            _journalRepository.Delete(journalId);
-            _db.SaveChanges();
-        }
-
-        /// <summary>
         /// Updates the journal.
         /// </summary>
         /// <exception cref="ArgumentNullException">
@@ -181,9 +166,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Update(journal);
             _db.SaveChanges();
 
-            item.Id = journal.Id;
-
             return item;
+        }
+
+        /// <summary>
+        /// Deletes the given journal.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
+        /// <param name="journalId"> The ID of journal to delete. </param>
+        [HttpDelete]
+        [Route("{journalId:int}")]
+        public void Delete(int journalId)
+        {
+            _journalRepository.Delete(journalId);
+            _db.SaveChanges();
         }
     }
 }

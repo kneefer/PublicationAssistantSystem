@@ -148,8 +148,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _divisionRepository.Update(division);
             _db.SaveChanges();
 
-            item.Id = division.Id;
-
             return item;
         }
 

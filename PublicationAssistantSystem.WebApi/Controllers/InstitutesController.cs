@@ -143,8 +143,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _instituteRepository.Update(institute);
             _db.SaveChanges();
 
-            item.Id = institute.Id;
-
             return item;
         }
 

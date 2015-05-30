@@ -92,21 +92,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         }
 
         /// <summary>
-        /// Deletes the given faculty.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when one or more required arguments are null. 
-        /// </exception>
-        /// <param name="facultyId"> The ID of faculty to delete. </param>
-        [HttpDelete]
-        [Route("{facultyId:int}")]
-        public void Delete(int facultyId)
-        {
-            _facultyRepository.Delete(facultyId);
-            _db.SaveChanges();
-        }
-
-        /// <summary>
         /// Updates the faculty.
         /// </summary>
         /// <exception cref="ArgumentNullException"> 
@@ -129,9 +114,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository.Update(faculty);
             _db.SaveChanges();
 
-            item.Id = faculty.Id;
-
             return item;
+        }
+
+        /// <summary>
+        /// Deletes the given faculty.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null. 
+        /// </exception>
+        /// <param name="facultyId"> The ID of faculty to delete. </param>
+        [HttpDelete]
+        [Route("{facultyId:int}")]
+        public void Delete(int facultyId)
+        {
+            _facultyRepository.Delete(facultyId);
+            _db.SaveChanges();
         }
     }
 }

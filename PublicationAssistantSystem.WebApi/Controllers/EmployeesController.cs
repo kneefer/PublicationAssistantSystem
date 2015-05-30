@@ -143,21 +143,6 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             return item;
         }
 
-        /// <summary> 
-        /// Deletes the given employee. 
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when one or more required arguments are null.
-        /// </exception>
-        /// <param name="employeeId"> The ID of employee to delete. </param>
-        [HttpDelete]
-        [Route("{employeeId:int}")]
-        public void Delete(int employeeId)
-        {
-            _employeeRepository.Delete(employeeId);
-            _db.SaveChanges();
-        }
-
         /// <summary>
         /// Updates the employee.
         /// </summary>
@@ -187,9 +172,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _employeeRepository.Update(employee);
             _db.SaveChanges();
 
-            item.Id = employee.Id;
-
             return item;
+        }
+
+        /// <summary> 
+        /// Deletes the given employee. 
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when one or more required arguments are null.
+        /// </exception>
+        /// <param name="employeeId"> The ID of employee to delete. </param>
+        [HttpDelete]
+        [Route("{employeeId:int}")]
+        public void Delete(int employeeId)
+        {
+            _employeeRepository.Delete(employeeId);
+            _db.SaveChanges();
         }
     }
 }
