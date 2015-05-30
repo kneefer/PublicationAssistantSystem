@@ -187,9 +187,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _employeeRepository.Update(employee);
             _db.SaveChanges();
 
-            item.Id = employee.Id;
-
-            return item;
+            var mapped = Mapper.Map<EmployeeDTO>(employee);
+            return mapped;
         }
     }
 }

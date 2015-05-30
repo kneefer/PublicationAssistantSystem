@@ -129,9 +129,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _facultyRepository.Update(faculty);
             _db.SaveChanges();
 
-            item.Id = faculty.Id;
-
-            return item;
+            var mapped = Mapper.Map<FacultyDTO>(faculty);
+            return mapped;
         }
     }
 }

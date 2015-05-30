@@ -159,9 +159,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             _publicationBaseRepository.Update(article);
             _db.SaveChanges();
 
-            item.Id = article.Id;
-
-            return item;
+            var mapped = Mapper.Map<ArticleDTO>(article);
+            return mapped;
         }
 
         /// <summary>

@@ -157,9 +157,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalEditionRepository.Update(journalEdition);
             _db.SaveChanges();
 
-            item.Id = journalEdition.Id;
-
-            return item;
+            var mapped = Mapper.Map<JournalEditionDTO>(journalEdition);
+            return mapped;
         }
     }
 }

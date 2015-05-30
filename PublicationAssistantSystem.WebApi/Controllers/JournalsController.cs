@@ -181,9 +181,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Update(journal);
             _db.SaveChanges();
 
-            item.Id = journal.Id;
-
-            return item;
+            var mapped = Mapper.Map<JournalDTO>(journal);
+            return mapped;
         }
     }
 }
