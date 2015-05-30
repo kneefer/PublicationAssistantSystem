@@ -51,7 +51,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <param name="facultyId"> Faculy id. </param>
         /// <returns> Faculty with specified id. </returns>
-        [Route("facultyId:int")]
+        [Route("{facultyId:int}")]
         public FacultyDTO GetFacultyById(int facultyId)
         {
             var result = _facultyRepository.Get(f => f.Id == facultyId).SingleOrDefault();
