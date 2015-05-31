@@ -7,7 +7,7 @@ namespace PublicationAssistantSystem.Core
 {
     public class Test
     {
-        public void Run()
+        public void Run(string dataPath)
         {
             var x = new AuthenticationClient();
 
@@ -42,7 +42,7 @@ namespace PublicationAssistantSystem.Core
                 });
                 x.closeSession();
 
-                results.SerializeAndSave();
+                results.SerializeAndSave(dataPath);
             }
             catch (Exception e)
             {
