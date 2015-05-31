@@ -19,62 +19,87 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet = context.Set<TEntity>();
         }
 
-        public List<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+        private static List<TTargetEntity> Get<TTargetEntity>(
+            IQueryable<TTargetEntity> query,
+            Expression<Func<TTargetEntity, bool>> filter = null,
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
+        {
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return orderBy != null
+                ? orderBy(query).ToList()
+                : query.ToList();
+        }
+
+        public List<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             IQueryable<TEntity> query = _dbSet;
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            return orderBy != null
-                ? orderBy(query).ToList()
-                : query.ToList();
+            return Get(query, filter, orderBy);
         }
 
-        public virtual List<TEntity> Get<TProperty>(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, TProperty>>[] navProperties)
+        public virtual List<TEntity> Get<TProperty>(
+            Expression<Func<TEntity, bool>> filter, 
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, 
+            Expression<Func<TEntity, TProperty>> navProperty)
         {
             IQueryable<TEntity> query = _dbSet;
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
 
-            foreach (var navProperty in navProperties)
-                query = query.Include(navProperty);
+            query = query.Include(navProperty);
 
-            return orderBy != null
-                ? orderBy(query).ToList()
-                : query.ToList();
+            return Get(query, filter, orderBy);
         }
 
-        public virtual List<TTargetEntity> GetOfType<TTargetEntity>(Expression<Func<TTargetEntity, bool>> filter = null, Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
+        public virtual List<TEntity> Get<TProperty1, TProperty2>(
+            Expression<Func<TEntity, bool>> filter,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+            Expression<Func<TEntity, TProperty1>> navProperty1,
+            Expression<Func<TEntity, TProperty2>> navProperty2)
         {
-            IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
+            IQueryable<TEntity> query = _dbSet;
 
-            return orderBy != null
-                ? orderBy(query).ToList()
-                : query.ToList();
+            query = query.Include(navProperty1);
+            query = query.Include(navProperty2);
+
+            return Get(query, filter, orderBy);
         }
 
-        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty>(Expression<Func<TTargetEntity, bool>> filter, Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy, params Expression<Func<TTargetEntity, TProperty>>[] navProperties)
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity>(
+            Expression<Func<TTargetEntity, bool>> filter = null, 
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
         {
             IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
+            return Get(query, filter, orderBy);
+        }
 
-            foreach (var navProperty in navProperties)
-                query = query.Include(navProperty);
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty>(
+            Expression<Func<TTargetEntity, bool>> filter, 
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy, 
+            Expression<Func<TTargetEntity, TProperty>> navProperty)
+        {
+            IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
 
-            return orderBy != null
-                ? orderBy(query).ToList()
-                : query.ToList();
+            query = query.Include(navProperty);
+
+            return Get(query, filter, orderBy);
+        }
+
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty1, TProperty2>(
+            Expression<Func<TTargetEntity, bool>> filter,
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy,
+            Expression<Func<TTargetEntity, TProperty1>> navProperty1,
+            Expression<Func<TTargetEntity, TProperty2>> navProperty2)
+        {
+            IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
+
+            query = query.Include(navProperty1);
+            query = query.Include(navProperty2);
+
+            return Get(query, filter, orderBy);
         }
 
         public virtual TEntity GetByID(object id)
