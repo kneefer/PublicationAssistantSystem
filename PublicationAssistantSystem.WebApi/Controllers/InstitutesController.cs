@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
+using System.Web.Routing;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
@@ -89,10 +92,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The institute to add. </param>
         /// <returns> The added institute. </returns>
+        [Route("")]
         [HttpPost]
-        public InstituteDTO Add(InstituteDTO item)
+        [ResponseType(typeof(InstituteDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, InstituteDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -113,7 +119,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             item.Id = institute.Id;
 
-            return item;
+            return request.CreateResponse(HttpStatusCode.Created, item);
         }
 
         /// <summary>
@@ -124,6 +130,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </exception>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated institute. </returns>
+        [Route("")]
         [HttpPatch]
         public InstituteDTO Update(InstituteDTO item)
         {
@@ -136,7 +143,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var institute = new Institute
             {
-                Name = item.Name,
+                Id      = item.Id,
+                Name    = item.Name,
                 Faculty = faculty
             };
 

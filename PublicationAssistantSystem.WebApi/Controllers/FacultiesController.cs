@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
+using System.Web.Routing;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
@@ -68,10 +71,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">    
         /// Thrown when one or more required arguments are null.
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The faculty to add. </param>
         /// <returns> The added faculty. </returns>
         [HttpPost]
-        public FacultyDTO Add(FacultyDTO item)
+        [Route("")]
+        [ResponseType(typeof(FacultyDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, FacultyDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -88,7 +94,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             item.Id = faculty.Id;
 
-            return item;
+            return request.CreateResponse(HttpStatusCode.Created, item);
         }
 
         /// <summary>
@@ -100,6 +106,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated Faculty. </returns>
         [HttpPatch]
+        [Route("")]
         public FacultyDTO Update(FacultyDTO item)
         {
             if (item == null)
@@ -107,7 +114,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var faculty = new Faculty
             {
-                Name = item.Name,
+                Id           = item.Id,
+                Name         = item.Name,
                 Abbreviation = item.Abbreviation,
             };
 

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.OrganisationUnits;
@@ -92,11 +94,14 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The division to add. </param>
         /// <remarks> POST api/Divisions </remarks>
         /// <returns> The added division DTO. </returns>
         [HttpPost]
-        public DivisionDTO Add(DivisionDTO item)
+        [Route("")]
+        [ResponseType(typeof(DivisionDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, DivisionDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -117,7 +122,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             item.Id = division.Id;
 
-            return item;
+            return request.CreateResponse(HttpStatusCode.Created, item);
         }
 
         /// <summary>
@@ -130,6 +135,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <remarks> PATCH api/Divisions </remarks>
         /// <returns> An updated division DTO. </returns>
         [HttpPatch]
+        [Route("")]
         public DivisionDTO Update(DivisionDTO item)
         {
             if (item == null)
@@ -141,7 +147,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var division = new Division
             {
-                Name = item.Name,
+                Id        = item.Id,
+                Name      = item.Name,
                 Institute = institute,
             };
 

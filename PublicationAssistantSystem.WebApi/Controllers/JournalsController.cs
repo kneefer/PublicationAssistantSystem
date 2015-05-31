@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
@@ -118,10 +120,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The journal to add. </param>
         /// <returns> The added journal. </returns>
         [HttpPost]
-        public JournalDTO Add(JournalPostDTO item)
+        [Route("")]
+        [ResponseType(typeof(JournalDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, JournalPostDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -137,7 +142,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _db.SaveChanges();
             
             var mapped = Mapper.Map<JournalDTO>(journal);
-            return mapped;
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -149,6 +154,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated journal. </returns>
         [HttpPatch]
+        [Route("")]
         public JournalDTO Update(JournalDTO item)
         {
             if (item == null)
@@ -158,6 +164,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var journal = new Journal
             {
+                Id    = item.Id,
                 Title = item.Title,
                 ISSN  = item.ISSN,
                 eISSN = item.eISSN,

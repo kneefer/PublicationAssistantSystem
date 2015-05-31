@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
@@ -79,17 +81,20 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             var mapped = results.Select(Mapper.Map<JournalEditionDTO>).ToList();
             return mapped;
         }
-            
+
         /// <summary>
         /// Adds the given journal edition.
         /// </summary>
         /// <exception cref="ArgumentNullException">   
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The journal edition to add. </param>
         /// <returns> Added journal edition. </returns>
         [HttpPost]
-        public JournalEditionDTO Add(JournalEditionDTO item)
+        [Route("")]
+        [ResponseType(typeof(JournalEditionDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, JournalEditionDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -100,10 +105,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var journalEdition = new JournalEdition
             {
-                Id = item.Id,
-                PublishDate = item.PublishDate,
+                Id           = item.Id,
+                PublishDate  = item.PublishDate,
                 VolumeNumber = item.VolumeNumber,
-                Journal = journal,
+                Journal      = journal,
             };
 
             _journalEditionRepository.Insert(journalEdition);
@@ -111,7 +116,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             
             item.Id = journal.Id;
             
-            return item;
+            return request.CreateResponse(HttpStatusCode.Created, item);
         }
 
         /// <summary>
@@ -123,6 +128,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated journal edition. </returns>
         [HttpPatch]
+        [Route("")]
         public JournalEditionDTO Update(JournalEditionDTO item)
         {
             if (item == null)

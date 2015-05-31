@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
@@ -114,10 +116,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The employee to add. </param>
         /// <returns> The added employee. </returns>
         [HttpPost]
-        public EmployeeDTO Add(EmployeeDTO item)
+        [Route("")]
+        [ResponseType(typeof(EmployeeDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, EmployeeDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -140,7 +145,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             item.Id = employee.Id;
 
-            return item;
+            return request.CreateResponse(HttpStatusCode.Created, item);
         }
 
         /// <summary> 
@@ -152,6 +157,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated employee. </returns>
         [HttpPatch]
+        [Route("")]
         public EmployeeDTO Update(EmployeeDTO item)
         {
             if (item == null)
@@ -163,10 +169,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             
             var employee = new Employee
             {
+                Id            = item.Id,
                 AcademicTitle = item.AcademicTitle,
-                FirstName = item.FirstName,
-                LastName = item.LastName,
-                Division = division,
+                FirstName     = item.FirstName,
+                LastName      = item.LastName,
+                Division      = division,
             };
 
             _employeeRepository.Update(employee);
