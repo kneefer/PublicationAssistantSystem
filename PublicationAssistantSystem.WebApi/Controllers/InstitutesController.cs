@@ -74,7 +74,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
         /// <returns> Institutes associated with specified faculty. </returns>
-        [Route("~/api/Faculties/{facultyId}/Institutes")]
+        [Route("~/api/Faculties/{facultyId:int}/Institutes")]
         public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
         {
             var results = _instituteRepository.Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty);

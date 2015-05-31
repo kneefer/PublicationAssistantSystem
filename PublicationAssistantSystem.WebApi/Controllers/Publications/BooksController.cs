@@ -74,7 +74,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose books will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Books </remarks>
         /// <returns> Books associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/Books")]
+        [Route("~/api/Employees/{employeeId:int}/Books")]
         public IEnumerable<BookDTO> GetBooksOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

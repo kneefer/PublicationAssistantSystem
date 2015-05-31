@@ -76,7 +76,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
         /// <remarks>GET api/Institutes/Id/Divisions </remarks>
         /// <returns> Divisions associated with specified institute </returns>
-        [Route("~/api/Institutes/{instituteId}/Divisions")]
+        [Route("~/api/Institutes/{instituteId:int}/Divisions")]
         public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
         {
             var results = _divisionRepository.Get(x => x.Institute.Id == instituteId, null, y => y.Institute);

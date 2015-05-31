@@ -74,7 +74,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose patents will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Patents </remarks>
         /// <returns> Patents associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/Patents")]
+        [Route("~/api/Employees/{employeeId:int}/Patents")]
         public IEnumerable<PatentDTO> GetPatentsOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

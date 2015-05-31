@@ -57,7 +57,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="conferencePaperId"> Conference paper id. </param>
         /// <remarks> GET: api/Publications/ConferencePapers/Id </remarks>
         /// <returns> Conference paper with specified id. </returns>
-        [Route("{conferencePaperd:int}")]
+        [Route("{conferencePaperId:int}")]
         public ConferencePaperDTO GetConferencePaperById(int conferencePaperId)
         {
             var result = _publicationBaseRepository.GetOfType<ConferencePaper>(x => x.Id == conferencePaperId).FirstOrDefault();
@@ -74,7 +74,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose conference papers will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/ConferencePapers </remarks>
         /// <returns> Conference papers associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/ConferencePapers")]
+        [Route("~/api/Employees/{employeeId:int}/ConferencePapers")]
         public IEnumerable<ConferencePaperDTO> GetConferencePapersOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

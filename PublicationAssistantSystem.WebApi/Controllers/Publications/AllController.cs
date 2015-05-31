@@ -46,10 +46,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         public IEnumerable<PublicationBaseDTO> GetAll()
         {
             var resultAll = _publicationBaseRepository.Get();
-            var filledArticles = _publicationBaseRepository.GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
+            var filledArticles = _publicationBaseRepository
+                .GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
 
             foreach (var record in resultAll.OfType<Article>())
-                record.Journal = filledArticles.Single(x => x.Id == record.Id).Journal;
+            {
+                record.Journal   = filledArticles.Single(x => x.Id == record.Id).Journal;
+            }
 
             var mapped = resultAll.Select(Mapper.Map<PublicationBaseDTO>);
             return mapped;
@@ -86,7 +89,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Publications </remarks>
         /// <returns> Publications associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/Publications")]
+        [Route("~/api/Employees/{employeeId:int}/Publications")]
         public IEnumerable<PublicationBaseDTO> GetPublicationsOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

@@ -74,7 +74,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose theses will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Theses </remarks>
         /// <returns> Theses associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/Theses")]
+        [Route("~/api/Employees/{employeeId:int}/Theses")]
         public IEnumerable<ThesisDTO> GetThesesOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

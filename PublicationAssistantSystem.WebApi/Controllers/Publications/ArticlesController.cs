@@ -79,7 +79,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose articles will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Articles </remarks>
         /// <returns> Articles associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/Articles")]
+        [Route("~/api/Employees/{employeeId:int}/Articles")]
         public IEnumerable<ArticleDTO> GetArticlesOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

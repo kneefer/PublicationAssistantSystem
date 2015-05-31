@@ -73,7 +73,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </summary>
         /// <param name="journalId"> Journal identificator. </param>
         /// <returns> Journal editions of journal. </returns>
-        [Route("~/api/Journals/{journalId}/JournalEditions")]
+        [Route("~/api/Journals/{journalId:int}/JournalEditions")]
         public IEnumerable<JournalEditionDTO> GetJournalEditionsInJournal(int journalId)
         {
             var results = _journalEditionRepository.Get(x => x.Journal.Id == journalId, null, y => y.Journal);

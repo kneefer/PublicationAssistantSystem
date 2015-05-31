@@ -74,7 +74,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="employeeId"> Identifier of employee whose datasets will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Datasets </remarks>
         /// <returns> Datasets associated with specified employee. </returns>
-        [Route("~/api/Employees/{employeeId}/Datasets")]
+        [Route("~/api/Employees/{employeeId:int}/Datasets")]
         public IEnumerable<DatasetDTO> GetDatasetsOfEmployee(int employeeId)
         {
             var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();

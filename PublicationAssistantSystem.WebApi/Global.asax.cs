@@ -39,7 +39,7 @@ namespace PublicationAssistantSystem.WebApi
             
             Mapper.CreateMap<Faculty, FacultyDTO>();
             Mapper.CreateMap<Institute, InstituteDTO>()
-                .ForMember(dto => dto.FacultyId, conf => conf.MapFrom(ol => ol.Faculty.Id));
+                .ForMember(dto => dto.FacultyId, conf => conf.MapFrom(ol =>ol.Faculty.Id));
             Mapper.CreateMap<Division, DivisionDTO>()
                 .ForMember(dto => dto.InstituteId, conf => conf.MapFrom(ol => ol.Institute.Id));
             
@@ -48,7 +48,7 @@ namespace PublicationAssistantSystem.WebApi
             #region Mappings for miscellaneous
 
             Mapper.CreateMap<Employee, EmployeeDTO>()
-                .ForMember(dto => dto.DivisionId, conf => conf.MapFrom(ol => ol.Division.Id));
+                .ForMember(dto => dto.DivisionId, conf => conf.MapFrom(ol =>ol.Division.Id));
 
             Mapper.CreateMap<Journal, JournalDTO>();
             Mapper.CreateMap<JournalEdition, JournalEditionDTO>()
@@ -71,31 +71,31 @@ namespace PublicationAssistantSystem.WebApi
                 .ForMember(ent => ent.Journal, conf => conf.Ignore());
             Mapper.CreateMap<Article, ArticleDTO>()
                 .ForMember(dto => dto.JournalEditionId, conf => conf.MapFrom(ol => ol.Journal.Id))
-                .ForMember(dto=>dto.Discriminator, conf => conf.MapFrom(ol => "Article"));
+                .ForMember(dto=>dto.Discriminator, conf => conf.UseValue("Article"));
 
             Mapper.CreateMap<BookDTO, Book>();
             Mapper.CreateMap<Book, BookDTO>()
-                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Book"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Book"));
 
             Mapper.CreateMap<Dataset, DatasetDTO>();
             Mapper.CreateMap<Dataset, DatasetDTO>()
-                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Dataset"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Dataset"));
 
             Mapper.CreateMap<ConferencePaperDTO, ConferencePaper>();
             Mapper.CreateMap<ConferencePaper, ConferencePaperDTO>()
-                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "ConferencePaper"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("ConferencePaper"));
 
             Mapper.CreateMap<PatentDTO, Patent>();
             Mapper.CreateMap<Patent, PatentDTO>()
-                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Patent"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Patent"));
 
             Mapper.CreateMap<TechnicalReportDTO, TechnicalReport>();
             Mapper.CreateMap<TechnicalReport, TechnicalReportDTO>()
-                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "TechnicalReport"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("TechnicalReport"));
 
             Mapper.CreateMap<ThesisDTO, Thesis>();
             Mapper.CreateMap<Thesis, ThesisDTO>()
-                .ForMember(dto => dto.Discriminator, conf => conf.MapFrom(ol => "Thesis"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Thesis"));
             
             #endregion Mappings for publications
         }

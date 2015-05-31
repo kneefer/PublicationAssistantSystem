@@ -25,9 +25,7 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
         {
             if (filter != null)
-            {
                 query = query.Where(filter);
-            }
 
             return orderBy != null
                 ? orderBy(query).ToList()
