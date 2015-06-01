@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
+using PublicationAssistantSystem.DAL.DTO.Misc;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
@@ -60,31 +63,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{bookId:int}")]
         public BookDTO GetBookById(int bookId)
         {
-            var result = _publicationBaseRepository.GetOfType<Book>(x => x.Id == bookId).FirstOrDefault();
-            if (result == null)
+            var book = _publicationBaseRepository.GetOfType<Book>(x => x.Id == bookId).SingleOrDefault();
+            if (book == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<BookDTO>(result);
+            var mapped = Mapper.Map<BookDTO>(book);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications that are books of employee with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose books will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Books </remarks>
         /// <returns> Books associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Books")]
-        public IEnumerable<BookDTO> GetBooksOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<BookDTO>))]
+        public HttpResponseMessage GetBooksOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
+            }
 
-            var results = employee.Publications.Where(x => x is Book);
-
-            var mapped = results.Select(Mapper.Map<BookDTO>).ToList();
-            return mapped;
+            var mapped = employee.Publications.OfType<Book>().Select(Mapper.Map<BookDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -96,24 +103,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The book to add. </param>
         /// <remarks> POST api/Publications/Books </remarks>
         /// <returns> The added book DTO. </returns>
         [HttpPost]
         [Route("")]
-        public BookDTO Add(BookDTO item)
+        [ResponseType(typeof(BookDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, BookDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var book = Mapper.Map<Book>(item);
+            var dbObject = Mapper.Map<Book>(item);
 
-            _publicationBaseRepository.Insert(book);
+            _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = book.Id;
-
-            return item;
+            var mapped = Mapper.Map<BookDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -122,23 +130,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Books </remarks>
         /// <returns> An updated book DTO. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
-        public BookDTO Update(BookDTO item)
+        [ResponseType(typeof(BookDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, BookDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var book = Mapper.Map<Book>(item);
+            var dbObject = Mapper.Map<Book>(item);
 
-            _publicationBaseRepository.Update(book);
+            _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<BookDTO>(book);
-            return mapped;
+            var mapped = Mapper.Map<BookDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

@@ -125,7 +125,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Patents </remarks>
         /// <returns> An updated patent DTO. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
         public PatentDTO Update(PatentDTO item)
         {

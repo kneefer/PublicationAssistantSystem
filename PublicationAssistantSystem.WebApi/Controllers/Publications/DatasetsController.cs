@@ -99,7 +99,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="item"> The dataset to add. </param>
         /// <remarks> POST api/Publications/Datasets </remarks>
         /// <returns> The added dataset DTO. </returns>
-        [HttpPost]
+        [HttpPut]
         [Route("")]
         public DatasetDTO Add(DatasetDTO item)
         {

@@ -125,7 +125,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/ConferencePapers </remarks>
         /// <returns> An updated conference paper DTO. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
         public ConferencePaperDTO Update(ConferencePaperDTO item)
         {

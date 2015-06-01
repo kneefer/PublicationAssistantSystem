@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
@@ -9,6 +10,7 @@ using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Misc;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
+using System.Web.Http.Description;
 
 namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
@@ -50,9 +52,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<ArticleDTO> GetAllArticles()
         {
-            var results = _publicationBaseRepository.GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
+            var articles = _publicationBaseRepository.GetOfType<Article>();
             
-            var mapped = results.Select(Mapper.Map<ArticleDTO>).ToList();
+            var mapped = articles.Select(Mapper.Map<ArticleDTO>).ToList();
             return mapped;
         }
 
@@ -65,38 +67,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{articleId:int}")]
         public ArticleDTO GetArticleById(int articleId)
         {
-            var result = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == articleId, null, x => x.Journal).FirstOrDefault();
-            if (result == null)
+            var article = _publicationBaseRepository.GetOfType<Article>(x => x.Id == articleId).FirstOrDefault();
+            if (article == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<ArticleDTO>(result);
+            var mapped = Mapper.Map<ArticleDTO>(article);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications that are articles of employee with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose articles will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Articles </remarks>
         /// <returns> Articles associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Articles")]
-        public IEnumerable<ArticleDTO> GetArticlesOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<ArticleDTO>))]
+        public HttpResponseMessage GetArticlesOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
-
-            var articlesId = employee.Publications.Where(x => x is Article).Select(y => y.Id);
-
-            var results = new List<Article>();
-            foreach (var id in articlesId)
             {
-                var tmp = id;
-                results.Add(_publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == tmp, null, x => x.Journal).SingleOrDefault());
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
             }
 
-            var mapped = results.Select(Mapper.Map<ArticleDTO>).ToList();
-            return mapped;
+            var mapped = employee.Publications.OfType<Article>().Select(Mapper.Map<ArticleDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -108,29 +107,32 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The article to add. </param>
         /// <remarks> POST api/Publications/Articles </remarks>
         /// <returns> The added article DTO. </returns>
         [HttpPost]
         [Route("")]
-        public ArticleDTO Add(ArticleDTO item)
+        [ResponseType(typeof(ArticleDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, ArticleDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var journal = _journalEditionRepository.Get(x => x.Id == item.JournalEditionId).FirstOrDefault();
-            if (journal == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<Article>(item);
 
-            var article = Mapper.Map<Article>(item);
-            article.Journal = journal;
+            if (_journalEditionRepository.GetByID(dbObject.JournalEditionId) == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found journal edition with id: {0}", dbObject.JournalEditionId));
+            }
 
-            _publicationBaseRepository.Insert(article);
+            _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = article.Id;
-
-            return item;
+            var mapped = Mapper.Map<ArticleDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -139,28 +141,32 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Articles </remarks>
         /// <returns> An updated article DTO. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
-        public ArticleDTO Update(ArticleDTO item)
+        [ResponseType(typeof(ArticleDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, ArticleDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var journal = _journalEditionRepository.Get(x => x.Id == item.JournalEditionId).FirstOrDefault();
-            if (journal == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<Article>(item);
 
-            var article = Mapper.Map<Article>(item);
-            article.Journal = journal;
+            if (_journalEditionRepository.GetByID(dbObject.JournalEditionId) == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found journal edition with id: {0}", dbObject.JournalEditionId));
+            }
 
-            _publicationBaseRepository.Update(article);
+            _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<ArticleDTO>(article);
-            return mapped;
+            var mapped = Mapper.Map<ArticleDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

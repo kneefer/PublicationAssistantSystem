@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
@@ -45,16 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<PublicationBaseDTO> GetAll()
         {
-            var resultAll = _publicationBaseRepository.Get();
-            var filledArticles = _publicationBaseRepository
-                .GetOfType<Article, JournalEdition>(null, null, x => x.Journal);
+            var publications = _publicationBaseRepository.Get();
 
-            foreach (var record in resultAll.OfType<Article>())
-            {
-                record.Journal   = filledArticles.Single(x => x.Id == record.Id).Journal;
-            }
-
-            var mapped = resultAll.Select(Mapper.Map<PublicationBaseDTO>);
+            var mapped = publications.Select(Mapper.Map<PublicationBaseDTO>).ToList();
             return mapped;
         }
 
@@ -65,47 +60,37 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// /// <remarks> GET: api/Publications/All/Id </remarks>
         /// <returns> Publication with specified id. </returns>
         [Route("{publicationId:int}")]
-        public PublicationBaseDTO GetPublication(int publicationId)
+        public PublicationBaseDTO GetPublicationById(int publicationId)
         {
-            var result = _publicationBaseRepository.Get(x => x.Id == publicationId).FirstOrDefault();
-            if (result == null)
+            var publication = _publicationBaseRepository.Get(x => x.Id == publicationId).FirstOrDefault();
+            if (publication == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var article = result as Article;
-            if (article != null)
-            {
-                var filledArticle = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == article.Id, null, x => x.Journal).SingleOrDefault();
-                if (filledArticle != null)
-                    article.Journal = filledArticle.Journal;
-            }
-
-            var mapped = Mapper.Map<PublicationBaseDTO>(result);
+            var mapped = Mapper.Map<PublicationBaseDTO>(publication);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications of employee with specified id.
         ///  </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Publications </remarks>
         /// <returns> Publications associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Publications")]
-        public IEnumerable<PublicationBaseDTO> GetPublicationsOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<PublicationBaseDTO>))]
+        public HttpResponseMessage GetPublicationsOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
-
-            foreach (var article in employee.Publications.OfType<Article>())
             {
-                var tmp = article;
-                var filledArticle = _publicationBaseRepository.GetOfType<Article, JournalEdition>(x => x.Id == tmp.Id, null, x => x.Journal).SingleOrDefault();
-                if (filledArticle != null)
-                    article.Journal = filledArticle.Journal;
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
             }
 
             var mapped = employee.Publications.Select(Mapper.Map<PublicationBaseDTO>).ToList();
-            return mapped;
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>

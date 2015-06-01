@@ -72,10 +72,8 @@ namespace PublicationAssistantSystem.WebApi
                 .Include<TechnicalReport, TechnicalReportDTO>()
                 .Include<Thesis, ThesisDTO>();
 
-            Mapper.CreateMap<ArticleDTO, Article>()
-                .ForMember(ent => ent.Journal, conf => conf.Ignore());
+            Mapper.CreateMap<ArticleDTO, Article>();
             Mapper.CreateMap<Article, ArticleDTO>()
-                .ForMember(dto => dto.JournalEditionId, conf => conf.MapFrom(ol => ol.Journal.Id))
                 .ForMember(dto=>dto.Discriminator, conf => conf.UseValue("Article"));
 
             Mapper.CreateMap<BookDTO, Book>();

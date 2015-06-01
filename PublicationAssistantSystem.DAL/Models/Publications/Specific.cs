@@ -1,5 +1,6 @@
 ﻿using PublicationAssistantSystem.DAL.Models.Misc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PublicationAssistantSystem.DAL.Models.Publications
 {
@@ -7,8 +8,11 @@ namespace PublicationAssistantSystem.DAL.Models.Publications
     {
         public int PageFrom { get; set; }
         public int PageTo { get; set; }
+
+        [ForeignKey("JournalEdition")]
+        public int JournalEditionId { get; set; }
         [Required]
-        public JournalEdition Journal { get; set; }
+        public JournalEdition JournalEdition { get; set; }
     }
 
     public class Book : PublicationBase

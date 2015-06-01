@@ -594,15 +594,16 @@
             <remarks> GET: api/Publications/Articles/Id </remarks>
             <returns> Article with specified id. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetArticlesOfEmployee(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.GetArticlesOfEmployee(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary> 
             Gets the publications that are articles of employee with specified id.
             </summary>
+            <param name="request">Http request</param>
             <param name="employeeId"> Identifier of employee whose articles will be returned. </param>
             /// <remarks> GET: api/Employees/Id/Articles </remarks>
             <returns> Articles associated with specified employee. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Add(PublicationAssistantSystem.DAL.DTO.Publications.ArticleDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Add(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Publications.ArticleDTO)">
             <summary>
             Adds the given article.
             </summary>
@@ -612,17 +613,19 @@
             <exception cref="T:System.Web.Http.HttpResponseException">
             Thrown when a HTTP Response error condition occurs. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The article to add. </param>
             <remarks> POST api/Publications/Articles </remarks>
             <returns> The added article DTO. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Update(PublicationAssistantSystem.DAL.DTO.Publications.ArticleDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.ArticlesController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Publications.ArticleDTO)">
             <summary>
             Updates the article.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <remarks> PATCH api/Publications/Articles </remarks>
             <returns> An updated article DTO. </returns>
@@ -1613,7 +1616,7 @@
             <remarks> GET: api/Publications/All </remarks>
             <returns> All publications. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublication(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationById(System.Int32)">
             <summary>
             Returns publication with given id.
             </summary>
@@ -1621,10 +1624,11 @@
             /// <remarks> GET: api/Publications/All/Id </remarks>
             <returns> Publication with specified id. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationsOfEmployee(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationsOfEmployee(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary> 
             Gets the publications of employee with specified id.
              </summary>
+            <param name="request">Http request</param>
             <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
             /// <remarks> GET: api/Employees/Id/Publications </remarks>
             <returns> Publications associated with specified employee. </returns>
