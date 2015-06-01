@@ -2,6 +2,7 @@
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PublicationAssistantSystem.DAL.Models.Misc
 {
@@ -15,6 +16,9 @@ namespace PublicationAssistantSystem.DAL.Models.Misc
 
         [Required]
         public string LastName { get; set; }
+
+        [ForeignKey("Division")]
+        public int DivisionId { get; set; }
         public Division Division { get; set; }
         public virtual ICollection<PublicationBase> Publications { get; set; }
     }

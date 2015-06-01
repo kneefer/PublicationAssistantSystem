@@ -47,6 +47,7 @@ namespace PublicationAssistantSystem.WebApi
             
             #region Mappings for miscellaneous
 
+            Mapper.CreateMap<EmployeeDTO, Employee>();
             Mapper.CreateMap<Employee, EmployeeDTO>()
                 .ForMember(dto => dto.DivisionId, conf => conf.MapFrom(ol =>ol.Division.Id));
 

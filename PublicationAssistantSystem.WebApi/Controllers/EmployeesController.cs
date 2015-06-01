@@ -127,25 +127,18 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (item == null)
                 throw new ArgumentNullException("item");
 
+            var dbObject = Mapper.Map<Employee>(item);
+
             var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
             if (division == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            dbObject.Division = division;
 
-            var employee = new Employee
-            {
-                Id            = item.Id,
-                AcademicTitle = item.AcademicTitle,
-                FirstName     = item.FirstName,
-                LastName      = item.LastName,
-                Division      = division,
-            };
-
-            _employeeRepository.Insert(employee);
+            _employeeRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = employee.Id;
-
-            return request.CreateResponse(HttpStatusCode.Created, item);
+            var mapped = Mapper.Map<EmployeeDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary> 
@@ -156,30 +149,24 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// </exception>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated employee. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
         public EmployeeDTO Update(EmployeeDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
+            var dbObject = Mapper.Map<Employee>(item);
+
             var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
             if (division == null)
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
-            
-            var employee = new Employee
-            {
-                Id            = item.Id,
-                AcademicTitle = item.AcademicTitle,
-                FirstName     = item.FirstName,
-                LastName      = item.LastName,
-                Division      = division,
-            };
+            dbObject.Division = division;
 
-            _employeeRepository.Update(employee);
+            _employeeRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<EmployeeDTO>(employee);
+            var mapped = Mapper.Map<EmployeeDTO>(dbObject);
             return mapped;
         }
 
