@@ -37,11 +37,14 @@ namespace PublicationAssistantSystem.WebApi
         {
             #region Mappings for organisation units
             
+            Mapper.CreateMap<FacultyDTO, Faculty>();
             Mapper.CreateMap<Faculty, FacultyDTO>();
-            Mapper.CreateMap<Institute, InstituteDTO>()
-                .ForMember(dto => dto.FacultyId, conf => conf.MapFrom(ol =>ol.Faculty.Id));
-            Mapper.CreateMap<Division, DivisionDTO>()
-                .ForMember(dto => dto.InstituteId, conf => conf.MapFrom(ol => ol.Institute.Id));
+
+            Mapper.CreateMap<InstituteDTO, Institute>();
+            Mapper.CreateMap<Institute, InstituteDTO>();
+
+            Mapper.CreateMap<DivisionDTO, Division>();
+            Mapper.CreateMap<Division, DivisionDTO>();
             
             #endregion Mappings for organisation units
             
@@ -50,9 +53,11 @@ namespace PublicationAssistantSystem.WebApi
             Mapper.CreateMap<EmployeeDTO, Employee>();
             Mapper.CreateMap<Employee, EmployeeDTO>();
 
+            Mapper.CreateMap<JournalDTO, Journal>();
             Mapper.CreateMap<Journal, JournalDTO>();
-            Mapper.CreateMap<JournalEdition, JournalEditionDTO>()
-                .ForMember(dto => dto.JournalId, conf => conf.MapFrom(ol => ol.Journal.Id));
+
+            Mapper.CreateMap<JournalEditionDTO, JournalEdition>();
+            Mapper.CreateMap<JournalEdition, JournalEditionDTO>();
 
             #endregion Mappings for miscellaneous
 

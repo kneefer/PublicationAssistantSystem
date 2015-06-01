@@ -43,9 +43,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("")]
         public IEnumerable<FacultyDTO> GetAll()
         {
-            var results = _facultyRepository.Get();
+            var faculties = _facultyRepository.Get();
             
-            var mapped = results.Select(Mapper.Map<FacultyDTO>).ToList();
+            var mapped = faculties.Select(Mapper.Map<FacultyDTO>).ToList();
             return mapped;
         }
 
@@ -57,11 +57,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{facultyId:int}")]
         public FacultyDTO GetFacultyById(int facultyId)
         {
-            var result = _facultyRepository.Get(f => f.Id == facultyId).SingleOrDefault();
-            if (result == null)
+            var faculty = _facultyRepository.GetByID(facultyId);
+            if (faculty == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<FacultyDTO>(result);
+            var mapped = Mapper.Map<FacultyDTO>(faculty);
             return mapped;
         }
 
@@ -82,19 +82,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var faculty = new Faculty
-            {
-                Id           = item.Id,
-                Name         = item.Name,
-                Abbreviation = item.Name,
-            };
+            var dbObject = Mapper.Map<Faculty>(item);
 
-            _facultyRepository.Insert(faculty);
+            _facultyRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = faculty.Id;
-
-            return request.CreateResponse(HttpStatusCode.Created, item);
+            var mapped = Mapper.Map<FacultyDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -103,27 +97,24 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException"> 
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated Faculty. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
-        public FacultyDTO Update(FacultyDTO item)
+        [ResponseType(typeof(FacultyDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, FacultyDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var faculty = new Faculty
-            {
-                Id           = item.Id,
-                Name         = item.Name,
-                Abbreviation = item.Abbreviation,
-            };
+            var dbObject = Mapper.Map<Faculty>(item);
 
-            _facultyRepository.Update(faculty);
+            _facultyRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<FacultyDTO>(faculty);
-            return mapped;
+            var mapped = Mapper.Map<FacultyDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

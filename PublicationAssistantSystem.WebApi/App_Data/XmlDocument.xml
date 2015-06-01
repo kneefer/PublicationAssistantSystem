@@ -1191,10 +1191,11 @@
             <remarks> GET: api/Divisions/Id </remarks>
             <returns> Division with specified id. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivisionsInInstitute(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.GetDivisionsInInstitute(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary>
             Gets the divisions of institute with specified id.
             </summary>
+            <param name="request">Http response</param>
             <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
             <remarks>GET api/Institutes/Id/Divisions </remarks>
             <returns> Divisions associated with specified institute </returns>
@@ -1214,13 +1215,14 @@
             <remarks> POST api/Divisions </remarks>
             <returns> The added division DTO. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.DivisionDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.DivisionsController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.OrganisationUnits.DivisionDTO)">
             <summary>
             Updates the division.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http response</param>
             <param name="item"> The item with updated content. </param>
             <remarks> PATCH api/Divisions </remarks>
             <returns> An updated division DTO. </returns>
@@ -1262,10 +1264,11 @@
             <param name="employeeId"> Employee id. </param>
             <returns> Employee with specified id. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInDivision(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInDivision(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary> 
             Gets the employees of division with specified id.
             </summary>
+            <param name="request">Http request</param>
             <param name="divisionId"> Identifier of division whose employees will be returned. </param>
             <returns> Employees associated with specified division. </returns>
         </member>
@@ -1347,13 +1350,14 @@
             <param name="item"> The faculty to add. </param>
             <returns> The added faculty. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.FacultyDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.FacultiesController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.OrganisationUnits.FacultyDTO)">
             <summary>
             Updates the faculty.
             </summary>
             <exception cref="T:System.ArgumentNullException"> 
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <returns> An updated Faculty. </returns>
         </member>
@@ -1403,10 +1407,11 @@
             <param name="instituteId"> Institude id. </param>
             <returns> Institute with specified id. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetInstitutesInFaculty(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.GetInstitutesInFaculty(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary>
             Gets the institutes of faculty with specified id.
             </summary>
+            <param name="request">Http request</param>
             <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
             <returns> Institutes associated with specified faculty. </returns>
         </member>
@@ -1424,13 +1429,14 @@
             <param name="item"> The institute to add. </param>
             <returns> The added institute. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Update(PublicationAssistantSystem.DAL.DTO.OrganisationUnits.InstituteDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.InstitutesController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.OrganisationUnits.InstituteDTO)">
             <summary>
             Updates the institute.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <returns> An updated institute. </returns>
         </member>
@@ -1462,7 +1468,7 @@
             </summary>
             <returns> All journal editions. </returns>        
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournalById(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.GetJournalEditionById(System.Int32)">
             <summary>
             Returns journal edition with given id.
             </summary>
@@ -1487,13 +1493,14 @@
             <param name="item"> The journal edition to add. </param>
             <returns> Added journal edition. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalEditionsController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Misc.JournalEditionDTO)">
             <summary>
             Updates the journal edition.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <returns> An updated journal edition. </returns>
         </member>
@@ -1566,13 +1573,14 @@
             <param name="item"> The journal to add. </param>
             <returns> The added journal. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Update(PublicationAssistantSystem.DAL.DTO.Misc.JournalDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.JournalsController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Misc.JournalDTO)">
             <summary>
             Updates the journal.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <returns> An updated journal. </returns>
         </member>

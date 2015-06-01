@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using PublicationAssistantSystem.DAL.Models.Misc;
 
 namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
@@ -11,6 +12,9 @@ namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+
+        [ForeignKey("Institute")]
+        public int InstituteId { get; set; }
 
         public Institute Institute { get; set; }
 

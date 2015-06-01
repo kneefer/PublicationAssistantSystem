@@ -46,9 +46,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("")]        
         public IEnumerable<JournalEditionDTO> GetAll()
         {
-            var results = _journalEditionRepository.Get();
+            var journalEditions = _journalEditionRepository.Get();
 
-            var mapped = results.Select(Mapper.Map<JournalEditionDTO>).ToList();
+            var mapped = journalEditions.Select(Mapper.Map<JournalEditionDTO>).ToList();
             return mapped;
         }
 
@@ -58,9 +58,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="journalEditionId"> Journal edition id. </param>
         /// <returns> JournalEdition DTO with specified id. </returns>
         [Route("{journalEditionId:int}")]
-        public JournalEditionDTO GetJournalById(int journalEditionId)
+        public JournalEditionDTO GetJournalEditionById(int journalEditionId)
         {
-            var result = _journalEditionRepository.Get(j => j.Id == journalEditionId, null, j => j.Journal).SingleOrDefault();
+            var result = _journalEditionRepository.GetByID(journalEditionId);
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -76,9 +76,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("~/api/Journals/{journalId:int}/JournalEditions")]
         public IEnumerable<JournalEditionDTO> GetJournalEditionsInJournal(int journalId)
         {
-            var results = _journalEditionRepository.Get(x => x.Journal.Id == journalId, null, y => y.Journal);
+            var journalEditions = _journalEditionRepository.Get(x => x.JournalId == journalId);
             
-            var mapped = results.Select(Mapper.Map<JournalEditionDTO>).ToList();
+            var mapped = journalEditions.Select(Mapper.Map<JournalEditionDTO>).ToList();
             return mapped;
         }
 
@@ -99,24 +99,20 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var journal = _journalRepository.Get(x => x.Id == item.JournalId).FirstOrDefault();
-            if (journal == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<JournalEdition>(item);
 
-            var journalEdition = new JournalEdition
+            if (_journalRepository.GetByID(dbObject.JournalId) == null)
             {
-                Id           = item.Id,
-                PublishDate  = item.PublishDate,
-                VolumeNumber = item.VolumeNumber,
-                Journal      = journal,
-            };
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found journal with id: {0}", dbObject.JournalId));
+            }
 
-            _journalEditionRepository.Insert(journalEdition);
+            _journalEditionRepository.Insert(dbObject);
             _db.SaveChanges();
-            
-            item.Id = journal.Id;
-            
-            return request.CreateResponse(HttpStatusCode.Created, item);
+
+            var mapped = Mapper.Map<JournalEditionDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -125,31 +121,31 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated journal edition. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
-        public JournalEditionDTO Update(JournalEditionDTO item)
+        [ResponseType(typeof(JournalEditionDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, JournalEditionDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var journal = _journalRepository.Get(x => x.Id == item.JournalId).FirstOrDefault();
-            if (journal == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<JournalEdition>(item);
 
-            var journalEdition = new JournalEdition
+            if (_journalRepository.GetByID(dbObject.JournalId) == null)
             {
-                PublishDate = item.PublishDate,
-                VolumeNumber = item.VolumeNumber,
-                Journal = journal,
-            };
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found journal with id: {0}", dbObject.JournalId));
+            }
 
-            _journalEditionRepository.Update(journalEdition);
+            _journalEditionRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<JournalEditionDTO>(journalEdition);
-            return mapped;
+            var mapped = Mapper.Map<JournalEditionDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

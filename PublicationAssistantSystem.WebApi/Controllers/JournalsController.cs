@@ -42,9 +42,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("")]  
         public IEnumerable<JournalDTO> GetAll()
         {
-            var results = _journalRepository.Get();
+            var journals = _journalRepository.Get();
             
-            var mapped = results.Select(Mapper.Map<JournalDTO>).ToList();
+            var mapped = journals.Select(Mapper.Map<JournalDTO>).ToList();
             return mapped;
         }
 
@@ -56,12 +56,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{journalId:int}")]
         public JournalDTO GetJournalById(int journalId)
         {
-            var result = _journalRepository.Get(x => x.Id == journalId).SingleOrDefault();
-            if (result == null)
+            var journal = _journalRepository.GetByID(journalId);
+            if (journal == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<JournalDTO>(result);
-
+            var mapped = Mapper.Map<JournalDTO>(journal);
             return mapped;
         }
 
@@ -73,11 +72,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("ISSN/{issn}")]
         public JournalDTO GetByISSN(string issn)
         {
-            var result = _journalRepository.Get(x => x.ISSN.Equals(issn)).SingleOrDefault();
-            if (result == null)
+            var journal = _journalRepository.Get(x => x.ISSN.Equals(issn, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+            if (journal == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<JournalDTO>(result);
+            var mapped = Mapper.Map<JournalDTO>(journal);
             return mapped;
         }
 
@@ -89,11 +88,11 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("eISSN/{eIssn}")]
         public JournalDTO GetByEISSN(string eIssn)
         {
-            var result = _journalRepository.Get(x => x.eISSN != null && x.eISSN.Equals(eIssn)).SingleOrDefault();
-            if (result == null)
+            var journal = _journalRepository.Get(x => x.eISSN != null && x.eISSN.Equals(eIssn, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+            if (journal == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             
-            var mapped = Mapper.Map<JournalDTO>(result);
+            var mapped = Mapper.Map<JournalDTO>(journal);
             return mapped;
         }
 
@@ -105,9 +104,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("Like/{titlePart}")]
         public IEnumerable<JournalDTO> GetWithTitleLike(string titlePart)
         {
-            var results = _journalRepository.Get(x => x.Title.Contains(titlePart));
+            var journal = _journalRepository.Get(x => x.Title.Contains(titlePart));
 
-            var mapped = results.Select(Mapper.Map<JournalDTO>).ToList();
+            var mapped = journal.Select(Mapper.Map<JournalDTO>).ToList();
             return mapped;
         }
 
@@ -131,17 +130,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var journal = new Journal
-            {
-                Title = item.Title,
-                ISSN  = item.ISSN,
-                eISSN = item.eISSN,
-            };
+            var dbObject = Mapper.Map<Journal>(item);
 
-            _journalRepository.Insert(journal);
+            _journalRepository.Insert(dbObject);
             _db.SaveChanges();
-            
-            var mapped = Mapper.Map<JournalDTO>(journal);
+
+            var mapped = Mapper.Map<JournalDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
@@ -151,30 +145,24 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated journal. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
-        public JournalDTO Update(JournalDTO item)
+        [ResponseType(typeof(JournalDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, JournalDTO item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("item");
-            }
 
-            var journal = new Journal
-            {
-                Id    = item.Id,
-                Title = item.Title,
-                ISSN  = item.ISSN,
-                eISSN = item.eISSN,
-            };
+            var dbObject = Mapper.Map<Journal>(item);
 
-            _journalRepository.Update(journal);
+            _journalRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<JournalDTO>(journal);
-            return mapped;
+            var mapped = Mapper.Map<JournalDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

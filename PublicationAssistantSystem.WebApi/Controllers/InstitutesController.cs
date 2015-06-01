@@ -47,9 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("")]    
         public IEnumerable<InstituteDTO> GetAll()
         {
-            var results =_instituteRepository.Get(null, null, i => i.Faculty);
+            var institutes =_instituteRepository.Get();
             
-            var mapped = results.Select(Mapper.Map<InstituteDTO>).ToList();
+            var mapped = institutes.Select(Mapper.Map<InstituteDTO>).ToList();
             return mapped;
         }
 
@@ -61,26 +61,34 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{instituteId:int}")]
         public InstituteDTO GetInstituteById(int instituteId)
         {
-            var result = _instituteRepository.Get(i => i.Id == instituteId, null, i => i.Faculty).SingleOrDefault();
-            if(result == null)
+            var institute = _instituteRepository.GetByID(instituteId);
+            if (institute == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<InstituteDTO>(result);
+            var mapped = Mapper.Map<InstituteDTO>(institute);
             return mapped;
         }
 
         /// <summary>
         /// Gets the institutes of faculty with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="facultyId"> Identifier of faculty whose institutes will be returned. </param>
         /// <returns> Institutes associated with specified faculty. </returns>
         [Route("~/api/Faculties/{facultyId:int}/Institutes")]
-        public IEnumerable<InstituteDTO> GetInstitutesInFaculty(int facultyId)
+        [ResponseType(typeof(IEnumerable<InstituteDTO>))]
+        public HttpResponseMessage GetInstitutesInFaculty(HttpRequestMessage request, int facultyId)
         {
-            var results = _instituteRepository.Get(x => x.Faculty.Id == facultyId, null, y => y.Faculty);
-            
-            var mapped = results.Select(Mapper.Map<InstituteDTO>).ToList();
-            return mapped;
+            var faculty = _facultyRepository.GetByID(facultyId);
+            if (faculty == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found faculty with id:{0}", facultyId));
+            }
+
+            var mapped = faculty.Institutes.Select(Mapper.Map<InstituteDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -96,30 +104,27 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The institute to add. </param>
         /// <returns> The added institute. </returns>
         [Route("")]
-        [HttpPost]
+        [HttpPut]
         [ResponseType(typeof(InstituteDTO))]
         public HttpResponseMessage Add(HttpRequestMessage request, InstituteDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var faculty = _facultyRepository.Get(x => x.Id == item.FacultyId).FirstOrDefault();
-            if (faculty == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<Institute>(item);
 
-            var institute = new Institute
+            if (_facultyRepository.GetByID(dbObject.FacultyId) == null)
             {
-                Id      = item.Id,
-                Name    = item.Name,
-                Faculty = faculty
-            };
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found faculty with id: {0}", dbObject.FacultyId));
+            }
 
-            _instituteRepository.Insert(institute);
+            _instituteRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = institute.Id;
-
-            return request.CreateResponse(HttpStatusCode.Created, item);
+            var mapped = Mapper.Map<InstituteDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -128,31 +133,31 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated institute. </returns>
         [Route("")]
-        [HttpPatch]
-        public InstituteDTO Update(InstituteDTO item)
+        [HttpPut]
+        [ResponseType(typeof(InstituteDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, InstituteDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var faculty = _facultyRepository.Get(x => x.Id == item.FacultyId).FirstOrDefault();
-            if (faculty == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<Institute>(item);
 
-            var institute = new Institute
+            if (_facultyRepository.GetByID(dbObject.FacultyId) == null)
             {
-                Id      = item.Id,
-                Name    = item.Name,
-                Faculty = faculty
-            };
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found faculty with id: {0}", dbObject.FacultyId));
+            }
 
-            _instituteRepository.Update(institute);
+            _instituteRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<InstituteDTO>(institute);
-            return mapped;
+            var mapped = Mapper.Map<InstituteDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

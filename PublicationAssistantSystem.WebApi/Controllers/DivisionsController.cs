@@ -47,9 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("")]     
         public IEnumerable<DivisionDTO> GetAll()
         {
-            var results = _divisionRepository.Get(null, null, x => x.Institute);
+            var divisions = _divisionRepository.Get();
 
-            var mapped = results.Select(Mapper.Map<DivisionDTO>).ToList();
+            var mapped = divisions.Select(Mapper.Map<DivisionDTO>).ToList();
             return mapped;
         }
 
@@ -62,27 +62,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{divisonId:int}")]
         public DivisionDTO GetDivisionById(int divisonId)
         {
-            var result = _divisionRepository.Get(d => d.Id == divisonId, null, d => d.Institute).SingleOrDefault();
-            if (result == null)
+            var division = _divisionRepository.GetByID(divisonId);
+            if (division == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<DivisionDTO>(result);
+            var mapped = Mapper.Map<DivisionDTO>(division);
             return mapped;
         }
 
         /// <summary>
         /// Gets the divisions of institute with specified id.
         /// </summary>
+        /// <param name="request">Http response</param>
         /// <param name="instituteId"> Identifier of institute whose divisions will be returned. </param>
         /// <remarks>GET api/Institutes/Id/Divisions </remarks>
         /// <returns> Divisions associated with specified institute </returns>
         [Route("~/api/Institutes/{instituteId:int}/Divisions")]
-        public IEnumerable<DivisionDTO> GetDivisionsInInstitute(int instituteId)
+        [ResponseType(typeof(IEnumerable<DivisionDTO>))]
+        public HttpResponseMessage GetDivisionsInInstitute(HttpRequestMessage request, int instituteId)
         {
-            var results = _divisionRepository.Get(x => x.Institute.Id == instituteId, null, y => y.Institute);
+            var institute = _instituteRepository.GetByID(instituteId);
+            if (institute == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found institute with id:{0}", instituteId));
+            }
 
-            var mapped = results.Select(Mapper.Map<DivisionDTO>).ToList();
-            return mapped;
+            var mapped = institute.Divisions.Select(Mapper.Map<DivisionDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -106,23 +114,20 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var institute = _instituteRepository.Get(x => x.Id == item.InstituteId).FirstOrDefault();
-            if (institute == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<Division>(item);
 
-            var division = new Division
+            if (_instituteRepository.GetByID(dbObject.InstituteId) == null)
             {
-                Id        = item.Id,
-                Name      = item.Name,
-                Institute = institute
-            };
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found institute with id: {0}", dbObject.InstituteId));
+            }
 
-            _divisionRepository.Insert(division);
+            _divisionRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = division.Id;
-
-            return request.CreateResponse(HttpStatusCode.Created, item);
+            var mapped = Mapper.Map<DivisionDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -131,32 +136,32 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http response</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Divisions </remarks>
         /// <returns> An updated division DTO. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
-        public DivisionDTO Update(DivisionDTO item)
+        [ResponseType(typeof(DivisionDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, DivisionDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var institute = _instituteRepository.Get(x => x.Id == item.InstituteId).FirstOrDefault();
-            if (institute == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            var dbObject = Mapper.Map<Division>(item);
 
-            var division = new Division
+            if (_instituteRepository.GetByID(dbObject.InstituteId) == null)
             {
-                Id        = item.Id,
-                Name      = item.Name,
-                Institute = institute,
-            };
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found institute with id: {0}", dbObject.InstituteId));
+            }
 
-            _divisionRepository.Update(division);
+            _divisionRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<DivisionDTO>(division);
-            return mapped;
+            var mapped = Mapper.Map<DivisionDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

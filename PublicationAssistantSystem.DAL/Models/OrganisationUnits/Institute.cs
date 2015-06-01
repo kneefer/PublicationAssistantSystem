@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
@@ -12,6 +13,8 @@ namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
         [MaxLength(100)]
         public string Name { get; set; }
 
+        [ForeignKey("Faculty")]
+        public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
 
         public virtual ICollection<Division> Divisions { get; set; }
