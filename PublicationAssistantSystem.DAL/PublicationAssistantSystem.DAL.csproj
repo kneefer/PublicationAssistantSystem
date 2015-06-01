@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201506011744146_Added DivisionId parameter to Employee DAO.Designer.cs">
       <DependentUpon>201506011744146_Added DivisionId parameter to Employee DAO.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506012005525_Refactored DAO and added navigation ID properties.cs" />
+    <Compile Include="Migrations\201506012005525_Refactored DAO and added navigation ID properties.Designer.cs">
+      <DependentUpon>201506012005525_Refactored DAO and added navigation ID properties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
@@ -132,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506011744146_Added DivisionId parameter to Employee DAO.resx">
       <DependentUpon>201506011744146_Added DivisionId parameter to Employee DAO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506012005525_Refactored DAO and added navigation ID properties.resx">
+      <DependentUpon>201506012005525_Refactored DAO and added navigation ID properties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
