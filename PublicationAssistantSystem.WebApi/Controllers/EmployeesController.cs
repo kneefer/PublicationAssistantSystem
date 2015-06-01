@@ -50,7 +50,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("")]
         public IEnumerable<EmployeeDTO> GetAll()
         {
-            var results = _employeeRepository.Get(null, null, x => x.Division);
+            var results = _employeeRepository.Get();
 
             var mapped = results.Select(Mapper.Map<EmployeeDTO>).ToList();
             return mapped;
@@ -64,8 +64,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{employeeId:int}")]
         public EmployeeDTO GetEmployeeById(int employeeId)
         {
-            var result = _employeeRepository.Get(e => e.Id == employeeId).SingleOrDefault();
-            if(result == null)
+            var result = _employeeRepository.GetByID(employeeId);
+            if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             var mapped = Mapper.Map<EmployeeDTO>(result);
@@ -89,22 +89,23 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <summary> 
         /// Gets the employees of publication with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="publicationId"> Identifier of division whose employees will be returned. </param>
         /// <returns> Employees associated with specified division. </returns>
         [Route("~/api/Publications/{publicationId}/Employees")]
-        public IEnumerable<EmployeeDTO> GetEmployeesInPublication(int publicationId)
+        [ResponseType(typeof(IEnumerable<EmployeeDTO>))]
+        public HttpResponseMessage GetEmployeesInPublication(HttpRequestMessage request, int publicationId)
         {
-            var publication = _publicationRepository.Get(x => x.Id == publicationId, null, x => x.Employees).SingleOrDefault();
-            if (publication == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
-
-            var employees = publication.Employees;
-
-            foreach (var employee in employees)
-                employee.Division = _employeeRepository.Get(x => x.Id == employee.Id, null, x => x.Division).SingleOrDefault().Division;
+            var publication = _publicationRepository.Get(x => x.Id == publicationId).SingleOrDefault();
+            if(publication == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found publication with id:{0}", publicationId));
+            }
 
             var mapped = publication.Employees.Select(Mapper.Map<EmployeeDTO>).ToList();
-            return mapped;
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -129,10 +130,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Employee>(item);
 
-            var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
-            if (division == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
-            dbObject.Division = division;
+            if (_divisionRepository.Get(x => x.Id == dbObject.DivisionId).SingleOrDefault() == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found division with id: {0}", dbObject.DivisionId));
+            }
 
             _employeeRepository.Insert(dbObject);
             _db.SaveChanges();
@@ -147,27 +150,31 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <returns> An updated employee. </returns>
         [HttpPut]
         [Route("")]
-        public EmployeeDTO Update(EmployeeDTO item)
+        [ResponseType(typeof(EmployeeDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, EmployeeDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
             var dbObject = Mapper.Map<Employee>(item);
 
-            var division = _divisionRepository.Get(x => x.Id == item.DivisionId).FirstOrDefault();
-            if (division == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
-            dbObject.Division = division;
+            if (_divisionRepository.Get(x => x.Id == dbObject.DivisionId).SingleOrDefault() == null)
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.PreconditionFailed,
+                    string.Format("Not found division with id: {0}", dbObject.DivisionId));
+            }
 
             _employeeRepository.Update(dbObject);
             _db.SaveChanges();
 
             var mapped = Mapper.Map<EmployeeDTO>(dbObject);
-            return mapped;
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary> 

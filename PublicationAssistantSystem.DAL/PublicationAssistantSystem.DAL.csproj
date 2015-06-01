@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201505252147469_ModelCleanup.Designer.cs">
       <DependentUpon>201505252147469_ModelCleanup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506011744146_Added DivisionId parameter to Employee DAO.cs" />
+    <Compile Include="Migrations\201506011744146_Added DivisionId parameter to Employee DAO.Designer.cs">
+      <DependentUpon>201506011744146_Added DivisionId parameter to Employee DAO.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
@@ -125,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505252147469_ModelCleanup.resx">
       <DependentUpon>201505252147469_ModelCleanup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506011744146_Added DivisionId parameter to Employee DAO.resx">
+      <DependentUpon>201506011744146_Added DivisionId parameter to Employee DAO.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

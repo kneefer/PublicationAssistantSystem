@@ -1269,10 +1269,11 @@
             <param name="divisionId"> Identifier of division whose employees will be returned. </param>
             <returns> Employees associated with specified division. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInPublication(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.GetEmployeesInPublication(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary> 
             Gets the employees of publication with specified id.
             </summary>
+            <param name="request">Http request</param>
             <param name="publicationId"> Identifier of division whose employees will be returned. </param>
             <returns> Employees associated with specified division. </returns>
         </member>
@@ -1290,13 +1291,14 @@
             <param name="item"> The employee to add. </param>
             <returns> The added employee. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Update(PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.EmployeesController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Misc.EmployeeDTO)">
             <summary> 
             Updates the employee.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <returns> An updated employee. </returns>
         </member>
