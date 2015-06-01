@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
@@ -45,9 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<DatasetDTO> GetAllDatasets()
         {
-            var results = _publicationBaseRepository.GetOfType<Dataset>();
+            var datasets = _publicationBaseRepository.GetOfType<Dataset>();
 
-            var mapped = results.Select(Mapper.Map<DatasetDTO>).ToList();
+            var mapped = datasets.Select(Mapper.Map<DatasetDTO>).ToList();
             return mapped;
         }
 
@@ -60,31 +62,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{datasetId:int}")]
         public DatasetDTO GetDatasetById(int datasetId)
         {
-            var result = _publicationBaseRepository.GetOfType<Dataset>(x => x.Id == datasetId).FirstOrDefault();
-            if (result == null)
+            var dataset = _publicationBaseRepository.GetOfType<Dataset>(x => x.Id == datasetId).SingleOrDefault();
+            if (dataset == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<DatasetDTO>(result);
+            var mapped = Mapper.Map<DatasetDTO>(dataset);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications that are datasets of employee with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose datasets will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Datasets </remarks>
         /// <returns> Datasets associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Datasets")]
-        public IEnumerable<DatasetDTO> GetDatasetsOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<DatasetDTO>))]
+        public HttpResponseMessage GetDatasetsOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
+            }
 
-            var results = employee.Publications.Where(x => x is Dataset);
-
-            var mapped = results.Select(Mapper.Map<DatasetDTO>).ToList();
-            return mapped;
+            var mapped = employee.Publications.OfType<Dataset>().Select(Mapper.Map<DatasetDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -96,24 +102,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The dataset to add. </param>
         /// <remarks> POST api/Publications/Datasets </remarks>
         /// <returns> The added dataset DTO. </returns>
         [HttpPut]
         [Route("")]
-        public DatasetDTO Add(DatasetDTO item)
+        [ResponseType(typeof(DatasetDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, DatasetDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var dataset = Mapper.Map<Dataset>(item);
+            var dbObject = Mapper.Map<Dataset>(item);
 
-            _publicationBaseRepository.Insert(dataset);
+            _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = dataset.Id;
-
-            return item;
+            var mapped = Mapper.Map<DatasetDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -122,23 +129,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Datasets </remarks>
         /// <returns> An updated dataset DTO. </returns>
         [HttpPatch]
         [Route("")]
-        public DatasetDTO Update(DatasetDTO item)
+        [ResponseType(typeof(DatasetDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, DatasetDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var dataset = Mapper.Map<Dataset>(item);
+            var dbObject = Mapper.Map<Dataset>(item);
 
-            _publicationBaseRepository.Update(dataset);
+            _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<DatasetDTO>(dataset);
-            return mapped;
+            var mapped = Mapper.Map<DatasetDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

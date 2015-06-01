@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
@@ -45,9 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<TechnicalReportDTO> GetAllTechnicalReports()
         {
-            var results = _publicationBaseRepository.GetOfType<TechnicalReport>();
+            var technicalReports = _publicationBaseRepository.GetOfType<TechnicalReport>();
 
-            var mapped = results.Select(Mapper.Map<TechnicalReportDTO>).ToList();
+            var mapped = technicalReports.Select(Mapper.Map<TechnicalReportDTO>).ToList();
             return mapped;
         }
 
@@ -60,31 +62,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{technicalReportId:int}")]
         public TechnicalReportDTO GetTechnicalReportById(int technicalReportId)
         {
-            var result = _publicationBaseRepository.GetOfType<TechnicalReport>(x => x.Id == technicalReportId).FirstOrDefault();
-            if (result == null)
+            var technicalReport = _publicationBaseRepository.GetOfType<TechnicalReport>(x => x.Id == technicalReportId).SingleOrDefault();
+            if (technicalReport == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<TechnicalReportDTO>(result);
+            var mapped = Mapper.Map<TechnicalReportDTO>(technicalReport);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications that are technical reports of employee with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose technical reports will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/TechnicalReports </remarks>
         /// <returns> Technical reports associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/TechnicalReports")]
-        public IEnumerable<TechnicalReportDTO> GetBooksOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<TechnicalReportDTO>))]
+        public HttpResponseMessage GetTechnicalReportsOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
+            }
 
-            var results = employee.Publications.Where(x => x is TechnicalReport);
-
-            var mapped = results.Select(Mapper.Map<TechnicalReportDTO>).ToList();
-            return mapped;
+            var mapped = employee.Publications.OfType<TechnicalReport>().Select(Mapper.Map<TechnicalReportDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -96,24 +102,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The technical report to add. </param>
         /// <remarks> POST api/Publications/TechnicalReports </remarks>
         /// <returns> The added technical report DTO. </returns>
         [HttpPost]
         [Route("")]
-        public TechnicalReportDTO Add(TechnicalReportDTO item)
+        [ResponseType(typeof(TechnicalReportDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, TechnicalReportDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var technicalReport = Mapper.Map<TechnicalReport>(item);
+            var dbObject = Mapper.Map<TechnicalReport>(item);
 
-            _publicationBaseRepository.Insert(technicalReport);
+            _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = technicalReport.Id;
-
-            return item;
+            var mapped = Mapper.Map<TechnicalReportDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -122,23 +129,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/TechnicalReports </remarks>
         /// <returns> An updated technical report DTO. </returns>
         [HttpPut]
         [Route("")]
-        public TechnicalReportDTO Update(TechnicalReportDTO item)
+        [ResponseType(typeof(TechnicalReportDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, TechnicalReportDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var technicalReport = Mapper.Map<TechnicalReport>(item);
+            var dbObject = Mapper.Map<TechnicalReport>(item);
 
-            _publicationBaseRepository.Update(technicalReport);
+            _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<TechnicalReportDTO>(technicalReport);
-            return mapped;
+            var mapped = Mapper.Map<TechnicalReportDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

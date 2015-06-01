@@ -48,9 +48,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<BookDTO> GetAllBooks()
         {
-            var results = _publicationBaseRepository.GetOfType<Book>();
+            var books = _publicationBaseRepository.GetOfType<Book>();
 
-            var mapped = results.Select(Mapper.Map<BookDTO>).ToList();
+            var mapped = books.Select(Mapper.Map<BookDTO>).ToList();
             return mapped;
         }
 

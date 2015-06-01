@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
@@ -45,9 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<ThesisDTO> GetAllTheses()
         {
-            var results = _publicationBaseRepository.GetOfType<Thesis>();
+            var theses = _publicationBaseRepository.GetOfType<Thesis>();
 
-            var mapped = results.Select(Mapper.Map<ThesisDTO>).ToList();
+            var mapped = theses.Select(Mapper.Map<ThesisDTO>).ToList();
             return mapped;
         }
 
@@ -60,31 +62,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{thesisId:int}")]
         public ThesisDTO GetThesisById(int thesisId)
         {
-            var result = _publicationBaseRepository.GetOfType<Thesis>(x => x.Id == thesisId).FirstOrDefault();
-            if (result == null)
+            var thesis = _publicationBaseRepository.GetOfType<Thesis>(x => x.Id == thesisId).SingleOrDefault();
+            if (thesis == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<ThesisDTO>(result);
+            var mapped = Mapper.Map<ThesisDTO>(thesis);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications that are theses of employee with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose theses will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Theses </remarks>
         /// <returns> Theses associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Theses")]
-        public IEnumerable<ThesisDTO> GetThesesOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<ThesisDTO>))]
+        public HttpResponseMessage GetThesesOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
+            }
 
-            var results = employee.Publications.Where(x => x is Thesis);
-
-            var mapped = results.Select(Mapper.Map<ThesisDTO>).ToList();
-            return mapped;
+            var mapped = employee.Publications.OfType<Thesis>().Select(Mapper.Map<ThesisDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -96,24 +102,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The thesis to add. </param>
         /// <remarks> POST api/Publications/Theses </remarks>
         /// <returns> The added thesis DTO. </returns>
         [HttpPost]
         [Route("")]
-        public ThesisDTO Add(ThesisDTO item)
+        [ResponseType(typeof(ThesisDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, ThesisDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var thesis = Mapper.Map<Thesis>(item);
+            var dbObject = Mapper.Map<Thesis>(item);
 
-            _publicationBaseRepository.Insert(thesis);
+            _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = thesis.Id;
-
-            return item;
+            var mapped = Mapper.Map<ThesisDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -122,23 +129,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Theses </remarks>
         /// <returns> An updated thesis DTO. </returns>
         [HttpPut]
         [Route("")]
-        public ThesisDTO Update(ThesisDTO item)
+        [ResponseType(typeof(ThesisDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, ThesisDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var thesis = Mapper.Map<Thesis>(item);
+            var dbObject = Mapper.Map<Thesis>(item);
 
-            _publicationBaseRepository.Update(thesis);
+            _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<ThesisDTO>(thesis);
-            return mapped;
+            var mapped = Mapper.Map<ThesisDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>

@@ -668,15 +668,16 @@
             <remarks> GET: api/Publications/Books/Id </remarks>
             <returns> Book with specified id. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetBooksOfEmployee(System.Int32)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.GetBooksOfEmployee(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary> 
             Gets the publications that are books of employee with specified id.
             </summary>
+            <param name="request">Http request</param>
             <param name="employeeId"> Identifier of employee whose books will be returned. </param>
             /// <remarks> GET: api/Employees/Id/Books </remarks>
             <returns> Books associated with specified employee. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Add(PublicationAssistantSystem.DAL.DTO.Publications.BookDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Add(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Publications.BookDTO)">
             <summary>
             Adds the given book.
             </summary>
@@ -686,17 +687,19 @@
             <exception cref="T:System.Web.Http.HttpResponseException">
             Thrown when a HTTP Response error condition occurs. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The book to add. </param>
             <remarks> POST api/Publications/Books </remarks>
             <returns> The added book DTO. </returns>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Update(PublicationAssistantSystem.DAL.DTO.Publications.BookDTO)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.BooksController.Update(System.Net.Http.HttpRequestMessage,PublicationAssistantSystem.DAL.DTO.Publications.BookDTO)">
             <summary>
             Updates the book.
             </summary>
             <exception cref="T:System.ArgumentNullException">
             Thrown when one or more required arguments are null. 
             </exception>
+            <param name="request">Http request</param>
             <param name="item"> The item with updated content. </param>
             <remarks> PATCH api/Publications/Books </remarks>
             <returns> An updated book DTO. </returns>

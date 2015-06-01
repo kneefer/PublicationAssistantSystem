@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
@@ -45,9 +47,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("")]
         public IEnumerable<PatentDTO> GetAllPatents()
         {
-            var results = _publicationBaseRepository.GetOfType<Patent>();
+            var patents = _publicationBaseRepository.GetOfType<Patent>();
 
-            var mapped = results.Select(Mapper.Map<PatentDTO>).ToList();
+            var mapped = patents.Select(Mapper.Map<PatentDTO>).ToList();
             return mapped;
         }
 
@@ -60,31 +62,35 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{patentId:int}")]
         public PatentDTO GetPatentById(int patentId)
         {
-            var result = _publicationBaseRepository.GetOfType<Patent>(x => x.Id == patentId).FirstOrDefault();
-            if (result == null)
+            var patent = _publicationBaseRepository.GetOfType<Patent>(x => x.Id == patentId).SingleOrDefault();
+            if (patent == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            var mapped = Mapper.Map<PatentDTO>(result);
+            var mapped = Mapper.Map<PatentDTO>(patent);
             return mapped;
         }
 
         /// <summary> 
         /// Gets the publications that are patents of employee with specified id.
         /// </summary>
+        /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose patents will be returned. </param>
         /// /// <remarks> GET: api/Employees/Id/Patents </remarks>
         /// <returns> Patents associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Patents")]
-        public IEnumerable<PatentDTO> GetPatentsOfEmployee(int employeeId)
+        [ResponseType(typeof(IEnumerable<PatentDTO>))]
+        public HttpResponseMessage GetPatentsOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.Get(x => x.Id == employeeId, null, x => x.Publications).SingleOrDefault();
+            var employee = _employeeRepository.GetByID(employeeId);
             if (employee == null)
-                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            {
+                return request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("Not found employee with id:{0}", employeeId));
+            }
 
-            var results = employee.Publications.Where(x => x is Patent);
-
-            var mapped = results.Select(Mapper.Map<PatentDTO>).ToList();
-            return mapped;
+            var mapped = employee.Publications.OfType<Patent>().Select(Mapper.Map<PatentDTO>).ToList();
+            return request.CreateResponse(mapped);
         }
 
         /// <summary>
@@ -96,24 +102,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="HttpResponseException">
         /// Thrown when a HTTP Response error condition occurs. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The patent to add. </param>
         /// <remarks> POST api/Publications/Patents </remarks>
         /// <returns> The added patent DTO. </returns>
         [HttpPost]
         [Route("")]
-        public PatentDTO Add(PatentDTO item)
+        [ResponseType(typeof(PatentDTO))]
+        public HttpResponseMessage Add(HttpRequestMessage request, PatentDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var patent = Mapper.Map<Patent>(item);
+            var dbObject = Mapper.Map<Patent>(item);
 
-            _publicationBaseRepository.Insert(patent);
+            _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            item.Id = patent.Id;
-
-            return item;
+            var mapped = Mapper.Map<PatentDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
 
         /// <summary>
@@ -122,23 +129,25 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null. 
         /// </exception>
+        /// <param name="request">Http request</param>
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Patents </remarks>
         /// <returns> An updated patent DTO. </returns>
         [HttpPut]
         [Route("")]
-        public PatentDTO Update(PatentDTO item)
+        [ResponseType(typeof(PatentDTO))]
+        public HttpResponseMessage Update(HttpRequestMessage request, PatentDTO item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
 
-            var patent = Mapper.Map<Patent>(item);
+            var dbObject = Mapper.Map<Patent>(item);
 
-            _publicationBaseRepository.Update(patent);
+            _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var mapped = Mapper.Map<PatentDTO>(patent);
-            return mapped;
+            var mapped = Mapper.Map<PatentDTO>(dbObject);
+            return request.CreateResponse(HttpStatusCode.NoContent, mapped);
         }
 
         /// <summary>
