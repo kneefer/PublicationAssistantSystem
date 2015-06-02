@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicationAssistantSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicationAssistantSystem.WebApi", "PublicationAssistantSystem.WebApi\PublicationAssistantSystem.WebApi.csproj", "{A2EC0D4C-D33B-4F80-9419-5DF29767DCAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicationAssistantSystem.Web", "PublicationAssistantSystem.Web\PublicationAssistantSystem.Web.csproj", "{4FF2F081-5AC1-4E68-BB4F-DB1D69C20DA9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A2EC0D4C-D33B-4F80-9419-5DF29767DCAF} = {A2EC0D4C-D33B-4F80-9419-5DF29767DCAF}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +46,10 @@ Global
 		{A2EC0D4C-D33B-4F80-9419-5DF29767DCAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2EC0D4C-D33B-4F80-9419-5DF29767DCAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2EC0D4C-D33B-4F80-9419-5DF29767DCAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF2F081-5AC1-4E68-BB4F-DB1D69C20DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF2F081-5AC1-4E68-BB4F-DB1D69C20DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF2F081-5AC1-4E68-BB4F-DB1D69C20DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF2F081-5AC1-4E68-BB4F-DB1D69C20DA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
