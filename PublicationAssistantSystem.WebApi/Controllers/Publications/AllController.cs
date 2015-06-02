@@ -12,8 +12,6 @@ using AutoMapper;
 using PublicationAssistantSystem.Core.Infrastructure;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
-using PublicationAssistantSystem.DAL.Models.Misc;
-using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers.Publications
@@ -25,22 +23,23 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     public class AllController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
-        private readonly IPublicationBaseRepository _publicationBaseRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IPublicationBaseRepository _publicationBaseRepository;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="db"> Db context. </param>
-        /// <param name="publicationBaseRepository"> Repository of publications. </param>
         /// <param name="employeeRepository"> Repository of employees. </param>
+        /// <param name="publicationBaseRepository"> Repository of publications. </param>
         public AllController(
-            IPublicationAssistantContext db, 
-            IPublicationBaseRepository publicationBaseRepository, IEmployeeRepository employeeRepository)
+            IPublicationAssistantContext db,
+            IEmployeeRepository employeeRepository,
+            IPublicationBaseRepository publicationBaseRepository)
         {
             _db = db;
-            _publicationBaseRepository = publicationBaseRepository;
             _employeeRepository = employeeRepository;
+            _publicationBaseRepository = publicationBaseRepository;
         }
         
         /// <summary>
@@ -66,7 +65,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{publicationId:int}")]
         public PublicationBaseDTO GetPublicationById(int publicationId)
         {
-            var publication = _publicationBaseRepository.Get(x => x.Id == publicationId).FirstOrDefault();
+            var publication = _publicationBaseRepository.GetByID(publicationId);
             if (publication == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -76,10 +75,10 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
         /// <summary> 
         /// Gets the publications of employee with specified id.
-        ///  </summary>
+        /// </summary>
         /// <param name="request">Http request</param>
         /// <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
-        /// /// <remarks> GET: api/Employees/Id/Publications </remarks>
+        /// <remarks> GET: api/Employees/Id/Publications </remarks>
         /// <returns> Publications associated with specified employee. </returns>
         [Route("~/api/Employees/{employeeId:int}/Publications")]
         [ResponseType(typeof(IEnumerable<PublicationBaseDTO>))]

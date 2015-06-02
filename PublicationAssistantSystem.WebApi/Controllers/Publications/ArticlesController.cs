@@ -7,7 +7,6 @@ using System.Web.Http;
 using AutoMapper;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
-using PublicationAssistantSystem.DAL.Models.Misc;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 using System.Web.Http.Description;
