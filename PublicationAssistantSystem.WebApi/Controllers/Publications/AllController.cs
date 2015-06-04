@@ -5,11 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Xml;
 using System.Xml.Serialization;
 using AutoMapper;
-using PublicationAssistantSystem.Core.Infrastructure;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
@@ -96,28 +97,41 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             return request.CreateResponse(mapped);
         }
 
-        [Route("~/GetAllAsXml")]
-        public HttpResponseMessage GetAllPublications()
+        /// <summary>
+        /// Returns publications serialized to XML document.
+        /// </summary>
+        /// <returns> XML document with publications. </returns>
+        [Route("AsXml")]
+        public HttpResponseMessage GetAllAsXML()
         {
             var publications = _publicationBaseRepository.Get();
             var mapped = publications.Select(Mapper.Map<PublicationBaseDTO>).ToArray();
 
-            var xml = new XmlSerializer(typeof(PublicationBaseDTO[]));
-
             using (var stream = new MemoryStream())
             {
-                xml.Serialize(stream, mapped);
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    OmitXmlDeclaration = false,
+                    Encoding = Encoding.UTF8
+                };
 
-                var result = new HttpResponseMessage(HttpStatusCode.OK);
-                result.Content = new ByteArrayContent(stream.ToArray());
-                result.Content.Headers.ContentType = 
-                    new MediaTypeHeaderValue("text/xml");
-                result.Content.Headers.ContentDisposition = 
-                    new ContentDispositionHeaderValue("attachment")
-                    {
-                        FileName = String.Format("DumpAll_{0}.xml", DateTime.Now.ToString("yyyMMddHHmmss")),
-                    };
-                return result;
+                using (var xmlWriter = XmlWriter.Create(stream, settings))
+                {
+                    var xml = new XmlSerializer(typeof(PublicationBaseDTO[]));
+                    xml.Serialize(xmlWriter, mapped);
+
+                    var result = new HttpResponseMessage(HttpStatusCode.OK);
+                    result.Content = new ByteArrayContent(stream.ToArray());
+                    result.Content.Headers.ContentType =
+                        new MediaTypeHeaderValue("text/xml");
+                    result.Content.Headers.ContentDisposition =
+                        new ContentDispositionHeaderValue("attachment")
+                        {
+                            FileName = string.Format("DumpAll_{0}.xml", DateTime.Now.ToString("yyyyMMddHHmmss")),
+                        };
+                    return result; 
+                }
             }
         }
 

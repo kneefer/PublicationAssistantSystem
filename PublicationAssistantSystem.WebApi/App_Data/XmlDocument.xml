@@ -1619,13 +1619,13 @@
             Provides access to publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
-            <param name="publicationBaseRepository"> Repository of publications. </param>
             <param name="employeeRepository"> Repository of employees. </param>
+            <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAll">
             <summary>
@@ -1645,11 +1645,29 @@
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetPublicationsOfEmployee(System.Net.Http.HttpRequestMessage,System.Int32)">
             <summary> 
             Gets the publications of employee with specified id.
-             </summary>
+            </summary>
             <param name="request">Http request</param>
             <param name="employeeId"> Identifier of employee whose publications will be returned. </param>
-            /// <remarks> GET: api/Employees/Id/Publications </remarks>
+            <remarks> GET: api/Employees/Id/Publications </remarks>
             <returns> Publications associated with specified employee. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAllAsXML">
+            <summary>
+            Returns publications serialized to XML document.
+            </summary>
+            <returns> XML document with publications. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAllAsBIB">
+            <summary>
+            Returns publications serialized to BIB document.
+            </summary>
+            <returns> BIB document with publications. </returns>
+        </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAllAsCSV">
+            <summary>
+            Returns publications serialized to CSV document.
+            </summary>
+            <returns> CSV document with publications. </returns>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.Delete(System.Int32)">
             <summary>

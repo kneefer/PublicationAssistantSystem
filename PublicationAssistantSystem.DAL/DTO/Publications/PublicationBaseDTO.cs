@@ -13,15 +13,21 @@ namespace PublicationAssistantSystem.DAL.DTO.Publications
     [XmlInclude(typeof(PatentDTO))]
     [XmlInclude(typeof(TechnicalReportDTO))]
     [XmlInclude(typeof(ThesisDTO))]
+    [XmlType("Publication")]
     public abstract class PublicationBaseDTO
     {
         public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
+
         public DateTime PublicationDate { get; set; }
+
         [XmlIgnore]
         public string Discriminator { get; set; }
-        [XmlArray]
+
+        [XmlArray("Authors")]
+        [XmlArrayItem("Author")]
         public List<EmployeeDTO> Employees { get; set; }
     }
 }
