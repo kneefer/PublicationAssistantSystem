@@ -1619,12 +1619,14 @@
             Provides access to publications repository.
             </summary>
         </member>
-        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.#ctor(PublicationAssistantSystem.DAL.Context.IPublicationAssistantContext,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IEmployeeRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IJournalEditionRepository,PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces.IPublicationBaseRepository)">
             <summary>
             Constructor.
             </summary>
             <param name="db"> Db context. </param>
+            <param name="journalRepository"> Repository of journals. </param>
             <param name="employeeRepository"> Repository of employees. </param>
+            <param name="journalEditionRepository"> Repository of journal editions. </param>
             <param name="publicationBaseRepository"> Repository of publications. </param>
         </member>
         <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.GetAll">

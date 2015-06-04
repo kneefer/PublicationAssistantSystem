@@ -5,15 +5,15 @@ namespace PublicationAssistantSystem.Core.Exports
 {
     public class BIBCreator : Creator
     {
-        public override string CreateArticle(ArticleDTO article)
+        public override string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume)
         {
             var formatter = new BIBFormatter();
             formatter.CreateArticle();
             formatter.AppendAuthors(GetAuthors(article));
             formatter.AppendTitle(article.Title);
             formatter.AppendDate(article.PublicationDate);
-            formatter.AppendJournal(string.Format("ID: {0}", article.JournalEditionId));
-            formatter.AppendVolume(article.JournalEditionId);
+            formatter.AppendJournal(journalTitle);
+            formatter.AppendVolume(journalVolume);
             formatter.AppendPages(article.PageFrom, article.PageTo);
             return formatter.GetEntry();
         }

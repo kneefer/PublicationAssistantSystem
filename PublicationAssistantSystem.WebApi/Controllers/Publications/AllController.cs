@@ -25,23 +25,31 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     public class AllController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
+        private readonly IJournalRepository _journalRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IJournalEditionRepository _journalEditionRepository;
         private readonly IPublicationBaseRepository _publicationBaseRepository;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="db"> Db context. </param>
+        /// <param name="journalRepository"> Repository of journals. </param>
         /// <param name="employeeRepository"> Repository of employees. </param>
+        /// <param name="journalEditionRepository"> Repository of journal editions. </param>
         /// <param name="publicationBaseRepository"> Repository of publications. </param>
         public AllController(
             IPublicationAssistantContext db,
+            IJournalRepository journalRepository, 
             IEmployeeRepository employeeRepository,
+            IJournalEditionRepository journalEditionRepository,
             IPublicationBaseRepository publicationBaseRepository)
         {
             _db = db;
             _employeeRepository = employeeRepository;
             _publicationBaseRepository = publicationBaseRepository;
+            _journalRepository = journalRepository;
+            _journalEditionRepository = journalEditionRepository;
         }
         
         /// <summary>
@@ -154,7 +162,26 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
                 foreach (var publication in mapped)
                 {
-                    var serialized = creator.Create(publication).ToArray();
+                    string serialized;
+                    var article = publication as ArticleDTO;
+                    if (article != null)
+                    {
+                        var journalEdition =
+                            _journalEditionRepository.Get().SingleOrDefault(x => x.Id == article.JournalEditionId);
+                        if(journalEdition == null) continue;
+
+                        var journal = _journalRepository.Get().SingleOrDefault(x => x.Id == journalEdition.JournalId);
+                        if(journal == null) continue;
+                        
+                        var title = journal.Title;
+                        var volume = journalEdition.VolumeNumber;
+                        serialized = creator.Create(article, title, volume);
+                    }
+                    else
+                    {
+                        serialized = creator.Create(publication);    
+                    }
+                    
                     var bytes = encoding.GetBytes(serialized);
                     stream.Write(bytes, 0, bytes.Length);
                 }

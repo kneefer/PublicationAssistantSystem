@@ -9,7 +9,7 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
         private const string BeginFormat        = "@{0}{{{1}";
         private const string StringFieldFormat  = "\t{{0,-{0}}} = \"{{1}}\",{{2}}";
         private const string IntegerFieldFormat = "\t{{0,-{0}}} = {{1}},{{2}}";
-        private const string EndFormat          = "}}{0}";
+        private const string EndFormat          = "}}{0}{0}";
 
         private readonly StringBuilder _formatBuilder;
 
@@ -87,11 +87,6 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 
         #region Appending specific fields
 
-        public void AppendNewLine()
-        {
-            _formatBuilder.AppendLine();
-        }
-
         public void AppendAuthor(string author)
         {
             AppendField(Fields.Author, author);
@@ -147,6 +142,11 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
         }
 
         public void AppendVolume(int volume)
+        {
+            AppendField(Fields.Volume, volume);
+        }
+
+        public void AppendVolume(string volume)
         {
             AppendField(Fields.Volume, volume);
         }
