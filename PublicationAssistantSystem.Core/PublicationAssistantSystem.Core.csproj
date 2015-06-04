@@ -44,9 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\AuthenticationClient.cs" />
-    <Compile Include="Exports\ExportToBIB.cs" />
-    <Compile Include="Exports\ExportToCSV.cs" />
-    <Compile Include="Exports\ExportToXML.cs" />
+    <Compile Include="ExportFormatters\BIB\BIBFormatter.cs" />
+    <Compile Include="ExportFormatters\BIB\BIBFormatter.Fields.cs" />
+    <Compile Include="Exports\BIBCreator.cs" />
+    <Compile Include="Exports\Creator.cs" />
+    <Compile Include="Exports\CSVCreator.cs" />
+    <Compile Include="Exports\XMLCreator.cs" />
+    <Compile Include="Exports\ICreator.cs" />
     <Compile Include="Imports\ImportFromBIB.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Mappers\Common\Author.cs" />

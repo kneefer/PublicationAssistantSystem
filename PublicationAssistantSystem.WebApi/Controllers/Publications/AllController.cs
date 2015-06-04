@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using System.Xml;
 using System.Xml.Serialization;
 using AutoMapper;
+using PublicationAssistantSystem.Core.Exports;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
@@ -132,6 +133,78 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
                         };
                     return result; 
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns publications serialized to BIB document.
+        /// </summary>
+        /// <returns> BIB document with publications. </returns>
+        [Route("AsBib")]
+        public HttpResponseMessage GetAllAsBIB()
+        {
+            var publications = _publicationBaseRepository.Get();
+            var mapped = publications.Select(Mapper.Map<PublicationBaseDTO>).ToArray();
+
+            var creator = new BIBCreator();
+
+            using (var stream = new MemoryStream())
+            {
+                var encoding = new UTF8Encoding();
+
+                foreach (var publication in mapped)
+                {
+                    var serialized = creator.Create(publication).ToArray();
+                    var bytes = encoding.GetBytes(serialized);
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new ByteArrayContent(stream.ToArray());
+                result.Content.Headers.ContentType =
+                    new MediaTypeHeaderValue("text/bib");
+                result.Content.Headers.ContentDisposition =
+                    new ContentDispositionHeaderValue("attachment")
+                    {
+                        FileName = string.Format("DumpAll_{0}.bib", DateTime.Now.ToString("yyyyMMddHHmmss")),
+                    };
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Returns publications serialized to CSV document.
+        /// </summary>
+        /// <returns> CSV document with publications. </returns>
+        [Route("AsCSV")]
+        public HttpResponseMessage GetAllAsCSV()
+        {
+            var publications = _publicationBaseRepository.Get();
+            var mapped = publications.Select(Mapper.Map<PublicationBaseDTO>).ToArray();
+
+            var creator = new CSVCreator();
+
+            using (var stream = new MemoryStream())
+            {
+                var encoding = new UTF8Encoding();
+
+                foreach (var publication in mapped)
+                {
+                    var serialized = creator.Create(publication).ToArray();
+                    var bytes = encoding.GetBytes(serialized);
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new ByteArrayContent(stream.ToArray());
+                result.Content.Headers.ContentType =
+                    new MediaTypeHeaderValue("text/csv");
+                result.Content.Headers.ContentDisposition =
+                    new ContentDispositionHeaderValue("attachment")
+                    {
+                        FileName = string.Format("DumpAll_{0}.csv", DateTime.Now.ToString("yyyyMMddHHmmss")),
+                    };
+                return result;
             }
         }
 
