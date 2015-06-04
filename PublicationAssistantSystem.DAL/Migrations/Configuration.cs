@@ -28,13 +28,23 @@ namespace PublicationAssistantSystem.DAL.Migrations
                     {
                         new Division { Name = "Zespó³ Oprogramowania", Employees = new[]
                         {
-                            new Employee { AcademicTitle = "Doktor", FirstName = "Jacek", LastName = "Widuch", Publications = new[]
+                            new Employee { AcademicTitle = "Doktor", FirstName = "Jacek", LastName = "Widuch", Publications = new PublicationBase[]
                             {
+                                new Article{Title = "Mój pierwszy artyku³ naukowy.", PublicationDate = DateTime.Now - TimeSpan.FromDays(100), PageFrom = 2, PageTo = 3, JournalEditionId = 1}, 
                                 new Book { ISBN = "978-2-12-345680-3", Title = "O obrotach sfer niebieskich", PublicationDate = DateTime.Now, Publisher = "Egmont"},
                                 new Book { ISBN = "343-5-23-352354-4", Title = "WiedŸmin", PublicationDate = DateTime.Now - TimeSpan.FromDays(4234), Publisher = "Helion"},
                                 new Book { ISBN = "686-3-76-234234-6", Title = "Latarnik", PublicationDate = DateTime.Now, Publisher = "Axel-Springer"},
                             }},
-                            new Employee { AcademicTitle = "Profesor", FirstName = "Stanis³aw", LastName = "Kozielski"},
+                            new Employee
+                            {
+                                AcademicTitle = "Profesor", FirstName = "Stanis³aw", LastName = "Kozielski", Publications = new PublicationBase[]
+                                {
+                                    new Book { ISBN = "978-83-7508-556-3", Title = "Piêædziesi¹t twarzy Greya", PublicationDate = DateTime.Now -TimeSpan.FromDays(5), Publisher = "Adult Szpringer"},
+                                    new Thesis {Title = "Teza o powstawaniu tez naukowych.", PublicationDate = DateTime.Now - TimeSpan.FromDays(200)}, 
+                                    new Article { Title = "Jak pisaæ artyku³y naukowe.", PublicationDate = DateTime.Now - TimeSpan.FromDays(100), PageFrom = 10, PageTo = 50, JournalEditionId = 1},
+                                    new Article { Title = "Jak niew pisaæ artyku³ów naukowych.", PublicationDate = DateTime.Now - TimeSpan.FromDays(200), PageFrom = 15, PageTo = 20, JournalEditionId = 1},
+                                }
+                            },
                             new Employee { AcademicTitle = "Magister", FirstName = "Ewa", LastName = "Lach"},
                         }},
                         new Division { Name = "Zespó³ Teorii Informatyki" },
@@ -65,8 +75,26 @@ namespace PublicationAssistantSystem.DAL.Migrations
                 new Faculty { Abbreviation = "GiG", Name = "Górnictwa i Geologii"},
                 new Faculty { Abbreviation = "BUD", Name = "Budownictwa"},
             });
+            SeedOrganisationUnits(context);
+            SeedMiscellaneous(context);
+            SeedPublications(context);
 
             context.SaveChanges();
+        }
+
+        private void SeedOrganisationUnits(Context.PublicationAssistantContext context)
+        {
+            
+        }
+
+        private void SeedMiscellaneous(Context.PublicationAssistantContext context)
+        {
+
+        }
+
+        private void SeedPublications(Context.PublicationAssistantContext context)
+        {
+
         }
     }
 }
