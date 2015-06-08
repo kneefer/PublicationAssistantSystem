@@ -1,12 +1,8 @@
-﻿(function () {
-    "use strict";
+﻿"use strict";
 
-    function main() {
-        var vm = this;
-        vm.food = "pizza";
-    }
+var mainModule = angular.module("app");
 
-    angular
-        .module("app")
-        .controller("Main", main);
-})();
+mainModule.config(["$routeProvider", function ($routeProvider) {
+    $routeProvider
+        .otherwise("/");
+}]);
