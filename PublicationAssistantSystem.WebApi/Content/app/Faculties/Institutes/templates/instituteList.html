@@ -1,0 +1,15 @@
+﻿<table class="col-sm-12">
+    <thead>
+        <tr>
+            <th class="col-sm-1">Id</th>
+            <th class="col-sm-11">Nazwa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="institute in institutes">
+            <td class="col-sm-1">{{institute.Id}}</td>
+            <td class="col-sm-11"><a ng-href="#/Faculties/{{institute.FacultyId}}/Institutes/{{institute.Id}}/Divisions">{{institute.Name}}</a></td>
+        </tr>
+    </tbody>
+
+</table>

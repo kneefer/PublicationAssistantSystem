@@ -103,7 +103,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         /// <param name="item"> The institute to add. </param>
         /// <returns> The added institute. </returns>
         [Route("")]
-        [HttpPut]
+        [HttpPost]
         [ResponseType(typeof(InstituteDTO))]
         public HttpResponseMessage Add(HttpRequestMessage request, InstituteDTO item)
         {

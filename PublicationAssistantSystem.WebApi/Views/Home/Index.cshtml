@@ -1,11 +1,84 @@
-﻿<div class="jumbotron">
-    <h1>Publication Assistance System</h1>
-    <p>Databases passing project.</p>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <h2>To see:</h2>
-        <p>API Reference contains description of Web API.</p>
-        <p>
+﻿<!DOCTYPE html>
+
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asystent zarządzania publikacjami</title>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Asystent zarządzania publikacjami</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Ustawienia konta</a></li>
+                    <li><a href="#">Zarządzanie użytkownikami</a></li>
+                    <li>@Html.ActionLink("API Reference", "Index", "Help", new { area = "" }, null)</li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <!--<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>-->
+                    <li><a href="#/Publications">Publikacje</a></li>
+                    <li><a href="#/Employees">Pracownicy</a></li>
+                    <li><a href="#/Faculties">Wydziały</a></li>
+                    <li><a href="#/Journals">Wydawnictwa</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-md-10 main">
+                <ng-view></ng-view>
+            </div>
+        </div>
     </div>
-</div>  
+
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+
+    <script src="Content/app/app.module.js"></script>
+    <script src="Content/app/main.js"></script>
+
+    <script src="Content/app/Publications/publications.js"></script>
+    <script src="Content/app/Publications/publicationFactories.js"></script>
+    <script src="Content/app/Publications/publicationDirectives.js"></script>
+
+    <script src="Content/app/Faculties/faculties.js"></script>
+    <script src="Content/app/Faculties/facultyFactories.js"></script>
+    <script src="Content/app/Faculties/facultyDirectives.js"></script>
+
+    <script src="Content/app/Faculties/Institutes/institutes.js"></script>
+    <script src="Content/app/Faculties/Institutes/instituteFactories.js"></script>
+    <script src="Content/app/Faculties/Institutes/instituteDirectives.js"></script>
+
+    <script src="Content/app/Faculties/Institutes/Divisions/divisions.js"></script>
+    <script src="Content/app/Faculties/Institutes/Divisions/divisionFactories.js"></script>
+    <script src="Content/app/Faculties/Institutes/Divisions/divisionDirectives.js"></script>
+
+</body>
+</html>

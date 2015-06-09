@@ -255,12 +255,35 @@
   <ItemGroup>
     <Content Include="App_Data\results.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\Faculties\faculties.html" />
+    <Content Include="Content\app\Faculties\faculties.js" />
+    <Content Include="Content\app\Faculties\facultyDirectives.js" />
+    <Content Include="Content\app\Faculties\facultyFactories.js" />
+    <Content Include="Content\app\Faculties\Institutes\instituteDirectives.js" />
+    <Content Include="Content\app\Faculties\Institutes\instituteFactories.js" />
+    <Content Include="Content\app\Faculties\Institutes\institutes.html" />
+    <Content Include="Content\app\Faculties\Institutes\institutes.js" />
+    <Content Include="Content\app\Faculties\Institutes\templates\instituteList.html" />
+    <Content Include="Content\app\Faculties\templates\facultyList.html" />
+    <Content Include="Content\app\main.js" />
+    <Content Include="Content\app\Publications\publicationDirectives.js" />
+    <Content Include="Content\app\Publications\publicationFactories.js" />
+    <Content Include="Content\app\Publications\publications.html" />
+    <Content Include="Content\app\Publications\publications.js" />
+    <Content Include="Content\app\Publications\templates\publicationList.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\results.xml" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -282,17 +305,15 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -309,8 +330,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\app\Accounts\" />
+    <Folder Include="Content\app\Employees\" />
+    <Folder Include="Content\app\Journals\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
