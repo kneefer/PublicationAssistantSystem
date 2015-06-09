@@ -85,7 +85,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [ResponseType(typeof(IEnumerable<ArticleDTO>))]
         public HttpResponseMessage GetArticlesOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.GetByID(employeeId);
+            var employee = _employeeRepository.GetById(employeeId);
             if (employee == null)
             {
                 return request.CreateErrorResponse(
@@ -120,7 +120,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             var dbObject = Mapper.Map<Article>(item);
 
-            if (_journalEditionRepository.GetByID(dbObject.JournalEditionId) == null)
+            if (_journalEditionRepository.GetById(dbObject.JournalEditionId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,
@@ -154,7 +154,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             var dbObject = Mapper.Map<Article>(item);
 
-            if (_journalEditionRepository.GetByID(dbObject.JournalEditionId) == null)
+            if (_journalEditionRepository.GetById(dbObject.JournalEditionId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,

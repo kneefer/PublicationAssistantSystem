@@ -60,7 +60,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{instituteId:int}")]
         public InstituteDTO GetInstituteById(int instituteId)
         {
-            var institute = _instituteRepository.GetByID(instituteId);
+            var institute = _instituteRepository.GetById(instituteId);
             if (institute == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -78,7 +78,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [ResponseType(typeof(IEnumerable<InstituteDTO>))]
         public HttpResponseMessage GetInstitutesInFaculty(HttpRequestMessage request, int facultyId)
         {
-            var faculty = _facultyRepository.GetByID(facultyId);
+            var faculty = _facultyRepository.GetById(facultyId);
             if (faculty == null)
             {
                 return request.CreateErrorResponse(
@@ -112,7 +112,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Institute>(item);
 
-            if (_facultyRepository.GetByID(dbObject.FacultyId) == null)
+            if (_facultyRepository.GetById(dbObject.FacultyId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,
@@ -145,7 +145,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Institute>(item);
 
-            if (_facultyRepository.GetByID(dbObject.FacultyId) == null)
+            if (_facultyRepository.GetById(dbObject.FacultyId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,

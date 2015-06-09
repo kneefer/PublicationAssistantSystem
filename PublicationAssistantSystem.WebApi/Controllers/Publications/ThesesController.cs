@@ -81,7 +81,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [ResponseType(typeof(IEnumerable<ThesisDTO>))]
         public HttpResponseMessage GetThesesOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.GetByID(employeeId);
+            var employee = _employeeRepository.GetById(employeeId);
             if (employee == null)
             {
                 return request.CreateErrorResponse(

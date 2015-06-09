@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -56,7 +57,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{journalId:int}")]
         public JournalDTO GetJournalById(int journalId)
         {
-            var journal = _journalRepository.GetByID(journalId);
+            var journal = _journalRepository.GetById(journalId);
             if (journal == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

@@ -62,7 +62,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{divisonId:int}")]
         public DivisionDTO GetDivisionById(int divisonId)
         {
-            var division = _divisionRepository.GetByID(divisonId);
+            var division = _divisionRepository.GetById(divisonId);
             if (division == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -81,7 +81,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [ResponseType(typeof(IEnumerable<DivisionDTO>))]
         public HttpResponseMessage GetDivisionsInInstitute(HttpRequestMessage request, int instituteId)
         {
-            var institute = _instituteRepository.GetByID(instituteId);
+            var institute = _instituteRepository.GetById(instituteId);
             if (institute == null)
             {
                 return request.CreateErrorResponse(
@@ -116,7 +116,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Division>(item);
 
-            if (_instituteRepository.GetByID(dbObject.InstituteId) == null)
+            if (_instituteRepository.GetById(dbObject.InstituteId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,
@@ -150,7 +150,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Division>(item);
 
-            if (_instituteRepository.GetByID(dbObject.InstituteId) == null)
+            if (_instituteRepository.GetById(dbObject.InstituteId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,

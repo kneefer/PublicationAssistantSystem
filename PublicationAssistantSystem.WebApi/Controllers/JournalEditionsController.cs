@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -60,7 +61,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{journalEditionId:int}")]
         public JournalEditionDTO GetJournalEditionById(int journalEditionId)
         {
-            var result = _journalEditionRepository.GetByID(journalEditionId);
+            var result = _journalEditionRepository.GetById(journalEditionId);
             if (result == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -101,7 +102,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<JournalEdition>(item);
 
-            if (_journalRepository.GetByID(dbObject.JournalId) == null)
+            if (_journalRepository.GetById(dbObject.JournalId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,
@@ -134,7 +135,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<JournalEdition>(item);
 
-            if (_journalRepository.GetByID(dbObject.JournalId) == null)
+            if (_journalRepository.GetById(dbObject.JournalId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,

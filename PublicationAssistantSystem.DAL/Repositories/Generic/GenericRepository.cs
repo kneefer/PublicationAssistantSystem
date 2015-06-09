@@ -10,8 +10,8 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> 
         where TEntity : class
     {
-        private readonly IPublicationAssistantContext _context;
         private readonly IDbSet<TEntity> _dbSet;
+        private readonly IPublicationAssistantContext _context;
 
         public GenericRepository(IPublicationAssistantContext context)
         {
@@ -19,10 +19,18 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet = context.Set<TEntity>();
         }
 
+        #region Get
+        
+        #region Get base methods
+        public virtual TEntity GetById(object id)
+        {
+            return _dbSet.Find(id);
+        }
+
         private static List<TTargetEntity> Get<TTargetEntity>(
-            IQueryable<TTargetEntity> query,
-            Expression<Func<TTargetEntity, bool>> filter = null,
-            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
+           IQueryable<TTargetEntity> query,
+           Expression<Func<TTargetEntity, bool>> filter,
+           Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
         {
             if (filter != null)
                 query = query.Where(filter);
@@ -32,18 +40,48 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
                 : query.ToList();
         }
 
-        public List<TEntity> Get(
+        private static List<TTargetEntity> Get<TTargetEntity>(
+            IQueryable<TTargetEntity> query,
+            IList<Expression<Func<TTargetEntity, bool>>> filters,
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
+        {
+            if (filters == null)
+                filters = new List<Expression<Func<TTargetEntity, bool>>>();
+
+            foreach (var filter in filters)
+            {
+                query = query.Where(filter);
+            }
+
+            return orderBy != null
+                ? orderBy(query).ToList()
+                : query.ToList();
+        }
+
+        #endregion Get base methods
+
+        public virtual List<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             IQueryable<TEntity> query = _dbSet;
+
             return Get(query, filter, orderBy);
         }
 
+        public virtual List<TEntity> Get(
+            IList<Expression<Func<TEntity, bool>>> filters,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            return Get(query, filters, orderBy);
+        }
+
+
         public virtual List<TEntity> Get<TProperty>(
-            Expression<Func<TEntity, bool>> filter, 
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, 
-            Expression<Func<TEntity, TProperty>> navProperty)
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, TProperty>> navProperty = null)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -52,8 +90,35 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             return Get(query, filter, orderBy);
         }
 
+        public virtual List<TEntity> Get<TProperty>(
+            IList<Expression<Func<TEntity, bool>>> filters = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, TProperty>> navProperty = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            query = query.Include(navProperty);
+
+            return Get(query, filters, orderBy);
+        }
+
+
         public virtual List<TEntity> Get<TProperty1, TProperty2>(
-            Expression<Func<TEntity, bool>> filter,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, TProperty1>> navProperty1 = null,
+            Expression<Func<TEntity, TProperty2>> navProperty2 = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            query = query.Include(navProperty1);
+            query = query.Include(navProperty2);
+
+            return Get(query, filter, orderBy);
+        }
+
+        public virtual List<TEntity> Get<TProperty1, TProperty2>(
+            IList<Expression<Func<TEntity, bool>>> filters,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
             Expression<Func<TEntity, TProperty1>> navProperty1,
             Expression<Func<TEntity, TProperty2>> navProperty2)
@@ -63,36 +128,59 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             query = query.Include(navProperty1);
             query = query.Include(navProperty2);
 
+            return Get(query, filters, orderBy);
+        }
+
+
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity>(
+            Expression<Func<TTargetEntity, bool>> filter = null,
+            Func<IQueryable<TTargetEntity>,IOrderedQueryable<TTargetEntity>> orderBy = null)
+        {
+            var query = _dbSet.OfType<TTargetEntity>();
             return Get(query, filter, orderBy);
         }
 
         public virtual List<TTargetEntity> GetOfType<TTargetEntity>(
-            Expression<Func<TTargetEntity, bool>> filter = null, 
+            IList<Expression<Func<TTargetEntity, bool>>> filters = null, 
             Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null)
         {
-            IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
-            return Get(query, filter, orderBy);
+            var query = _dbSet.OfType<TTargetEntity>();
+            return Get(query, filters, orderBy);
         }
 
+
         public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty>(
-            Expression<Func<TTargetEntity, bool>> filter, 
-            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy, 
-            Expression<Func<TTargetEntity, TProperty>> navProperty)
+            Expression<Func<TTargetEntity, bool>> filter = null,
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null,
+            Expression<Func<TTargetEntity, TProperty>> navProperty = null)
         {
-            IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
+            var query = _dbSet.OfType<TTargetEntity>();
 
             query = query.Include(navProperty);
 
             return Get(query, filter, orderBy);
         }
 
-        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty1, TProperty2>(
-            Expression<Func<TTargetEntity, bool>> filter,
-            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy,
-            Expression<Func<TTargetEntity, TProperty1>> navProperty1,
-            Expression<Func<TTargetEntity, TProperty2>> navProperty2)
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty>(
+            IList<Expression<Func<TTargetEntity, bool>>> filters, 
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy, 
+            Expression<Func<TTargetEntity, TProperty>> navProperty)
         {
-            IQueryable<TTargetEntity> query = _dbSet.OfType<TTargetEntity>();
+            var query = _dbSet.OfType<TTargetEntity>();
+
+            query = query.Include(navProperty);
+
+            return Get(query, filters, orderBy);
+        }
+
+
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty1, TProperty2>(
+            Expression<Func<TTargetEntity, bool>> filter = null, 
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy = null,
+            Expression<Func<TTargetEntity, TProperty1>> navProperty1 = null, 
+            Expression<Func<TTargetEntity, TProperty2>> navProperty2 = null)
+        {
+            var query = _dbSet.OfType<TTargetEntity>();
 
             query = query.Include(navProperty1);
             query = query.Include(navProperty2);
@@ -100,15 +188,42 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             return Get(query, filter, orderBy);
         }
 
-        public virtual TEntity GetByID(object id)
+        public virtual List<TTargetEntity> GetOfType<TTargetEntity, TProperty1, TProperty2>(
+            IList<Expression<Func<TTargetEntity, bool>>> filters,
+            Func<IQueryable<TTargetEntity>, IOrderedQueryable<TTargetEntity>> orderBy,
+            Expression<Func<TTargetEntity, TProperty1>> navProperty1,
+            Expression<Func<TTargetEntity, TProperty2>> navProperty2)
         {
-            return _dbSet.Find(id);
+            var query = _dbSet.OfType<TTargetEntity>();
+
+            query = query.Include(navProperty1);
+            query = query.Include(navProperty2);
+
+            return Get(query, filters, orderBy);
         }
+
+        #endregion Get
+
+        #region Insert
 
         public virtual void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
         }
+
+        #endregion Insert
+
+        #region Update
+
+        public virtual void Update(TEntity entityToUpdate)
+        {
+            _dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        #endregion Update
+
+        #region Delete
 
         public virtual void Delete(int id)
         {
@@ -125,10 +240,6 @@ namespace PublicationAssistantSystem.DAL.Repositories.Generic
             _dbSet.Remove(entityToDelete);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
-        {
-            _dbSet.Attach(entityToUpdate);
-            _context.Entry(entityToUpdate).State = EntityState.Modified;
-        }
+        #endregion Delete
     }
 }

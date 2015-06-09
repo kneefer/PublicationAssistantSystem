@@ -64,7 +64,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{employeeId:int}")]
         public EmployeeDTO GetEmployeeById(int employeeId)
         {
-            var employee = _employeeRepository.GetByID(employeeId);
+            var employee = _employeeRepository.GetById(employeeId);
             if (employee == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -82,7 +82,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [ResponseType(typeof(IEnumerable<EmployeeDTO>))]
         public HttpResponseMessage GetEmployeesInDivision(HttpRequestMessage request, int divisionId)
         {
-            var division = _divisionRepository.GetByID(divisionId);
+            var division = _divisionRepository.GetById(divisionId);
             if (division == null)
             {
                 return request.CreateErrorResponse(
@@ -104,7 +104,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [ResponseType(typeof(IEnumerable<EmployeeDTO>))]
         public HttpResponseMessage GetEmployeesInPublication(HttpRequestMessage request, int publicationId)
         {
-            var publication = _publicationRepository.GetByID(publicationId);
+            var publication = _publicationRepository.GetById(publicationId);
             if(publication == null)
             {
                 return request.CreateErrorResponse(
@@ -138,7 +138,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Employee>(item);
 
-            if (_divisionRepository.GetByID(dbObject.DivisionId) == null)
+            if (_divisionRepository.GetById(dbObject.DivisionId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,
@@ -171,7 +171,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             var dbObject = Mapper.Map<Employee>(item);
 
-            if (_divisionRepository.GetByID(dbObject.DivisionId) == null)
+            if (_divisionRepository.GetById(dbObject.DivisionId) == null)
             {
                 return request.CreateErrorResponse(
                     HttpStatusCode.PreconditionFailed,

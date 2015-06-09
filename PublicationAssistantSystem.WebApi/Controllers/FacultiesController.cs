@@ -56,7 +56,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         [Route("{facultyId:int}")]
         public FacultyDTO GetFacultyById(int facultyId)
         {
-            var faculty = _facultyRepository.GetByID(facultyId);
+            var faculty = _facultyRepository.GetById(facultyId);
             if (faculty == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 

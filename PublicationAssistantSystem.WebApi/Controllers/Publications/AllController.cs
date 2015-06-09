@@ -75,7 +75,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [Route("{publicationId:int}")]
         public PublicationBaseDTO GetPublicationById(int publicationId)
         {
-            var publication = _publicationBaseRepository.GetByID(publicationId);
+            var publication = _publicationBaseRepository.GetById(publicationId);
             if (publication == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
@@ -94,7 +94,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         [ResponseType(typeof(IEnumerable<PublicationBaseDTO>))]
         public HttpResponseMessage GetPublicationsOfEmployee(HttpRequestMessage request, int employeeId)
         {
-            var employee = _employeeRepository.GetByID(employeeId);
+            var employee = _employeeRepository.GetById(employeeId);
             if (employee == null)
             {
                 return request.CreateErrorResponse(
