@@ -9,6 +9,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateArticle();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(article), 
+                article.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(article));
             formatter.AppendTitle(article.Title);
             formatter.AppendDate(article.PublicationDate);
@@ -22,6 +25,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateBook();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(book),
+                book.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(book));
             formatter.AppendTitle(book.Title);
             formatter.AppendDate(book.PublicationDate);
@@ -34,6 +40,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateMisc();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(dataset),
+                dataset.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(dataset));
             formatter.AppendTitle(dataset.Title);
             formatter.AppendDate(dataset.PublicationDate);
@@ -44,6 +53,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateConferencePaper();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(conferencePaper),
+                conferencePaper.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(conferencePaper));
             formatter.AppendTitle(conferencePaper.Title);
             formatter.AppendDate(conferencePaper.PublicationDate);
@@ -54,6 +66,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateMisc();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(patent),
+                patent.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(patent));
             formatter.AppendTitle(patent.Title);
             formatter.AppendDate(patent.PublicationDate);
@@ -64,6 +79,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateTechnicalReport();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(technicalReport),
+                technicalReport.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(technicalReport));
             formatter.AppendTitle(technicalReport.Title);
             formatter.AppendDate(technicalReport.PublicationDate);
@@ -74,6 +92,9 @@ namespace PublicationAssistantSystem.Core.Exports
         {
             var formatter = new BIBFormatter();
             formatter.CreateThesis();
+            formatter.AppendQuoteMarker(
+                GetAuthorsLastNames(thesis),
+                thesis.PublicationDate.Year);
             formatter.AppendAuthors(GetAuthors(thesis));
             formatter.AppendTitle(thesis.Title);
             formatter.AppendDate(thesis.PublicationDate);

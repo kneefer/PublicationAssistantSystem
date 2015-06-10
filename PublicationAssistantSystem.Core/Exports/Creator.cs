@@ -44,6 +44,13 @@ namespace PublicationAssistantSystem.Core.Exports
                               .Select(employee => string.Format("{0} {1}", employee.FirstName, employee.LastName))
                               .ToList();
         }
+        
+        protected static IList<string> GetAuthorsLastNames(PublicationBaseDTO publication)
+        {
+            return publication.Employees
+                              .Select(employee => employee.LastName)
+                              .ToList();
+        }
 
         #endregion Helpers
     }

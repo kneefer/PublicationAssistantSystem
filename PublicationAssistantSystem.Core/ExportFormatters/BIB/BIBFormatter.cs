@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 {
     public partial class BIBFormatter
     {
-        private const string BeginFormat        = "@{0}{{{1}";
-        private const string StringFieldFormat  = "\t{{0,-{0}}} = \"{{1}}\",{{2}}";
-        private const string IntegerFieldFormat = "\t{{0,-{0}}} = {{1}},{{2}}";
-        private const string EndFormat          = "}}{0}{0}";
+        private const string BeginFormat = "@{0}{{[[quoteMarker]],{1}";
+        private const string FieldFormat = "\t{{0,-{0}}} = {{{{{{1}}}}}},{{2}}";
+        private const string EndFormat   = "}}{0}{0}";
 
         private readonly StringBuilder _formatBuilder;
 
@@ -22,6 +22,7 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 
         public string GetEntry()
         {
+            RemoveMarkers();
             AppendEnd();
             return _formatBuilder.ToString();
         }
@@ -39,14 +40,19 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 
         private void AppendField(string fieldName, int fieldValue)
         {
-            var format = string.Format(IntegerFieldFormat, Fields.MaxFieldLength);
+            var format = string.Format(FieldFormat, Fields.MaxFieldLength);
             _formatBuilder.AppendFormat(format, fieldName, fieldValue, Environment.NewLine);
         }
 
         private void AppendField(string fieldName, string fieldValue)
         {
-            var format = string.Format(StringFieldFormat, Fields.MaxFieldLength);
+            var format = string.Format(FieldFormat, Fields.MaxFieldLength);
             _formatBuilder.AppendFormat(format, fieldName, fieldValue, Environment.NewLine);
+        }
+
+        private void RemoveMarkers()
+        {
+            _formatBuilder.Replace("[[quoteMarker]],", string.Empty);
         }
 
         #endregion Private appending rules
@@ -85,6 +91,35 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 
         #endregion Creating publication entry
 
+        #region Quote marker
+
+        public void AppendQuoteMarker(string customMarker)
+        {
+            _formatBuilder.Replace("[[quoteMarker]]", customMarker);
+        }
+
+        public void AppendQuoteMarker(IEnumerable<string> authorsLastNames, int year)
+        {
+            // Cast to array and check for null
+            var lastNames = authorsLastNames as string[] ?? authorsLastNames.ToArray();
+            if (lastNames == null || !lastNames.Any())
+                throw new ArgumentNullException("authorsLastNames");
+            
+            // Append firts author last name
+            var sb = new StringBuilder(lastNames[0]);
+
+            // Append others authors first letter of last name
+            for (var i = 1; i < lastNames.Length; i++)
+                sb.Append(lastNames[i][0]);
+
+            // Append year
+            sb.Append(year);
+
+            AppendQuoteMarker(sb.ToString());
+        }
+
+        #endregion Quote marker
+
         #region Appending specific fields
 
         public void AppendAuthor(string author)
@@ -94,19 +129,18 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 
         public void AppendAuthors(IList<string> authors)
         {
+            var sb = new StringBuilder();
+
             for (var i = 0; i < authors.Count; i++)
             {
                 var author = authors[i];
                 if (i != authors.Count - 1)
-                {
-                    AppendField(Fields.Author,
-                            string.Format("{0} and ", author));    
-                }
+                    sb.AppendFormat("{0} and ", author);
                 else
-                {
-                    AppendField(Fields.Author, author);
-                }
+                    sb.Append(author);
             }
+
+            AppendAuthor(sb.ToString());
         }
 
         public void AppendTitle(string title)
