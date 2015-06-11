@@ -1,43 +1,69 @@
-﻿using PublicationAssistantSystem.DAL.DTO.Misc;
+﻿using System.Collections.Generic;
+using System.IO;
+using CsvHelper;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 
 namespace PublicationAssistantSystem.Core.Exports
 {
     public class CSVCreator : Creator
     {
-        public override string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume)
+        private readonly StreamWriter _streamWriter;
+        private CsvWriter _csvWriter;
+
+        public CSVCreator()
+            : this(Stream.Null)
         {
-            throw new System.NotImplementedException();
         }
 
-        public override string CreateBook(BookDTO book)
+        public CSVCreator(Stream stream)
+            : base(stream)
         {
-            throw new System.NotImplementedException();
+            if (Stream == Stream.Null)
+                Stream = new MemoryStream();
+
+            _streamWriter = new StreamWriter(Stream);
+            _csvWriter = new CsvWriter(_streamWriter);
         }
 
-        public override string CreateDataset(DatasetDTO dataset)
+        public override bool CreateToStream(IEnumerable<PublicationBaseDTO> publications)
         {
-            throw new System.NotImplementedException();
+            var a = string.Empty;
+            return base.CreateToStream(publications);
         }
 
-        public override string CreateConferencePaper(ConferencePaperDTO book)
+        protected override string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume)
         {
-            throw new System.NotImplementedException();
+            return string.Empty;
         }
 
-        public override string CreatePatent(PatentDTO book)
+        protected override string CreateBook(BookDTO book)
         {
-            throw new System.NotImplementedException();
+            return string.Empty;
         }
 
-        public override string CreateTechnicalReport(TechnicalReportDTO book)
+        protected override string CreateDataset(DatasetDTO dataset)
         {
-            throw new System.NotImplementedException();
+            return string.Empty;
         }
 
-        public override string CreateThesis(ThesisDTO book)
+        protected override string CreateConferencePaper(ConferencePaperDTO book)
         {
-            throw new System.NotImplementedException();
+            return string.Empty;
+        }
+
+        protected override string CreatePatent(PatentDTO book)
+        {
+            return string.Empty;
+        }
+
+        protected override string CreateTechnicalReport(TechnicalReportDTO book)
+        {
+            return string.Empty;
+        }
+
+        protected override string CreateThesis(ThesisDTO book)
+        {
+            return string.Empty;
         }
     }
 }

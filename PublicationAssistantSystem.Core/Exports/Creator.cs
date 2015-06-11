@@ -1,13 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using PublicationAssistantSystem.DAL.DTO.Misc;
+using System.Text;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 
 namespace PublicationAssistantSystem.Core.Exports
 {
-    public abstract class Creator : ICreator
+    public abstract class Creator
     {
+        #region Properties
+        
+        protected Stream Stream { get; set; }
+
+        #endregion Properties
+
+        #region Initialization
+
+        protected Creator()
+            : this(Stream.Null) 
+        { }
+
+        protected Creator(Stream stream)
+        {
+            Stream = stream;
+        }
+
+        #endregion Initialization
+
+        public virtual bool CreateToStream(IEnumerable<PublicationBaseDTO> publications)
+        {
+            if(Stream == Stream.Null)
+                throw new ArgumentException("Stream must be initialized!");
+            if(publications == null)
+                throw new ArgumentNullException("publications");
+
+            var encoding = new UTF8Encoding();
+            foreach (var publication in publications)
+            {
+                var serialized = Create(publication);
+                var bytes = encoding.GetBytes(serialized);
+                Stream.Write(bytes, 0, bytes.Length);
+            }
+
+            return true;
+        }
+
         public string Create(PublicationBaseDTO publication)
         {
             if (publication is BookDTO) return CreateBook((BookDTO)publication);
@@ -28,13 +66,13 @@ namespace PublicationAssistantSystem.Core.Exports
             throw new ArgumentException("Argument publication is not valid!");
         }
 
-        public abstract string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume);
-        public abstract string CreateBook(BookDTO book);
-        public abstract string CreateDataset(DatasetDTO dataset);
-        public abstract string CreateConferencePaper(ConferencePaperDTO book);
-        public abstract string CreatePatent(PatentDTO book);
-        public abstract string CreateTechnicalReport(TechnicalReportDTO book);
-        public abstract string CreateThesis(ThesisDTO book);
+        protected abstract string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume);
+        protected abstract string CreateBook(BookDTO book);
+        protected abstract string CreateDataset(DatasetDTO dataset);
+        protected abstract string CreateConferencePaper(ConferencePaperDTO book);
+        protected abstract string CreatePatent(PatentDTO book);
+        protected abstract string CreateTechnicalReport(TechnicalReportDTO book);
+        protected abstract string CreateThesis(ThesisDTO book);
 
         #region Helpers
 

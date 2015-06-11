@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.13.1.0\lib\net40-client\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
@@ -50,7 +54,6 @@
     <Compile Include="Exports\Creator.cs" />
     <Compile Include="Exports\CSVCreator.cs" />
     <Compile Include="Exports\XMLCreator.cs" />
-    <Compile Include="Exports\ICreator.cs" />
     <Compile Include="Imports\ImportFromBIB.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Mappers\Common\Author.cs" />
@@ -116,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

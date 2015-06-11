@@ -5,7 +5,7 @@ namespace PublicationAssistantSystem.Core.Exports
 {
     public class BIBCreator : Creator
     {
-        public override string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume)
+        protected override string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume)
         {
             var formatter = new BIBFormatter();
             formatter.CreateArticle();
@@ -21,7 +21,7 @@ namespace PublicationAssistantSystem.Core.Exports
             return formatter.GetEntry();
         }
 
-        public override string CreateBook(BookDTO book)
+        protected override string CreateBook(BookDTO book)
         {
             var formatter = new BIBFormatter();
             formatter.CreateBook();
@@ -36,7 +36,7 @@ namespace PublicationAssistantSystem.Core.Exports
             return formatter.GetEntry();
         }
 
-        public override string CreateDataset(DatasetDTO dataset)
+        protected override string CreateDataset(DatasetDTO dataset)
         {
             var formatter = new BIBFormatter();
             formatter.CreateMisc();
@@ -49,7 +49,7 @@ namespace PublicationAssistantSystem.Core.Exports
             return formatter.GetEntry();
         }
 
-        public override string CreateConferencePaper(ConferencePaperDTO conferencePaper)
+        protected override string CreateConferencePaper(ConferencePaperDTO conferencePaper)
         {
             var formatter = new BIBFormatter();
             formatter.CreateConferencePaper();
@@ -62,7 +62,7 @@ namespace PublicationAssistantSystem.Core.Exports
             return formatter.GetEntry();
         }
 
-        public override string CreatePatent(PatentDTO patent)
+        protected override string CreatePatent(PatentDTO patent)
         {
             var formatter = new BIBFormatter();
             formatter.CreateMisc();
@@ -75,7 +75,7 @@ namespace PublicationAssistantSystem.Core.Exports
             return formatter.GetEntry();
         }
 
-        public override string CreateTechnicalReport(TechnicalReportDTO technicalReport)
+        protected override string CreateTechnicalReport(TechnicalReportDTO technicalReport)
         {
             var formatter = new BIBFormatter();
             formatter.CreateTechnicalReport();
@@ -88,7 +88,7 @@ namespace PublicationAssistantSystem.Core.Exports
             return formatter.GetEntry();
         }
 
-        public override string CreateThesis(ThesisDTO thesis)
+        protected override string CreateThesis(ThesisDTO thesis)
         {
             var formatter = new BIBFormatter();
             formatter.CreateThesis();
