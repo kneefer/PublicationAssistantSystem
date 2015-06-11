@@ -14,6 +14,7 @@ using AutoMapper;
 using PublicationAssistantSystem.Core.Exports;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
+using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 
 namespace PublicationAssistantSystem.WebApi.Controllers.Publications
@@ -152,39 +153,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         public HttpResponseMessage GetAllAsBIB()
         {
             var publications = _publicationBaseRepository.Get();
-            var mapped = publications.Select(Mapper.Map<PublicationBaseDTO>).ToArray();
-
-            var creator = new BIBCreator();
+            AppendJournalInformations(publications);
 
             using (var stream = new MemoryStream())
             {
-                var encoding = new UTF8Encoding();
-
-                foreach (var publication in mapped)
-                {
-                    string serialized;
-                    var article = publication as ArticleDTO;
-                    if (article != null)
-                    {
-                        var journalEdition =
-                            _journalEditionRepository.Get().SingleOrDefault(x => x.Id == article.JournalEditionId);
-                        if(journalEdition == null) continue;
-
-                        var journal = _journalRepository.Get().SingleOrDefault(x => x.Id == journalEdition.JournalId);
-                        if(journal == null) continue;
-                        
-                        var title = journal.Title;
-                        var volume = journalEdition.VolumeNumber;
-                        serialized = creator.Create(article, title, volume);
-                    }
-                    else
-                    {
-                        serialized = creator.Create(publication);    
-                    }
-                    
-                    var bytes = encoding.GetBytes(serialized);
-                    stream.Write(bytes, 0, bytes.Length);
-                }
+                var creator = new BIBCreator(stream);
+                creator.CreateToStream(publications);
 
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
                 result.Content = new ByteArrayContent(stream.ToArray());
@@ -207,20 +181,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         public HttpResponseMessage GetAllAsCSV()
         {
             var publications = _publicationBaseRepository.Get();
-            var mapped = publications.Select(Mapper.Map<PublicationBaseDTO>).ToArray();
-
-            var creator = new CSVCreator();
+            AppendJournalInformations(publications);
 
             using (var stream = new MemoryStream())
             {
-                var encoding = new UTF8Encoding();
-
-                foreach (var publication in mapped)
-                {
-                    var serialized = creator.Create(publication).ToArray();
-                    var bytes = encoding.GetBytes(serialized);
-                    stream.Write(bytes, 0, bytes.Length);
-                }
+                var creator = new CSVCreator(stream);
+                creator.CreateToStream(publications);
 
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
                 result.Content = new ByteArrayContent(stream.ToArray());
@@ -250,5 +216,34 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             _publicationBaseRepository.Delete(publicationId);
             _db.SaveChanges();
         }
+
+        #region Helpers
+
+        /// <summary>
+        /// Adds informations about journal to all articles in publications
+        /// </summary>
+        /// <param name="publications">Publications collection</param>
+        private void AppendJournalInformations(IEnumerable<PublicationBase> publications)
+        {
+            var publicationBases = publications as IList<PublicationBase> ?? publications.ToList();
+            if (publicationBases.Count() < 0) return;
+
+            foreach (var publication in publicationBases)
+            {
+                var article = publication as Article;
+                if (article == null) continue;
+
+                var journalEdition = _journalEditionRepository.Get().SingleOrDefault(x => x.Id == article.JournalEditionId);
+                if (journalEdition == null) continue;
+
+                var journal = _journalRepository.Get().SingleOrDefault(x => x.Id == journalEdition.JournalId);
+                if (journal == null) continue;
+
+                article.JournalEdition = journalEdition;
+                article.JournalEdition.Journal = journal;
+            }
+        }
+
+        #endregion Helpers
     }
 }

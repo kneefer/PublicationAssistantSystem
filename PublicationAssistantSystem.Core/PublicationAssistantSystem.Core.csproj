@@ -53,7 +53,6 @@
     <Compile Include="Exports\BIBCreator.cs" />
     <Compile Include="Exports\Creator.cs" />
     <Compile Include="Exports\CSVCreator.cs" />
-    <Compile Include="Exports\XMLCreator.cs" />
     <Compile Include="Imports\ImportFromBIB.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Mappers\Common\Author.cs" />

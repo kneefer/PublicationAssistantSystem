@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using PublicationAssistantSystem.DAL.DTO.Publications;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.Core.Exports
 {
@@ -28,7 +28,7 @@ namespace PublicationAssistantSystem.Core.Exports
 
         #endregion Initialization
 
-        public virtual bool CreateToStream(IEnumerable<PublicationBaseDTO> publications)
+        public virtual void CreateToStream(IEnumerable<PublicationBase> publications)
         {
             if(Stream == Stream.Null)
                 throw new ArgumentException("Stream must be initialized!");
@@ -42,48 +42,39 @@ namespace PublicationAssistantSystem.Core.Exports
                 var bytes = encoding.GetBytes(serialized);
                 Stream.Write(bytes, 0, bytes.Length);
             }
-
-            return true;
         }
 
-        public string Create(PublicationBaseDTO publication)
+        public string Create(PublicationBase publication)
         {
-            if (publication is BookDTO) return CreateBook((BookDTO)publication);
-            if (publication is DatasetDTO) return CreateDataset((DatasetDTO)publication);
-            if (publication is ConferencePaperDTO) return CreateConferencePaper((ConferencePaperDTO)publication);
-            if (publication is PatentDTO) return CreatePatent((PatentDTO)publication);
-            if (publication is TechnicalReportDTO) return CreateTechnicalReport((TechnicalReportDTO)publication);
-            if (publication is ThesisDTO) return CreateThesis((ThesisDTO)publication);
+            if (publication is Book) return CreateBook((Book)publication);
+            if (publication is Dataset) return CreateDataset((Dataset)publication);
+            if (publication is ConferencePaper) return CreateConferencePaper((ConferencePaper)publication);
+            if (publication is Patent) return CreatePatent((Patent)publication);
+            if (publication is TechnicalReport) return CreateTechnicalReport((TechnicalReport)publication);
+            if (publication is Thesis) return CreateThesis((Thesis)publication);
+            if (publication is Article) return CreateArticle((Article) publication);
 
             throw new ArgumentException("Argument publication is not valid!");
         }
 
-        public string Create(PublicationBaseDTO publication, string journalTitle, int journalVolume)
-        {
-            if (publication is ArticleDTO)
-                return CreateArticle((ArticleDTO) publication, journalTitle, journalVolume);
-
-            throw new ArgumentException("Argument publication is not valid!");
-        }
-
-        protected abstract string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume);
-        protected abstract string CreateBook(BookDTO book);
-        protected abstract string CreateDataset(DatasetDTO dataset);
-        protected abstract string CreateConferencePaper(ConferencePaperDTO book);
-        protected abstract string CreatePatent(PatentDTO book);
-        protected abstract string CreateTechnicalReport(TechnicalReportDTO book);
-        protected abstract string CreateThesis(ThesisDTO book);
+        protected abstract string CreateArticle(Article article);
+        protected abstract string CreateBook(Book book);
+        protected abstract string CreateDataset(Dataset dataset);
+        protected abstract string CreateConferencePaper(ConferencePaper book);
+        protected abstract string CreatePatent(Patent book);
+        protected abstract string CreateTechnicalReport(TechnicalReport book);
+        protected abstract string CreateThesis(Thesis book);
 
         #region Helpers
 
-        protected static IList<string> GetAuthors(PublicationBaseDTO publication)
+        protected static IList<string> GetAuthors(PublicationBase publication)
         {
             return publication.Employees
                               .Select(employee => string.Format("{0} {1}", employee.FirstName, employee.LastName))
                               .ToList();
         }
         
-        protected static IList<string> GetAuthorsLastNames(PublicationBaseDTO publication)
+        protected static IEnumerable<string> GetAuthorsLastNames(PublicationBase publication)
         {
             return publication.Employees
                               .Select(employee => employee.LastName)

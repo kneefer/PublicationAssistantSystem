@@ -1681,6 +1681,12 @@
             <param name="publicationId"> The id of publication to delete. </param>
             <remarks> DELETE api/Publications/Id </remarks>
         </member>
+        <member name="M:PublicationAssistantSystem.WebApi.Controllers.Publications.AllController.AppendJournalInformations(System.Collections.Generic.IEnumerable{PublicationAssistantSystem.DAL.Models.Publications.PublicationBase})">
+            <summary>
+            Adds informations about journal to all articles in publications
+            </summary>
+            <param name="publications">Publications collection</param>
+        </member>
         <member name="T:PublicationAssistantSystem.WebApi.Controllers.TestController">
             <summary>
             For testing purposes

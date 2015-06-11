@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using CsvHelper;
-using PublicationAssistantSystem.DAL.DTO.Publications;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.Core.Exports
 {
     public class CSVCreator : Creator
     {
         private readonly StreamWriter _streamWriter;
-        private CsvWriter _csvWriter;
+        private readonly CsvWriter _csvWriter;
 
         public CSVCreator()
             : this(Stream.Null)
@@ -25,44 +25,53 @@ namespace PublicationAssistantSystem.Core.Exports
             _csvWriter = new CsvWriter(_streamWriter);
         }
 
-        public override bool CreateToStream(IEnumerable<PublicationBaseDTO> publications)
+        public override void CreateToStream(IEnumerable<PublicationBase> publications)
         {
-            var a = string.Empty;
-            return base.CreateToStream(publications);
+            foreach (var publication in publications)
+            {
+                Create(publication);
+            }
         }
 
-        protected override string CreateArticle(ArticleDTO article, string journalTitle, int journalVolume)
+        protected override string CreateArticle(Article article)
         {
+            _csvWriter.WriteRecord(article);
             return string.Empty;
         }
 
-        protected override string CreateBook(BookDTO book)
+        protected override string CreateBook(Book book)
         {
+            _csvWriter.WriteRecord(book);
             return string.Empty;
         }
 
-        protected override string CreateDataset(DatasetDTO dataset)
+        protected override string CreateDataset(Dataset dataset)
         {
+            _csvWriter.WriteRecord(dataset);
             return string.Empty;
         }
 
-        protected override string CreateConferencePaper(ConferencePaperDTO book)
+        protected override string CreateConferencePaper(ConferencePaper conferencePaper)
         {
+            _csvWriter.WriteRecord(conferencePaper);
             return string.Empty;
         }
 
-        protected override string CreatePatent(PatentDTO book)
+        protected override string CreatePatent(Patent patent)
         {
+            _csvWriter.WriteRecord(patent);
             return string.Empty;
         }
 
-        protected override string CreateTechnicalReport(TechnicalReportDTO book)
+        protected override string CreateTechnicalReport(TechnicalReport technicalReport)
         {
+            _csvWriter.WriteRecord(technicalReport);
             return string.Empty;
         }
 
-        protected override string CreateThesis(ThesisDTO book)
+        protected override string CreateThesis(Thesis thesis)
         {
+            _csvWriter.WriteRecord(thesis);
             return string.Empty;
         }
     }
