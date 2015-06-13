@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
+using PublicationAssistantSystem.Core.PostAddJobs;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
@@ -119,6 +120,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
+            var jobs = new PublicationsJobs(dbObject);
+            jobs.Start();
+
             var mapped = Mapper.Map<PatentDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
@@ -145,6 +149,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
+
+            var jobs = new PublicationsJobs(dbObject);
+            jobs.Start();
 
             var mapped = Mapper.Map<PatentDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.NoContent, mapped);

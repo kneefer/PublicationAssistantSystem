@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace PublicationAssistantSystem.DAL.Models.OrganisationUnits
 {

@@ -10,6 +10,7 @@ using PublicationAssistantSystem.DAL.DTO.Publications;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 using System.Web.Http.Description;
+using PublicationAssistantSystem.Core.PostAddJobs;
 
 namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
@@ -130,6 +131,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
             _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
+            var jobs = new PublicationsJobs(dbObject);
+            jobs.Start();
+
             var mapped = Mapper.Map<ArticleDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.Created, mapped);
         }
@@ -163,6 +167,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             _publicationBaseRepository.Update(dbObject);
             _db.SaveChanges();
+
+            var jobs = new PublicationsJobs(dbObject);
+            jobs.Start();
 
             var mapped = Mapper.Map<ArticleDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.NoContent, mapped);

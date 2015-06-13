@@ -4,9 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
+using PublicationAssistantSystem.Core.PostAddJobs;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.DTO.Misc;
 using PublicationAssistantSystem.DAL.Models.Misc;
@@ -132,9 +135,13 @@ namespace PublicationAssistantSystem.WebApi.Controllers
                 throw new ArgumentNullException("item");
 
             var dbObject = Mapper.Map<Journal>(item);
+            dbObject.IsComputing = true;
 
             _journalRepository.Insert(dbObject);
             _db.SaveChanges();
+
+            var jobs = new JournalsJobs(dbObject);
+            jobs.Start();
 
             var mapped = Mapper.Map<JournalDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.Created, mapped);
@@ -161,6 +168,9 @@ namespace PublicationAssistantSystem.WebApi.Controllers
 
             _journalRepository.Update(dbObject);
             _db.SaveChanges();
+
+            var jobs = new JournalsJobs(dbObject);
+            jobs.Start();
 
             var mapped = Mapper.Map<JournalDTO>(dbObject);
             return request.CreateResponse(HttpStatusCode.NoContent, mapped);

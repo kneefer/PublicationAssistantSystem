@@ -54,6 +54,7 @@ namespace PublicationAssistantSystem.WebApi
             Mapper.CreateMap<Employee, EmployeeDTO>();
 
             Mapper.CreateMap<JournalDTO, Journal>();
+            Mapper.CreateMap<JournalPostDTO, Journal>();
             Mapper.CreateMap<Journal, JournalDTO>();
 
             Mapper.CreateMap<JournalEditionDTO, JournalEdition>();

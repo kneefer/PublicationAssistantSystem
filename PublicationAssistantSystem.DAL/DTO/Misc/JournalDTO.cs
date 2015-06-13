@@ -12,6 +12,7 @@ namespace PublicationAssistantSystem.DAL.DTO.Misc
         public string Title { get; set; }
 
         public int Id { get; set; }
+        public bool IsComputing { get; set; }
         public bool IsOnMNISZW { get; set; }
         public bool IsOnWOS { get; set; }
         public bool IsOnJCR { get; set; }
