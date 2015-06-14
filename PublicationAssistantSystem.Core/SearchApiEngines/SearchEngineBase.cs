@@ -18,6 +18,7 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
         protected abstract IEnumerable<IRecord> RunQuery();
 
         public abstract SearchEngineBase ByTitle(string title);
+        public abstract SearchEngineBase ByISBNISSN(string isbnOrIssn);
         public abstract SearchEngineBase ByAuthors(string[] authorsSecondNames);
     }
 }

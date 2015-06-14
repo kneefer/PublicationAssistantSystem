@@ -32,6 +32,12 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
             return this;
         }
 
+        public override SearchEngineBase ByISBNISSN(string isbnOrIssn)
+        {
+            _queryStrings.Add(string.Format("IS={0}", isbnOrIssn));
+            return this;
+        }
+
         public override SearchEngineBase ByAuthors(string[] authorsSecondNames)
         {
             foreach (var authorSecondName in authorsSecondNames)

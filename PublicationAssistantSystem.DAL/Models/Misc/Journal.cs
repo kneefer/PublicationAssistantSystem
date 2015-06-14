@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PublicationAssistantSystem.DAL.Models.Misc
@@ -14,9 +15,12 @@ namespace PublicationAssistantSystem.DAL.Models.Misc
         [Required]
         public string Title { get; set; }
 
-
         public bool IsComputing { get; set; }
+
         public bool IsOnMNISZW { get; set; }
+        public string MNISZWList { get; set; }
+        public int MNISZWPoints { get; set; }
+
         public bool IsOnWOS { get; set; }
         public bool IsOnJCR { get; set; }
 
