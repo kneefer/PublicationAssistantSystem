@@ -1,10 +1,12 @@
-﻿using PublicationAssistantSystem.DAL.Models.Publications;
+﻿using System.Linq;
+using PublicationAssistantSystem.Core.SearchApiEngines;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.Core.PostAddJobs
 {
     public class PublicationsJobs : PostAddJobsBase<PublicationBase>
     {
-        private bool _isOnWOS;
+        private bool _isOnWOS = false;
 
         public PublicationsJobs(PublicationBase publicationToModify)
             : base(publicationToModify) { }
@@ -13,8 +15,25 @@ namespace PublicationAssistantSystem.Core.PostAddJobs
         {
             var toModify = EntityToModify;
 
-            //TODO Replace with real checking 
-            _isOnWOS = true;
+            var results = new WebOfScienceSearchEngine()
+                .ByTitle(toModify.Title)
+                .GetResults().ToList();
+
+            if (!results.Any()) return;
+
+            if (results.Count() == 1)
+            {
+                _isOnWOS = true;
+                return;
+            }
+
+            results = new WebOfScienceSearchEngine()
+                .ByTitle(toModify.Title)
+                .ByAuthors(toModify.Employees.Select(x => x.LastName).ToArray())
+                .GetResults().ToList();
+
+            if (results.Count() == 1)
+                _isOnWOS = true;
         }
 
         protected override void SetModifications(PublicationBase toModify)
