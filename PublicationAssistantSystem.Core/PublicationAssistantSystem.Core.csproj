@@ -83,7 +83,6 @@
     <Compile Include="Clients\SearchClient.cs" />
     <Compile Include="SearchApiEngines\SearchEngineBase.cs" />
     <Compile Include="SearchApiEngines\WebOfScienceSearchEngine.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="Web References\WebOfKnowledgeApi.Authentication\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

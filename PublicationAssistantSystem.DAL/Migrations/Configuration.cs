@@ -1,5 +1,4 @@
 using System;
-using PublicationAssistantSystem.DAL.Helpers;
 using PublicationAssistantSystem.DAL.Models.Misc;
 using PublicationAssistantSystem.DAL.Models.OrganisationUnits;
 using PublicationAssistantSystem.DAL.Models.Publications;
@@ -93,7 +92,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
             SeedMiscellaneous(context);
             SeedPublications(context);
 
-            context.SaveChangesWithErrors();
+            context.SaveChanges();
         }
 
         private void SeedOrganisationUnits(Context.PublicationAssistantContext context)
