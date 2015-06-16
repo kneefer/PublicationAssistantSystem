@@ -26,6 +26,9 @@ namespace PublicationAssistantSystem.DAL.DTO.Publications
         [XmlIgnore]
         public string Discriminator { get; set; }
 
+        public bool IsComputing { get; set; }
+        public bool IsOnWOS { get; set; }
+
         [XmlArray("Authors")]
         [XmlArrayItem("Author")]
         public List<EmployeeDTO> Employees { get; set; }

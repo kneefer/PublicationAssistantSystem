@@ -17,6 +17,19 @@ namespace PublicationAssistantSystem.DAL.Migrations
 
         protected override void Seed(Context.PublicationAssistantContext context)
         {
+            var journalEdition = new JournalEdition
+            {
+                PublishDate = DateTime.Now - TimeSpan.FromDays(2342),
+                VolumeNumber = 3,
+            };
+
+            context.Journals.AddOrUpdate(new Journal
+            {
+                ISSN = "2434-561X",
+                JournalEditions = new[] { journalEdition },
+                Title = "Zbiór artyku³ów",
+            });
+
             context.Faculties.AddOrUpdate(new[]
             {
                 new Faculty { 
@@ -30,7 +43,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                         {
                             new Employee { AcademicTitle = "Doktor", FirstName = "Jacek", LastName = "Widuch", Publications = new PublicationBase[]
                             {
-                                new Article{Title = "Mój pierwszy artyku³ naukowy.", PublicationDate = DateTime.Now - TimeSpan.FromDays(100), PageFrom = 2, PageTo = 3, JournalEditionId = 1}, 
+                                new Article{Title = "Mój pierwszy artyku³ naukowy.", PublicationDate = DateTime.Now - TimeSpan.FromDays(100), PageFrom = 2, PageTo = 3, JournalEdition = journalEdition}, 
                                 new Book { ISBN = "978-2-12-345680-3", Title = "O obrotach sfer niebieskich", PublicationDate = DateTime.Now, Publisher = "Egmont"},
                                 new Book { ISBN = "343-5-23-352354-4", Title = "WiedŸmin", PublicationDate = DateTime.Now - TimeSpan.FromDays(4234), Publisher = "Helion"},
                                 new Book { ISBN = "686-3-76-234234-6", Title = "Latarnik", PublicationDate = DateTime.Now, Publisher = "Axel-Springer"},
@@ -41,8 +54,8 @@ namespace PublicationAssistantSystem.DAL.Migrations
                                 {
                                     new Book { ISBN = "978-83-7508-556-3", Title = "Piêædziesi¹t twarzy Greya", PublicationDate = DateTime.Now -TimeSpan.FromDays(5), Publisher = "Adult Szpringer"},
                                     new Thesis {Title = "Teza o powstawaniu tez naukowych.", PublicationDate = DateTime.Now - TimeSpan.FromDays(200)}, 
-                                    new Article { Title = "Jak pisaæ artyku³y naukowe.", PublicationDate = DateTime.Now - TimeSpan.FromDays(100), PageFrom = 10, PageTo = 50, JournalEditionId = 1},
-                                    new Article { Title = "Jak niew pisaæ artyku³ów naukowych.", PublicationDate = DateTime.Now - TimeSpan.FromDays(200), PageFrom = 15, PageTo = 20, JournalEditionId = 1},
+                                    new Article { Title = "Jak pisaæ artyku³y naukowe.", PublicationDate = DateTime.Now - TimeSpan.FromDays(100), PageFrom = 10, PageTo = 50, JournalEdition = journalEdition },
+                                    new Article { Title = "Jak niew pisaæ artyku³ów naukowych.", PublicationDate = DateTime.Now - TimeSpan.FromDays(200), PageFrom = 15, PageTo = 20, JournalEdition = journalEdition},
                                 }
                             },
                             new Employee { AcademicTitle = "Magister", FirstName = "Ewa", LastName = "Lach"},
@@ -68,7 +81,7 @@ namespace PublicationAssistantSystem.DAL.Migrations
                         new Division{Name="Zak³ad Telekomunikacji"}, 
                         new Division{Name="Zak³ad Teorii Obwodów i Sygna³ów"}, 
                         new Division{Name="Zak³ad Uk³adów Cyfrowych i Mikroprocesorowych"}, 
-                        new Division{Name="Zak³ad Mikroelektroniki i Nanotechnologii"} 
+                        new Division{Name="Zak³ad Mikroelektroniki i Nanotechnologii"},
                     }},
                 }},
                 new Faculty { Abbreviation = "MT", Name = "Mechaniczno Technologiczny"},

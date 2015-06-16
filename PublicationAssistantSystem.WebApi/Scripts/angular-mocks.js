@@ -594,6 +594,7 @@ function jsonStringToDate(string) {
   return string;
 }
 
+// ReSharper disable once UsingOfReservedWordError
 function int(str) {
   return parseInt(str, 10);
 }

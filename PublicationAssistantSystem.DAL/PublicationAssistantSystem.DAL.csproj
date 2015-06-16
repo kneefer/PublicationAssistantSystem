@@ -97,6 +97,23 @@
     <Compile Include="Migrations\201506012029251_Refactored AllController.Designer.cs">
       <DependentUpon>201506012029251_Refactored AllController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506132022497_Added.cs" />
+    <Compile Include="Migrations\201506132022497_Added.Designer.cs">
+      <DependentUpon>201506132022497_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506132227288_Added new properties to models.cs" />
+    <Compile Include="Migrations\201506132227288_Added new properties to models.Designer.cs">
+      <DependentUpon>201506132227288_Added new properties to models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506140904330_Added new properties to Journal entity.cs" />
+    <Compile Include="Migrations\201506140904330_Added new properties to Journal entity.Designer.cs">
+      <DependentUpon>201506140904330_Added new properties to Journal entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506140907391_Added missing property to Journal entity.cs" />
+    <Compile Include="Migrations\201506140907391_Added missing property to Journal entity.Designer.cs">
+      <DependentUpon>201506140907391_Added missing property to Journal entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IComputableEntity.cs" />
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Repositories\Generic\IGenericRepository.cs" />
     <Compile Include="Context\PublicationAssistantContext.cs" />
@@ -146,6 +163,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506012029251_Refactored AllController.resx">
       <DependentUpon>201506012029251_Refactored AllController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506132022497_Added.resx">
+      <DependentUpon>201506132022497_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506132227288_Added new properties to models.resx">
+      <DependentUpon>201506132227288_Added new properties to models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506140904330_Added new properties to Journal entity.resx">
+      <DependentUpon>201506140904330_Added new properties to Journal entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506140907391_Added missing property to Journal entity.resx">
+      <DependentUpon>201506140907391_Added missing property to Journal entity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

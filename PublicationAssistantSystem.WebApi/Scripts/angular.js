@@ -420,6 +420,7 @@ function extend(dst) {
   return dst;
 }
 
+// ReSharper disable once UsingOfReservedWordError
 function int(str) {
   return parseInt(str, 10);
 }
