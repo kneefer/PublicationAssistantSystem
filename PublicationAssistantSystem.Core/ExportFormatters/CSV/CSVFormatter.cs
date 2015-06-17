@@ -16,27 +16,28 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
         private const string PatentMarker          = "";
         private const string TechnicalReportMarker = "";
         private const string ThesisMarker          = "";
-        private const string RowMarker             = BaseMarker + "," +
-                                                     ArticleMarker + "," + 
-                                                     BookMarker;
+        private const string RowMarker             = BaseMarker + "," + ArticleMarker + "," + BookMarker;
 
         public CSVFormatter()
         {
-            _row = new StringBuilder(RowMarker);
+            _row = new StringBuilder();
         }
 
         #region Private appending rules
 
-        private string RemoveMarkers(string row)
+        private string RemoveMarkers()
         {
-            var begining = -1;
-            while ((begining = row.IndexOf("[[", StringComparison.Ordinal)) > 0)
+            int begining; 
+            var row = _row.ToString();
+            
+            while ((begining = row.IndexOf("[[", StringComparison.Ordinal)) >= 0)
             {
-                var end = row.IndexOf("]]", StringComparison.Ordinal);
+                var end = row.IndexOf("]]", StringComparison.Ordinal) + 2;
+                var count = end - begining;
 
-                if (end > begining)
+                if (count > 0)
                 {
-                    row = row.Remove(begining, end);
+                    row = row.Remove(begining, count);
                 }
                 else
                 {
@@ -62,26 +63,52 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
 
         #region Creating publication entry
 
-        public string GetEntry()
+        private void CreateRow(string type)
         {
-            var row = RemoveMarkers(_row.ToString());
-            return row;
+            _row.Clear();
+            _row.AppendLine(RowMarker);
+            AppendType(type);
         }
 
-        public string GetHeader()
+        public void CreateArticle()
         {
-            AppendType(Fields.Misc.Type);
-            AppendAuthor(Fields.Base.Authors);
-            AppendTitle(Fields.Base.Title);
-            AppendField(Fields.Base.PublicationDate, Fields.Base.PublicationDate);
-            AppendField(Fields.Base.IsOnWOS, Fields.Base.IsOnWOS);
-            AppendJournal(Fields.Article.JournalName);
-            AppendJournalEdition(Fields.Article.JournalEdition);
-            AppendPages(Fields.Article.Pages);
-            AppendPublisher(Fields.Book.Publisher);
-            AppendISBN(Fields.Book.ISBN);
-            
-            return GetEntry();
+            CreateRow(Entries.Article);
+        }
+
+        public void CreateBook()
+        {
+            CreateRow(Entries.Book);
+        }
+
+        public void CreateDataset()
+        {
+            CreateRow(Entries.Dataset);
+        }
+
+        public void CreateConferencePaper()
+        {
+            CreateRow(Entries.ConferencePaper);
+        }
+
+        public void CreatePatent()
+        {
+            CreateRow(Entries.Patent);
+        }
+        public void CreateTechnicalReport()
+        {
+            CreateRow(Entries.TechnicalReport);
+        }
+        public void CreateThesis()
+        {
+            CreateRow(Entries.Thesis);
+        }
+
+        public string GetRow()
+        {
+            var row = RemoveMarkers();
+            _row.Clear();
+
+            return row;
         }
 
         private void AppendType(string type)
@@ -94,6 +121,25 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
         #region Appending specific fields
 
         #region Base
+
+        public string CreateHeader()
+        {
+            _row.Clear();
+            _row.AppendLine(RowMarker);
+
+            AppendType(Fields.Misc.Type);
+            AppendAuthor(Fields.Base.Authors);
+            AppendTitle(Fields.Base.Title);
+            AppendField(Fields.Base.PublicationDate, Fields.Base.PublicationDate);
+            AppendField(Fields.Base.IsOnWOS, Fields.Base.IsOnWOS);
+            AppendJournal(Fields.Article.JournalName);
+            AppendJournalEdition(Fields.Article.JournalEdition);
+            AppendPages(Fields.Article.Pages);
+            AppendPublisher(Fields.Book.Publisher);
+            AppendISBN(Fields.Book.ISBN);
+            
+            return GetRow();
+        }
 
         public void AppendAuthor(string author)
         {
