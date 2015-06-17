@@ -8,16 +8,24 @@ using PublicationAssistantSystem.Core.WebOfKnowledgeApi.Search;
 
 namespace PublicationAssistantSystem.Core.SearchApiEngines
 {
-    public class WebOfScienceSearchEngine : SearchEngineBase
+    public class WebOfScienceSearchEngine
     {
         private readonly List<string> _queryStrings = new List<string>(); 
 
-        protected override bool IsReadyToQuery
+        private bool IsReadyToQuery
         {
             get { return _queryStrings.Count > 0; }
         }
 
-        protected override IEnumerable<IRecord> RunQuery()
+        public IEnumerable<IRecord> GetResults()
+        {
+            if (IsReadyToQuery)
+                return RunQuery();
+
+            throw new ArgumentException("Engine is not ready to search.");
+        }
+
+        private IEnumerable<IRecord> RunQuery()
         {
             var mapper = new WOSRecordToIRecordConverter();
 
@@ -26,19 +34,19 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
             return mappedResult;
         }
 
-        public override SearchEngineBase ByTitle(string title)
+        public WebOfScienceSearchEngine ByTitle(string title)
         {
             _queryStrings.Add(string.Format("TI={0}", title));
             return this;
         }
 
-        public override SearchEngineBase ByISBNISSN(string isbnOrIssn)
+        public WebOfScienceSearchEngine ByISBNISSN(string isbnOrIssn)
         {
             _queryStrings.Add(string.Format("IS={0}", isbnOrIssn));
             return this;
         }
 
-        public override SearchEngineBase ByAuthors(string[] authorsSecondNames)
+        public WebOfScienceSearchEngine ByAuthors(string[] authorsSecondNames)
         {
             foreach (var authorSecondName in authorsSecondNames)
             {
