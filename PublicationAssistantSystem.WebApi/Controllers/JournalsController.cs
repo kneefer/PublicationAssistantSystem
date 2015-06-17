@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AutoMapper;
@@ -48,7 +45,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var journals = _journalRepository.Get();
             
-            var mapped = journals.Select(Mapper.Map<JournalDTO>).ToList();
+            var mapped = Enumerable.ToList(journals.Select(Mapper.Map<JournalDTO>));
             return mapped;
         }
 
@@ -110,7 +107,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var journal = _journalRepository.Get(x => x.Title.Contains(titlePart));
 
-            var mapped = journal.Select(Mapper.Map<JournalDTO>).ToList();
+            var mapped = Enumerable.ToList(journal.Select(Mapper.Map<JournalDTO>));
             return mapped;
         }
 
@@ -140,7 +137,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Insert(dbObject);
             _db.SaveChanges();
 
-            var jobs = new JournalsJobs(dbObject);
+            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/data.csv");
+            var jobs = new JournalsJobs(dbObject, path);
             jobs.Start();
 
             var mapped = Mapper.Map<JournalDTO>(dbObject);
@@ -169,7 +167,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers
             _journalRepository.Update(dbObject);
             _db.SaveChanges();
 
-            var jobs = new JournalsJobs(dbObject);
+            var path = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/data.csv");
+            var jobs = new JournalsJobs(dbObject, path);
             jobs.Start();
 
             var mapped = Mapper.Map<JournalDTO>(dbObject);

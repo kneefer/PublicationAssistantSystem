@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace PublicationAssistantSystem.Core.SearchApiEngines
 {
@@ -12,6 +13,8 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
         public MniszwSearchEngine(StreamReader fileStream)
         {
             var csvHelper = new CsvReader(fileStream);
+            csvHelper.Configuration.RegisterClassMap<MNiSzWElementMap>();
+
             _elements = csvHelper.GetRecords<MNiSzWElement>();
         }
 
@@ -33,12 +36,23 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
         }
     }
 
+    public sealed class MNiSzWElementMap : CsvClassMap<MNiSzWElement>
+    {
+        public MNiSzWElementMap()
+        {
+            Map(x => x.ISSN).Name("ISSN");
+            Map(x => x.JournalTitle).Name("Tytuł");
+            Map(x => x.MNiSzWList).Name("wykaz");
+            Map(x => x.MNiSzwPoints).Name("Liczba punktów");
+        }
+    }
+
     public class MNiSzWElement
     {
         public string MNiSzWList { get; set; }
         public int PositionOnList { get; set; }
         public string JournalTitle { get; set; }
         public string ISSN { get; set; }
-        public string MNiSzwPoints { get; set; }
+        public int MNiSzwPoints { get; set; }
     }
 }

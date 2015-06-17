@@ -6,7 +6,7 @@ namespace PublicationAssistantSystem.Core.PostAddJobs
 {
     public class PublicationsJobs : PostAddJobsBase<PublicationBase>
     {
-        private bool _isOnWOS = false;
+        private bool _isOnWOS;
 
         public PublicationsJobs(PublicationBase publicationToModify)
             : base(publicationToModify) { }
