@@ -81,7 +81,7 @@ namespace PublicationAssistantSystem.WebApi
             Mapper.CreateMap<Book, BookDTO>()
                 .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Book"));
 
-            Mapper.CreateMap<Dataset, DatasetDTO>();
+            Mapper.CreateMap<DatasetDTO, Dataset>();
             Mapper.CreateMap<Dataset, DatasetDTO>()
                 .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Dataset"));
 

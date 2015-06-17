@@ -121,10 +121,10 @@ namespace PublicationAssistantSystem.Core.PostAddJobs
 
         protected override void SetModifications(Journal toModify)
         {
-            toModify.IsOnJCR      = _isOnJCR;
-            toModify.IsOnMNISZW   = _isOnMNISZW;
-            toModify.IsOnWOS      = _isOnWOS;
-            toModify.MNISZWList   = _mniszwList;
+            toModify.IsOnJCR = _isOnJCR;
+            toModify.IsOnMNISZW = _isOnMNISZW;
+            toModify.IsOnWOS = _isOnWOS;
+            toModify.MNISZWList = _mniszwList;
             toModify.MNISZWPoints = _mniszwPoints;
         }
     }

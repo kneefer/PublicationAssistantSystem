@@ -107,7 +107,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="item"> The dataset to add. </param>
         /// <remarks> POST api/Publications/Datasets </remarks>
         /// <returns> The added dataset DTO. </returns>
-        [HttpPut]
+        [HttpPost]
         [Route("")]
         [ResponseType(typeof(DatasetDTO))]
         public HttpResponseMessage Add(HttpRequestMessage request, DatasetDTO item)
@@ -137,7 +137,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         /// <param name="item"> The item with updated content. </param>
         /// <remarks> PATCH api/Publications/Datasets </remarks>
         /// <returns> An updated dataset DTO. </returns>
-        [HttpPatch]
+        [HttpPut]
         [Route("")]
         [ResponseType(typeof(DatasetDTO))]
         public HttpResponseMessage Update(HttpRequestMessage request, DatasetDTO item)

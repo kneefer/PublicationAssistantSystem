@@ -44,6 +44,7 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
             Map(x => x.JournalTitle).Name("Tytuł");
             Map(x => x.MNiSzWList).Name("wykaz");
             Map(x => x.MNiSzwPoints).Name("Liczba punktów");
+            Map(x => x.PositionOnList).Name("pozycja na liście");
         }
     }
 
