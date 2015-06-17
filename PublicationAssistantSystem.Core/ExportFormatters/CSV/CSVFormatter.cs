@@ -27,7 +27,7 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
 
         #region Private appending rules
 
-        private void RemoveMarkers(string row)
+        private string RemoveMarkers(string row)
         {
             var begining = -1;
             while ((begining = row.IndexOf("[[", StringComparison.Ordinal)) > 0)
@@ -43,6 +43,7 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
                     break;
                 }
             }
+            return row;
         }
 
         private void AppendField(string fieldName, int fieldValue)
@@ -61,10 +62,26 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
 
         #region Creating publication entry
 
+        public string GetEntry()
+        {
+            var row = RemoveMarkers(_row.ToString());
+            return row;
+        }
+
         public string GetHeader()
         {
-            return string.Format(RowMarker, Fields.Misc.Type, Fields.Base.Title, Fields.Base.Authors, Fields.Base.PublicationDate, Fields.Base.IsOnWOS,
-                                            Fields.Article.JournalName, Fields.Article.JournalEdition, Fields.Article.Pages, Fields.Book.Publisher, Fields.Book.ISBN);
+            AppendType(Fields.Misc.Type);
+            AppendAuthor(Fields.Base.Authors);
+            AppendTitle(Fields.Base.Title);
+            AppendField(Fields.Base.PublicationDate, Fields.Base.PublicationDate);
+            AppendField(Fields.Base.IsOnWOS, Fields.Base.IsOnWOS);
+            AppendJournal(Fields.Article.JournalName);
+            AppendJournalEdition(Fields.Article.JournalEdition);
+            AppendPages(Fields.Article.Pages);
+            AppendPublisher(Fields.Book.Publisher);
+            AppendISBN(Fields.Book.ISBN);
+            
+            return GetEntry();
         }
 
         private void AppendType(string type)
@@ -111,10 +128,6 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.CSV
         public void AppendIsOnWOS(bool isOnWOS)
         {
             AppendField(Fields.Base.IsOnWOS, isOnWOS ? 1 : 0);
-        }
-        public void AppendIsComputing(bool isComputing)
-        {
-            AppendField(Fields.Base.IsOnWOS, isComputing ? 1 : 0);
         }
 
         #endregion Base

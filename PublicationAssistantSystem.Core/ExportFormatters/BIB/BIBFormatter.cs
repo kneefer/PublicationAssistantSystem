@@ -20,13 +20,6 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
 
         #region Private appending rules
 
-        public string GetEntry()
-        {
-            RemoveMarkers();
-            AppendEnd();
-            return _formatBuilder.ToString();
-        }
-
         private  void AppendBegin(string publicationName)
         {
             _formatBuilder.Clear();
@@ -58,6 +51,13 @@ namespace PublicationAssistantSystem.Core.ExportFormatters.BIB
         #endregion Private appending rules
 
         #region Creating publication entry
+
+        public string GetEntry()
+        {
+            RemoveMarkers();
+            AppendEnd();
+            return _formatBuilder.ToString();
+        }
 
         public void CreateArticle()
         {
