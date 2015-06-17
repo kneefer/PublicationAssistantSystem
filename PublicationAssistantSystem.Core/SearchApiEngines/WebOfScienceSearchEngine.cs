@@ -83,7 +83,7 @@ namespace PublicationAssistantSystem.Core.SearchApiEngines
                     count = 10,
                     firstRecord = 1,
                 });
-                authClient.closeSession();
+                //authClient.closeSession();
 
                 return results;
             }
