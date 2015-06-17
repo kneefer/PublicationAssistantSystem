@@ -55,6 +55,8 @@
     <Compile Include="Clients\AuthenticationClient.cs" />
     <Compile Include="ExportFormatters\BIB\BIBFormatter.cs" />
     <Compile Include="ExportFormatters\BIB\BIBFormatter.Fields.cs" />
+    <Compile Include="ExportFormatters\CSV\CSVFormatter.Fields.cs" />
+    <Compile Include="ExportFormatters\CSV\CSVFormatter.cs" />
     <Compile Include="Exports\BIBCreator.cs" />
     <Compile Include="Exports\Creator.cs" />
     <Compile Include="Exports\CSVCreator.cs" />
