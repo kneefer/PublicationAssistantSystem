@@ -104,16 +104,20 @@ body {
   border-radius: 50%;
 }
 
-.add-item-form {
+.add-item-form, .update-item-form {
     display: none;
 }
  .show-form-button {
      margin-top: 10px;
  }
 
- .addition-succeded {
+ .addition-succeded, .update-succeded {
      display:none;
      padding: 20px;
      border-radius: 15px;
 
+ }
+
+ .top-margin{
+     margin-top: 10px;
  }

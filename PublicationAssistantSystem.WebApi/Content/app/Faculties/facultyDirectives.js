@@ -45,3 +45,30 @@ facultiesModule.directive("addFaculty", ["FacultyFactory", function (FacultyFact
         }
     }
 }]);
+
+facultiesModule.directive("editFaculty", ["FacultyFactory", "$routeParams", function (FacultyFactory, $routeParams) {
+    return {
+        restrict: 'E',
+        templateUrl: 'Content/app/Faculties/templates/editFaculty.html',
+        link: function ($scope) {
+            FacultyFactory.getFaculty($routeParams.facultyId)
+                .then(function (response) {
+                    $scope.Faculty = response.data;
+                });
+            $scope.updateFaculty = function () {
+                FacultyFactory.updateFaculty($scope.Faculty)
+                .then(function (response) {
+                    if (response.status = 201)
+                        $(".update-succeded").slideDown("slow").delay(3000).slideUp("slow");
+                    else
+                        alert("Error!");
+                });
+            }
+
+            $scope.showUpdateForm = function () {
+                $(".update-item-form").slideToggle();
+            }
+            
+        }
+    }
+}]);
