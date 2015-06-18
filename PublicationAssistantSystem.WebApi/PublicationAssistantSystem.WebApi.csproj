@@ -265,6 +265,7 @@
     <Content Include="Content\app\Faculties\Institutes\institutes.html" />
     <Content Include="Content\app\Faculties\Institutes\institutes.js" />
     <Content Include="Content\app\Faculties\Institutes\templates\instituteList.html" />
+    <Content Include="Content\app\Faculties\templates\addFaculty.html" />
     <Content Include="Content\app\Faculties\templates\facultyList.html" />
     <Content Include="Content\app\main.js" />
     <Content Include="Content\app\Publications\publicationDirectives.js" />

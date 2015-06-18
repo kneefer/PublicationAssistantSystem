@@ -8,7 +8,15 @@ facultiesModule.factory("FacultyFactory", ["$http", function ($http) {
         return $http.get("/api/Faculties");
     }
 
+    var addFaculty = function(faculty) {
+        return $http.post("/api/Faculties", {
+            "Abbreviation": faculty.Abbreviation,
+            "Name" : faculty.Name
+        });
+    }
+
     return {
-        getAllFaculties: getAllFaculties
+        getAllFaculties: getAllFaculties,
+        addFaculty : addFaculty
     };
 }]);
