@@ -8,6 +8,10 @@ facultiesModule.factory("InstituteFactory", ["$http", function ($http) {
         return $http.get("/api/Faculties/"+facultyId+"/Institutes");
     }
 
+    var getInstitute = function (instituteId) {
+        return $http.get("/api/Institutes/" + instituteId);
+    }
+
     var addInstitute = function (institute, facultyId) {
         return $http.post("/api/Institutes", {
             "Name": institute.Name,
@@ -15,8 +19,18 @@ facultiesModule.factory("InstituteFactory", ["$http", function ($http) {
         });
     }
 
+    var updateInstitute = function (institute) {
+        return $http.put("/api/Institutes", {
+            "Id": institute.Id,
+            "Name": institute.Name,
+            "FacultyId": institute.FacultyId
+        });
+    }
+
     return {
         getFacultyInstitutes: getFacultyInstitutes,
-        addInstitute: addInstitute
+        getInstitute: getInstitute,
+        addInstitute: addInstitute,
+        updateInstitute: updateInstitute
     };
 }]);

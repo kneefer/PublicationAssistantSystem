@@ -45,3 +45,31 @@ institutesModule.directive("addInstitute", ["InstituteFactory", "$routeParams", 
         }
     }
 }]);
+
+institutesModule.directive("editInstitute", ["InstituteFactory", "$routeParams", function (InstituteFactory, $routeParams) {
+    return {
+        restrict: 'E',
+        templateUrl: 'Content/app/Faculties/Institutes/templates/editInstitute.html',
+        link: function ($scope) {
+            InstituteFactory.getInstitute($routeParams.instituteId)
+                .then(function (response) {
+                    $scope.Institute = response.data;
+                });
+            $scope.updateInstitute = function () {
+                $scope.Institute.FacultyId = $routeParams.facultyId;
+                InstituteFactory.updateInstitute($scope.Institute)
+                .then(function (response) {
+                    if (response.status = 201)
+                        $(".update-succeded").slideDown("slow").delay(3000).slideUp("slow");
+                    else
+                        alert("Error!");
+                });
+            }
+
+            $scope.showUpdateForm = function () {
+                $(".update-item-form").slideToggle();
+            }
+
+        }
+    }
+}]);

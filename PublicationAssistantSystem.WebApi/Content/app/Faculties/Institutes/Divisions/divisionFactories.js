@@ -8,7 +8,14 @@ divisionsModule.factory("DivisionFactory", ["$http", function ($http) {
         return $http.get("/api/Institutes/" + instituteId + "/Divisions");
     }
 
+    var addDivision = function (division) {
+        return $http.post("/api/Divisions", {
+            "Name": division.Name,
+            "InstituteId": division.InstituteId
+        });
+    }
     return {
-        getInstituteDivisions: getInstituteDivisions
+        getInstituteDivisions: getInstituteDivisions,
+        addDivision: addDivision
     };
 }]);

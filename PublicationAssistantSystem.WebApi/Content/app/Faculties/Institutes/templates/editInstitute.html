@@ -1,0 +1,10 @@
+﻿<div class="col-sm-12">
+    <form class="update-item-form top-margin">
+        <label class="col-sm-1">Nazwa:</label><input type="text" class="col-sm-2" ng-model="Institute.Name" />
+        <input type="hidden" ng-mode="Institute.Id" />
+        <button class="btn btn-default" ng-click="updateInstitute()">Zapisz</button>
+    </form>
+    <div class="col-sm-12 update-succeded alert-success">Prawidłowo zaktualizowano dane instytutu.</div>
+    <button ng-click="showUpdateForm()" class="btn btn-primary show-form-button col-sm-4 col-sm-offset-4 text-center">Aktualizuj dane instytutu</button>
+</div>
+<div class="clearfix"></div>
