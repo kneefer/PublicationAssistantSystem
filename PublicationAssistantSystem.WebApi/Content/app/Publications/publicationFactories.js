@@ -23,6 +23,10 @@ publicationsModule.factory("PublicationFactory", ["$http", function ($http) {
         return $http.get("/api/Publications/ConferencePapers");
     }
 
+    var addConferencePaper = function (publication) {
+        return $http.post("/api/Publications/ConferencePapers", publication);
+    }
+
     // technical reports code
     var getAllTechnicalReports = function () {
         return $http.get("/api/Publications/TechnicalReports");
@@ -54,6 +58,8 @@ publicationsModule.factory("PublicationFactory", ["$http", function ($http) {
     }
 
     return {
-        getAllPublications: getAllPublications
+        getAllPublications: getAllPublications,
+        getAllConferencePapers: getAllConferencePapers,
+        addConferencePaper: addConferencePaper
     };
 }]);

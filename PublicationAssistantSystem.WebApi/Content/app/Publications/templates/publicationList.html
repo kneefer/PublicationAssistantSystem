@@ -1,15 +1,15 @@
-﻿<table>
-    <thead>
-        <tr>
-            <th class="col-sm-3">Nazwa</th>
-            <th class="col-sm-3">Data</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="publication in publications">
-            <td>{{publication.Title}}</td>
-            <td>{{publication.PublicationDate}}</td>
-        </tr>
-    </tbody>
+﻿<div ng-repeat="publication in publications">   
+    <div ng-switch="publicationType">
+        <div ng-switch-when="ConferencePapers"><conference-paper-fields></conference-paper-fields></div>
+        <div ng-switch-when="TechnicalReports"><technical-report-fields></technical-report-fields></div>
+        <div ng-switch-when="Theses"><thesis-fields></thesis-fields></div>
+        <div ng-switch-when="Books"><books-fields></books-fields></div>
+        <div ng-switch-when="Patents"><patent-fields></patent-fields></div>
+        <div ng-switch-when="Articles"><article-fields></article-fields></div>
+        <div ng-switch-default><publication-fields></publication-fields></div>
+    </div>
+</div>
 
-</table>
+<div ng-if="publications.length == 0">
+    Brak publikacji
+</div>
