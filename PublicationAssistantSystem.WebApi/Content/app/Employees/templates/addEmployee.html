@@ -1,0 +1,11 @@
+﻿<div class="clearfix"></div>
+<form class="add-item-form top-margin">
+    <div class="col-sm-12"><label class="col-sm-3">Imię:</label><input type="text" ng-model="Employee.FirstName" /></div>
+    <div class="col-sm-12"><label class="col-sm-3">Nazwisko:</label><input type="text" ng-model="Employee.LastName" /></div>
+    <div class="col-sm-12"><label class="col-sm-3">Tytuł akademicki:</label><input type="text" ng-model="Employee.AcademicTitle" /></div>
+    <div class="col-sm-12"><label class="col-sm-3">Zespół:</label><select ng-model="Employee.DivisionId" ng-options="division.Name for division in divisions track by division.Id"></select></div>
+    <div class="col-sm-12 alert-danger" ng-show="divisions == null || divisions.isEmpty()">Brak zespołów. Najpierw dodaj zespół.</div>
+    <button class="btn btn-default" ng-click="addEmployee()" ng-disabled="Employee.DivisionId == null">Zapisz</button>
+</form>
+<div class="col-sm-12 addition-succeded alert-success">Prawidłowo dodano pracownika</div>
+<button ng-click="showForm()" class="btn btn-primary show-form-button col-sm-4 col-sm-offset-4 text-center">Dodaj pracownika</button>

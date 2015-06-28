@@ -4,6 +4,9 @@ var divisionsModule = angular.module("divisions");
 
 divisionsModule.factory("DivisionFactory", ["$http", function ($http) {
 
+    var getAllDivisions = function () {
+        return $http.get("/api/Divisions");
+    }
     var getInstituteDivisions = function (instituteId) {
         return $http.get("/api/Institutes/" + instituteId + "/Divisions");
     }
@@ -15,6 +18,7 @@ divisionsModule.factory("DivisionFactory", ["$http", function ($http) {
         });
     }
     return {
+        getAllDivisions: getAllDivisions,
         getInstituteDivisions: getInstituteDivisions,
         addDivision: addDivision
     };
