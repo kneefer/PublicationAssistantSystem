@@ -13,7 +13,7 @@ employeesModule.factory("EmployeeFactory", ["$http", function($http) {
             "FirstName": employee.FirstName,
             "LastName": employee.LastName,
             "AcademicTitle": employee.AcademicTitle,
-            "DivisionId": employee.DivisionId
+            "DivisionId": employee.DivisionId.Id
         });
     }
 

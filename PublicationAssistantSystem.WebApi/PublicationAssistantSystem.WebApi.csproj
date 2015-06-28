@@ -256,6 +256,12 @@
     <Content Include="App_Data\results.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\app\app.module.js" />
+    <Content Include="Content\app\Employees\employeeDirectives.js" />
+    <Content Include="Content\app\Employees\employeeFactories.js" />
+    <Content Include="Content\app\Employees\employees.html" />
+    <Content Include="Content\app\Employees\employees.js" />
+    <Content Include="Content\app\Employees\templates\addEmployee.html" />
+    <Content Include="Content\app\Employees\templates\employeeList.html" />
     <Content Include="Content\app\Faculties\faculties.html" />
     <Content Include="Content\app\Faculties\faculties.js" />
     <Content Include="Content\app\Faculties\facultyDirectives.js" />
@@ -356,7 +362,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\app\Accounts\" />
-    <Folder Include="Content\app\Employees\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
