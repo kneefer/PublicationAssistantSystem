@@ -1,0 +1,19 @@
+﻿<table class="col-sm-12">
+    <thead>
+        <tr>
+            <th class="col-sm-2">Imię</th>
+            <th class="col-sm-3">Nazwisko</th>
+            <th class="col-sm-3">Tytuł akademicki</th>
+            <th class="col-sm-4">Zespół</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="employee in employees">
+            <td>{{employee.FirstName}}</td>
+            <td>{{employee.LastName}}</td>
+            <td>{{employee.AcademicTitle}}</td>
+            <td>{{employee.DivisionId}}</td>
+        </tr>
+    </tbody>
+
+</table>
