@@ -267,6 +267,15 @@
     <Content Include="Content\app\Faculties\Institutes\templates\instituteList.html" />
     <Content Include="Content\app\Faculties\templates\addFaculty.html" />
     <Content Include="Content\app\Faculties\templates\facultyList.html" />
+    <Content Include="Content\app\Journals\journalDetails.html" />
+    <Content Include="Content\app\Journals\journalDirectives.js" />
+    <Content Include="Content\app\Journals\journals.html" />
+    <Content Include="Content\app\Journals\journals.js" />
+    <Content Include="Content\app\Journals\journalFactories.js" />
+    <Content Include="Content\app\Journals\templates\addJournal.html" />
+    <Content Include="Content\app\Journals\templates\editJournal.html" />
+    <Content Include="Content\app\Journals\templates\journalFields.html" />
+    <Content Include="Content\app\Journals\templates\journalList.html" />
     <Content Include="Content\app\main.js" />
     <Content Include="Content\app\Publications\publicationDirectives.js" />
     <Content Include="Content\app\Publications\publicationFactories.js" />
@@ -339,7 +348,6 @@
   <ItemGroup>
     <Folder Include="Content\app\Accounts\" />
     <Folder Include="Content\app\Employees\" />
-    <Folder Include="Content\app\Journals\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

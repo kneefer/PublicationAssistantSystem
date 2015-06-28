@@ -1,0 +1,14 @@
+﻿<table class="col-sm-12">
+    <thead>
+        <tr>
+            <th class="col-sm-1">ISSN</th>
+            <th class="col-sm-11">Nazwa:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="journal in journals">
+            <td class="col-sm-3">{{journal.ISSN}}</td>
+            <td class="col-sm-11"><a ng-href="#/Journals/{{journal.Id}}">{{journal.Title}}</a></td>
+        </tr>
+    </tbody>
+</table>
