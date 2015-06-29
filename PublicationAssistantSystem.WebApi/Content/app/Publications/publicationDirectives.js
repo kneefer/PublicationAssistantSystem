@@ -11,46 +11,75 @@ publicationsModule.directive("listPublications", ["PublicationFactory", function
         },
         templateUrl: "Content/app/Publications/templates/publicationList.html",
         link: function ($scope, element, attrs) {
-            $scope.publicationType = "default";
 
-            PublicationFactory.getAllPublications()
-                .then(function (response) {
-                    $scope.publications = response.data;
-                })
+            PublicationFactory.getPublicationHandler($scope.publicationType).list()
+            .then(function (response) {
+                $scope.publications = response.data;
+            }, function (response) {
+                alert("error getting publications");
+            });
+            
         }
     };
 
 }]);
 
-publicationsModule.directive("listConferencePapers", ["PublicationFactory", function (PublicationFactory) {
+publicationsModule.directive("showPublication", ["PublicationFactory", function (PublicationFactory) {
 
     return {
         restrict: "E",
-        scope: {},
-        templateUrl: "Content/app/Publications/templates/publicationList.html",
-        link: function ($scope, element, attrs) {
-            $scope.publicationType = "ConferencePapers";
-
-            PublicationFactory.getAllConferencePapers()
-                .then(function (response) {
-                    $scope.publications = response.data;
-                })
-        }
-    };
-
-}]);
-
-publicationsModule.directive("addConferencePaper", ["PublicationFactory", function (PublicationFactory) {
-
-    return {
-        restrict: "E",
-        scope: {},
+        scope: {
+            publicationType: "@type",
+            publicationId: "@id"
+        },
         templateUrl: "Content/app/Publications/templates/conferencePaperFields.html",
         link: function ($scope, element, attrs) {
-            PublicationFactory.getAllConferencePapers()
+            PublicationFactory.getPublicationHandler($scope.publicationType).get($scope.publicationId)
                 .then(function (response) {
-                    $scope.publications = response.data;
-                })
+                    $scope.publication = response.data;
+                }, function (response) {
+                    alert("error creating publications");
+                });
+        }
+    };
+
+}]);
+
+publicationsModule.directive("createPublication", ["PublicationFactory", function (PublicationFactory) {
+
+    return {
+        restrict: "E",
+        scope: {
+            publicationType: "@type"
+        },
+        templateUrl: "Content/app/Publications/templates/conferencePaperFields.html",
+        link: function ($scope, element, attrs) {
+            PublicationFactory.getPublicationHandler($scope.publicationType).create($scope.publication)
+                .then(function (response) {
+                    $scope.publication = response.data;
+                }, function (response) {
+                    alert("error creating publications");
+                });
+        }
+    };
+
+}]);
+
+publicationsModule.directive("updatePublication", ["PublicationFactory", function (PublicationFactory) {
+
+    return {
+        restrict: "E",
+        scope: {
+            publicationType: "@type"
+        },
+        templateUrl: "Content/app/Publications/templates/conferencePaperFields.html",
+        link: function ($scope, element, attrs) {
+            PublicationFactory.getPublicationHandler($scope.publicationType).update($scope.publication)
+                .then(function (response) {
+                    $scope.publication = response.data;
+                }, function (response) {
+                    alert("error creating publications");
+                });
         }
     };
 
@@ -95,5 +124,11 @@ publicationsModule.directive("patentFields", [function () {
 publicationsModule.directive("articleFields", [function () {
     return {
         templateUrl: "Content/app/Publications/templates/articleFields.html"
+    }
+}]);
+
+publicationsModule.directive("datasetFields", [function () {
+    return {
+        templateUrl: "Content/app/Publications/templates/datasetFields.html"
     }
 }]);

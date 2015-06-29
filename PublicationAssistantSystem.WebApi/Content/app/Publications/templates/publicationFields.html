@@ -1,0 +1,22 @@
+﻿
+<div class="row">
+    <label>Tytuł</label>
+    <input type="text" name="title" ng-model="publication.Title" disabled />
+</div>
+
+<div class="row">
+    <label>Data publikacji</label>
+    <input type="datetime" name="datetime" ng-model="publication.PublicationDate"
+            disabled />
+</div>
+
+<div class="row">
+    <label>Pracownicy</label>
+    <ul>
+        <li ng-repeat="employee in publication.employees">
+            {{employee.FirstName}} {{employee.LastName}}
+        </li>
+    </ul>
+    <!-- jakis input do wybrania kilku pracownikow na raz -->
+</div>
+

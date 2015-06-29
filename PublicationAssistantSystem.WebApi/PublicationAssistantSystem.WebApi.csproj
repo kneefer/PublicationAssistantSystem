@@ -301,6 +301,7 @@
     <Content Include="Content\app\Publications\templates\articleFields.html" />
     <Content Include="Content\app\Publications\templates\bookFields.html" />
     <Content Include="Content\app\Publications\templates\conferencePaperFields.html" />
+    <Content Include="Content\app\Publications\templates\datasetFields.html" />
     <Content Include="Content\app\Publications\templates\patentFields.html" />
     <Content Include="Content\app\Publications\templates\publicationFields.html" />
     <Content Include="Content\app\Publications\templates\publicationList.html" />
