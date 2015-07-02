@@ -4,6 +4,19 @@ var publicationsModule = angular.module("publications");
 
 publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$location",
     function ($http, $routeParams, $location) {
+
+        var allPublications = [];
+
+        function getPublications() {
+            $http.get("/api/Publications/All")
+                .then(function (response) {
+                    allPublications = response.data;
+                }, function (response) {
+                    alert("error downloading publications");
+                });
+        }
+
+        getPublications();
     
     /* handlers format:
     ** list() - get whole repository
@@ -139,7 +152,7 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
         return $http.put("/api/Publications/TechnicalReports", publication)
     }
 
-    var technicalReportHandlers = {
+    var technicalReportsHandlers = {
         list: getAllTechnicalReports,
         get: getTechnicalReport,
         create: addTechnicalReport,
