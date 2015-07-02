@@ -1,17 +1,38 @@
 ﻿
 <div class="row">
-    <label>Tytuł</label>
-    <input type="text" name="title" ng-model="publication.Title" disabled />
+    <label class="col-md-3">Tytuł:</label>
+    <input type="text" name="title" ng-model="publication.Title" />
 </div>
 
 <div class="row">
-    <label>Data publikacji</label>
-    <input type="datetime" name="datetime" ng-model="publication.PublicationDate"
-            disabled />
+    <label class="col-md-3">Data publikacji:</label>
+    <input type="datetime" name="datetime" ng-model="publication.PublicationDate" />
 </div>
 
 <div class="row">
-    <label>Pracownicy</label>
+    <label class="col-md-3">isComputing:</label>
+    <input type="checkbox" name="IsComputing" ng-model="publication.IsComputing" />
+</div>
+
+<div class="row">
+    <label class="col-md-3">IsOnWOS:</label>
+    <input type="checkbox" name="IsOnWOS" ng-model="publication.IsOnWOS" />
+</div>
+
+<!--
+<div class="row">
+    <label>Dyskryminator</label>
+    <input type="text" ng-model="publication.Discriminator" disabled />
+</div>
+-->
+
+<div ng-switch="publicationType">
+    <div ng-switch-when="Books"></div>
+    <div ng-switch-default></div>
+</div>
+
+<div class="row">
+    <label class="col-md-3">Pracownicy:</label>
     <ul>
         <li ng-repeat="employee in publication.employees">
             {{employee.FirstName}} {{employee.LastName}}

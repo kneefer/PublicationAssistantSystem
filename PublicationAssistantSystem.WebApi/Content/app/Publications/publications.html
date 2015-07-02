@@ -3,16 +3,7 @@
 </ol>
 
 <div class="row">
-    <a href="#/Publications/All">Wyświetl wszystkie publikacje</a>
-</div>
-
-<div class="row">
-    <ul>
-        <li><a href="#/Publications/ConferencePapers">Dokumenty konferencyjne</a></li>
-        <li><a href="#/Publications/TechnicalReports">Raporty techniczne</a></li>
-        <li><a href="#/Publications/Theses">Dowody</a></li>
-        <li><a href="#/Publications/Books">Książki</a></li>
-        <li><a href="#/Publications/Patents">Patenty</a></li>
-        <li><a href="#/Publications/Articles">Artykuły</a></li>
+    <ul ng-repeat="publicationType in publicationTypes">
+        <li><a href="#/Publications/{{publicationType[0]}}">{{publicationType[1]}}</a></li>
     </ul>
 </div>

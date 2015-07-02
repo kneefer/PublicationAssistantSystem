@@ -2,7 +2,8 @@
 
 var publicationsModule = angular.module("publications");
 
-publicationsModule.factory("PublicationFactory", ["$http", function ($http) {
+publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$location",
+    function ($http, $routeParams, $location) {
     
     /* handlers format:
     ** list() - get whole repository
@@ -11,6 +12,42 @@ publicationsModule.factory("PublicationFactory", ["$http", function ($http) {
     ** update(publication) - update publication
     ** delete(publication) - delete publication
     */
+
+    var translations = [
+        ['All', 'Wszystkie publikacje'],
+        ['ConferencePapers', 'Dokumenty konferencyjne'],
+        ['TechnicalReports', 'Raporty techniczne'],
+        ['Theses', 'Dowody'],
+        ['Books', 'Książki'],
+        ['Patents', 'Patenty'],
+        ['Articles', 'Artykuły'],
+    ];
+
+    var getTypeFromUrl = function () {
+        var ret = null;
+
+        translations.forEach(function (element) {
+            if (element[0] == $routeParams.type) {
+                ret = element;
+            }
+        });
+
+        return ret;
+    }
+
+    var getPathFromUrl = function () {
+        var path = $location.path().split('/').slice(1);
+        var ret = [];
+
+        for (var i = 0; i < path.length; i++) {
+            for (var j = 0; j < translations.length; j++) {
+                if (translations[j][0] == path[i]) {
+                    ret.push(translations[j]);
+                }
+            }
+        }
+        return ret;
+    }
 
     var handlers = function (publicationType) {
         switch (publicationType) {
@@ -231,5 +268,8 @@ publicationsModule.factory("PublicationFactory", ["$http", function ($http) {
 
     return {
         getPublicationHandler: handlers,
+        translations: translations,
+        getTypeFromUrl: getTypeFromUrl,
+        getPathFromUrl: getPathFromUrl
     };
 }]);

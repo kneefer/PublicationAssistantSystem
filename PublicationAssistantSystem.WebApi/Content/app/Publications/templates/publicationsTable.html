@@ -1,0 +1,18 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Data publikacji</th>
+            <th>IsComputing</th>
+            <th>IsOnWOS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="publication in publications">
+            <td>{{publication.Title}}</td>
+            <td>{{publication.PublicationDate}}</td>
+            <td>{{publication.IsComputing}}</td>
+            <td>{{publication.IsOnWOS}}</td>
+        </tr>
+    </tbody>
+</table>

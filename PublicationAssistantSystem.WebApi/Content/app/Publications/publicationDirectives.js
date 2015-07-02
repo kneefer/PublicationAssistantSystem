@@ -9,7 +9,7 @@ publicationsModule.directive("listPublications", ["PublicationFactory", function
         scope: {
             publicationType: "@type"
         },
-        templateUrl: "Content/app/Publications/templates/publicationList.html",
+        templateUrl: "Content/app/Publications/templates/publicationsTable.html",
         link: function ($scope, element, attrs) {
 
             PublicationFactory.getPublicationHandler($scope.publicationType).list()
@@ -52,14 +52,23 @@ publicationsModule.directive("createPublication", ["PublicationFactory", functio
         scope: {
             publicationType: "@type"
         },
-        templateUrl: "Content/app/Publications/templates/conferencePaperFields.html",
+        templateUrl: "Content/app/Publications/templates/createPublication.html",
         link: function ($scope, element, attrs) {
-            PublicationFactory.getPublicationHandler($scope.publicationType).create($scope.publication)
-                .then(function (response) {
-                    $scope.publication = response.data;
-                }, function (response) {
-                    alert("error creating publications");
-                });
+
+            $scope.savePublication = function (publication) {
+                PublicationFactory.getPublicationHandler($scope.publicationType).create(publication)
+                    .then(function (response) {
+                        $scope.publication = response.data;
+                        $(".addition-succeded").slideDown("slow").delay(3000).slideUp("slow");
+                    }, function (response) {
+                        alert("error creating publications");
+                    });
+            }
+
+            $scope.showForm = function () {
+                $(element).find("input").prop("disabled", false);
+                $(".add-item-form").slideToggle();
+            }
         }
     };
 
@@ -85,50 +94,12 @@ publicationsModule.directive("updatePublication", ["PublicationFactory", functio
 
 }]);
 
-publicationsModule.directive("publicationFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/publicationFields.html"
-    }
-}]);
+publicationsModule.directive("publicationFields", ['$routeParams', function ($routeParams) {
 
-publicationsModule.directive("conferencePaperFields", [function () {
     return {
-        templateUrl: "Content/app/Publications/templates/conferencePaperFields.html"
-    }
-}]);
-
-publicationsModule.directive("technicalReportFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/technicalReportFields.html"
-    }
-}]);
-
-publicationsModule.directive("thesisFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/thesisFields.html"
-    }
-}]);
-
-publicationsModule.directive("bookFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/bookFields.html"
-    }
-}]);
-
-publicationsModule.directive("patentFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/patentFields.html"
-    }
-}]);
-
-publicationsModule.directive("articleFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/articleFields.html"
-    }
-}]);
-
-publicationsModule.directive("datasetFields", [function () {
-    return {
-        templateUrl: "Content/app/Publications/templates/datasetFields.html"
+        templateUrl: "Content/app/Publications/templates/publicationFields.html",
+        link: function ($scope, element, attrs) {
+            
+        }
     }
 }]);
