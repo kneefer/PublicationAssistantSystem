@@ -1,0 +1,14 @@
+﻿<table class="col-sm-12 table table-striped">
+    <thead>
+        <tr>
+            <th class="col-sm-3">Data wydania</th>
+            <th class="col-sm-6">Nr wydania:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="journalEdition in journalEditions">
+            <td class="col-sm-3">{{journalEdition.PublishDate}}</td>
+            <td class="col-sm-11">{{journalEdition.VolumeNumber}}</td>
+        </tr>
+    </tbody>
+</table>

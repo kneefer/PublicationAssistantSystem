@@ -9,5 +9,8 @@ journalsModule.config(["$routeProvider", function ($routeProvider) {
         })
         .when("/Journals/:JournalId/", {
             templateUrl: "Content/app/Journals/journalDetails.html"
+        })
+        .when("/Journals/:JournalId/JournalEdition", {
+            templateUrl: "Content/app/Journals/journalEditions.html"
         });
 }]);

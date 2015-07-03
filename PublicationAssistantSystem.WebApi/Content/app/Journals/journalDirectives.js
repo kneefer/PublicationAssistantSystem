@@ -62,9 +62,6 @@ journalsModule.directive("editJournal", ["JournalFactory", "$routeParams", funct
                 .then(function (response) {
                     if (response.status = 201) {           
                         $(".update-succeded").slideDown("slow").delay(3000).slideUp("slow");
-                        $(element).find("input").prop("disabled", true);
-                        $(".update-item-button").slideToggle();
-
                     }
                     else
                         alert("Error!");
@@ -72,13 +69,7 @@ journalsModule.directive("editJournal", ["JournalFactory", "$routeParams", funct
             }
 
             $scope.showUpdateForm = function () {
-                if ($(element).find("input").prop("disabled")) {
-                  $(element).find("input").prop("disabled", false);
-                } else {
-                    $(element).find("input").prop("disabled", true);
-                }
-
-                $(".update-item-button").slideToggle();
+                $(".update-item-form").slideToggle();
             }
 
         }

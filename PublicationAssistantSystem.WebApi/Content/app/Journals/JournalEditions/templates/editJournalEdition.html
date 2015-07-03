@@ -1,0 +1,10 @@
+﻿<div class="col-sm-12">
+    <form class="top-margin">
+        <label class="col-sm-1">Data wydania:</label><input type="text" class="col-sm-2" ng-model="JournalEdition.PublishDate" />
+        <label class="col-sm-1">Nr wydania:</label><input type="number" class="col-sm-2" ng-model="Journal.VolumeNumber" />
+        <button class="btn btn-default update-item-button" ng-click="updateJournalEdition()">Zapisz</button>
+    </form>
+    <div class="col-sm-12 update-succeded alert-success">Prawidłowo zaktualizowano dane wydawnictwa.</div>
+    <button ng-click="showUpdateForm()" class="btn btn-primary show-form-button col-sm-4 col-sm-offset-4 text-center">Aktualizuj dane wydawnictwa</button>
+</div>
+<div class="clearfix"></div>

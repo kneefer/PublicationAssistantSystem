@@ -1,0 +1,13 @@
+﻿<div class="col-sm-12">
+    <form class="add-item-form row">
+        <label class="col-sm-1">Data wydania:</label><input type="text" class="col-sm-2" ng-model="JournalEdition.PublishDate" />
+        <label class="col-sm-1">Nr wydania:</label><input type="number" class="col-sm-2" ng-model="JournalEdition.VolumeNumber" />
+        <button class="btn btn-default" ng-click="addJournalEdition()">Zapisz</button>
+ 
+    </form>
+    <div class="col-sm-12 addition-succeded alert-success">Prawidłowo dodano wydanie czasopisma.</div>
+    <button ng-click="showForm()" class="btn btn-primary show-form-button col-sm-4 col-sm-offset-4 row text-center">Dodaj kolejne wydanie czasopisma</button>
+
+</div>
+
+<div class="clearfix"></div>
