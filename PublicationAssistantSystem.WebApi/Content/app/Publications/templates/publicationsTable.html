@@ -3,16 +3,22 @@
         <tr>
             <th>Tytuł</th>
             <th>Data publikacji</th>
-            <th>IsComputing</th>
-            <th>IsOnWOS</th>
+            <th>Pracownicy</th>
+            <th>Stan sprawdzania zew. baz danych</th>
+            <th>Jest w bazie Web of Science</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="publication in publications">
-            <td>{{publication.Title}}</td>
-            <td>{{publication.PublicationDate}}</td>
-            <td>{{publication.IsComputing}}</td>
-            <td>{{publication.IsOnWOS}}</td>
+            <td class ="col-sm-2">{{publication.Title}}</tdclass>
+            <td class="col-sm-2">{{publication.PublicationDate}}</td>
+            <td class="col-sm-3">
+                <ul ng-repeat="employee in publication.Employees">
+                    <li>{{employee.FirstName}} {{employee.LastName}}</li>
+                </ul>
+            </td>
+            <td>{{publication.IsComputing ? "W trakcie sprawdzania" : "Sprawdzone";}}</td>
+            <td>{{publication.IsOnWOS ? "Tak" : "Nie";}}</td>
         </tr>
     </tbody>
 </table>

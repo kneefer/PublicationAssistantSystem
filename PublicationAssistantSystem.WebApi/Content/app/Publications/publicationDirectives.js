@@ -45,7 +45,22 @@ publicationsModule.directive("showPublication", ["PublicationFactory", function 
 
 }]);
 
-publicationsModule.directive("createPublication", ["PublicationFactory", function (PublicationFactory) {
+publicationsModule.directive("createPublication", ["PublicationFactory", "EmployeeFactory",
+    function (PublicationFactory, EmployeeFactory) {
+
+        function remapEmployeesByIds(employeesIds, allEmployees) {
+            var ret = [];
+
+            for (var i = 0; i < allEmployees.length; i++) {
+                for (var j = 0; j < employeesIds.length; j++) {
+                    if (allEmployees[i].Id == employeesIds[j]) {
+                        ret.push(allEmployees[i]);
+                    }
+                }
+            }
+
+            return ret;
+        }
 
     return {
         restrict: "E",
@@ -55,7 +70,19 @@ publicationsModule.directive("createPublication", ["PublicationFactory", functio
         templateUrl: "Content/app/Publications/templates/createPublication.html",
         link: function ($scope, element, attrs) {
 
+            $scope.employees = [];
+
+            EmployeeFactory.getAllEmployees()
+            .then(function (response) {
+                $scope.employees = response.data;
+            }, function (response) {
+                alert("error getting employees");
+            });
+
             $scope.savePublication = function (publication) {
+
+                publication.employees = remapEmployeesByIds(publication.Employees, $scope.employees);
+
                 PublicationFactory.getPublicationHandler($scope.publicationType).create(publication)
                     .then(function (response) {
                         $scope.publication = response.data;
