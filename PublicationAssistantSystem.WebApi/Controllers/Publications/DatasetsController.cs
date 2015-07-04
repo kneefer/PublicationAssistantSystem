@@ -8,9 +8,12 @@ using System.Web.Http.Description;
 using AutoMapper;
 using PublicationAssistantSystem.Core.PostAddJobs;
 using PublicationAssistantSystem.DAL.Context;
+using PublicationAssistantSystem.DAL.DTO.Misc;
 using PublicationAssistantSystem.DAL.DTO.Publications;
+using PublicationAssistantSystem.DAL.Models.Misc;
 using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
+using WebGrease.Css.Extensions;
 
 namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
@@ -21,8 +24,8 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
     public class DatasetsController : ApiController
     {
         private readonly IPublicationAssistantContext _db;
-        private readonly IPublicationBaseRepository _publicationBaseRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IPublicationBaseRepository _publicationBaseRepository;
 
         /// <summary>
         /// Constructor.
@@ -117,6 +120,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 
             var dbObject = Mapper.Map<Dataset>(item);
 
+            dbObject.Employees = new List<Employee>();
+            if (item.Employees != null)
+            {
+                foreach (var employee in item.Employees)
+                {
+                    var employeeToAdd = _employeeRepository.GetById(employee.Id);
+                    if (employeeToAdd == null)
+                    {
+                        return request.CreateErrorResponse(
+                            HttpStatusCode.PreconditionFailed,
+                            string.Format("Not found employee with id:{0}", employee.Id));
+                    }
+                    dbObject.Employees.Add(employeeToAdd);
+                }
+            }
+
             _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
@@ -146,8 +165,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
                 throw new ArgumentNullException("item");
 
             var dbObject = Mapper.Map<Dataset>(item);
+            dbObject.Employees = null;
 
             _publicationBaseRepository.Update(dbObject);
+            _db.SaveChanges();
+
+            dbObject = (Dataset)_publicationBaseRepository.Get(x => x.Id == dbObject.Id, null, x => x.Employees).SingleOrDefault();
+
+            foreach (var employee in dbObject.Employees.ToList())
+                dbObject.Employees.Remove(employee);
+
+            foreach (var employee in item.Employees)
+            {
+                var employeeToAdd = _employeeRepository.GetById(employee.Id);
+                if (employeeToAdd == null)
+                {
+                    return request.CreateErrorResponse(
+                        HttpStatusCode.PreconditionFailed,
+                        string.Format("Not found employee with id:{0}", employee.Id));
+                }
+                dbObject.Employees.Add(employeeToAdd);
+            }
+
             _db.SaveChanges();
 
             var jobs = new PublicationsJobs(dbObject);
