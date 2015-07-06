@@ -11,6 +11,7 @@ using PublicationAssistantSystem.DAL.Models.Publications;
 using PublicationAssistantSystem.DAL.Repositories.Specific.Interfaces;
 using System.Web.Http.Description;
 using PublicationAssistantSystem.Core.PostAddJobs;
+using PublicationAssistantSystem.DAL.Models.Misc;
 
 namespace PublicationAssistantSystem.WebApi.Controllers.Publications
 {
@@ -128,6 +129,22 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
                     string.Format("Not found journal edition with id: {0}", dbObject.JournalEditionId));
             }
 
+            dbObject.Employees = new List<Employee>();
+            if (item.Employees != null)
+            {
+                foreach (var employee in item.Employees)
+                {
+                    var employeeToAdd = _employeeRepository.GetById(employee.Id);
+                    if (employeeToAdd == null)
+                    {
+                        return request.CreateErrorResponse(
+                            HttpStatusCode.PreconditionFailed,
+                            string.Format("Not found employee with id:{0}", employee.Id));
+                    }
+                    dbObject.Employees.Add(employeeToAdd);
+                }
+            }
+
             _publicationBaseRepository.Insert(dbObject);
             _db.SaveChanges();
 
@@ -165,7 +182,28 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
                     string.Format("Not found journal edition with id: {0}", dbObject.JournalEditionId));
             }
 
+            dbObject.Employees = null;
+
             _publicationBaseRepository.Update(dbObject);
+            _db.SaveChanges();
+
+            dbObject = (Article)_publicationBaseRepository.Get(x => x.Id == dbObject.Id, null, x => x.Employees).SingleOrDefault();
+
+            foreach (var employee in dbObject.Employees.ToList())
+                dbObject.Employees.Remove(employee);
+
+            foreach (var employee in item.Employees)
+            {
+                var employeeToAdd = _employeeRepository.GetById(employee.Id);
+                if (employeeToAdd == null)
+                {
+                    return request.CreateErrorResponse(
+                        HttpStatusCode.PreconditionFailed,
+                        string.Format("Not found employee with id:{0}", employee.Id));
+                }
+                dbObject.Employees.Add(employeeToAdd);
+            }
+
             _db.SaveChanges();
 
             var jobs = new PublicationsJobs(dbObject);
