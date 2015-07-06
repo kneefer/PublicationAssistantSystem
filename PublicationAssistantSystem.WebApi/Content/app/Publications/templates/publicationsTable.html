@@ -14,6 +14,7 @@
 
             <th>Stan sprawdzania zew. baz danych</th>
             <th>Jest w bazie Web of Science</th>
+            <th>Usuń publikację</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
 
             <td>{{publication.IsComputing ? "W trakcie sprawdzania" : "Sprawdzone";}}</td>
             <td>{{publication.IsOnWOS ? "Tak" : "Nie";}}</td>
+            <td><button type="button" class="btn btn-danger" ng-click="deletePublication(publication)">X</button></td>
         </tr>
     </tbody>
 </table>

@@ -2,7 +2,8 @@
 
 var publicationsModule = angular.module("publications");
 
-publicationsModule.directive("listPublications", ["PublicationFactory", function (PublicationFactory) {
+publicationsModule.directive("listPublications", ["PublicationFactory", "$http",
+    function (PublicationFactory, $http) {
 
     return {
         restrict: "E",
@@ -11,6 +12,16 @@ publicationsModule.directive("listPublications", ["PublicationFactory", function
         },
         templateUrl: "Content/app/Publications/templates/publicationsTable.html",
         link: function ($scope, element, attrs) {
+
+            $scope.deletePublication = function (publication) {
+                $http.delete("/api/Publications/" + publication.Id)
+                .then(function () {
+                    var index = $scope.publications.indexOf(publication);
+                    $scope.publications.splice(index, 1);
+                }, function () {
+                    alert("error deleting publication");
+                });
+            }
 
             PublicationFactory.getPublicationHandler($scope.publicationType).list()
             .then(function (response) {
