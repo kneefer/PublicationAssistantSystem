@@ -259,8 +259,14 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
 
         return $q(function (resolve, reject) {
             for (var i = 0; i < articles.length; i++) {
-
+                JournalEditionFactory.getJournalEditionWithJournal(articles[i].JournalEditionId)
+                .then(function (response) {
+                    articles[i];
+                })
             }
+
+            while (responses - articles.length == 0) { }
+            resolve({ data: articles });
         });
     }
 
@@ -293,7 +299,7 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
     }
 
     var articlesHandlers = {
-        list: getAllArticles,
+        list: getAllArticlesWithJournalEditionsAndJournals,
         get: getArticle,
         create: addArticle,
         update: updateArticle

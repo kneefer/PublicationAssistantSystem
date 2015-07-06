@@ -1,6 +1,8 @@
 ﻿<form class="add-item-form">
     <label class="col-sm-1">ISSN:</label><input type="text" class="col-sm-2" ng-model="Journal.ISSN" />
+    <label class="col-sm-1">eISSN:</label><input type="text" class="col-sm-2" ng-model="Journal.eISSN" />
     <label class="col-sm-1">Nazwa:</label><input type="text" class="col-sm-2" ng-model="Journal.Title" />
+
     <button class="btn btn-default" ng-click="addJournal()">Zapisz</button>
 </form>
 <div class="col-sm-12 addition-succeded alert-success">Prawidłowo dodano wydawnictwo.</div>

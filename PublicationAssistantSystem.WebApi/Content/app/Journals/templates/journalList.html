@@ -2,13 +2,25 @@
     <thead>
         <tr>
             <th class="col-sm-1">ISSN</th>
-            <th class="col-sm-11">Nazwa:</th>
+            <th class="col-sm-1">eISSN</th>
+            <th class="col-sm-2">Nazwa:</th>
+            <th class="col-sm-1">Jest w bazie MNISZW</th>
+            <th class="col-sm-1">Punkty MNISZW</th>
+            <th class="col-sm-1">Lista MNISZW</th>
+            <th class="col-sm-2">Jest w bazie Web of Science</th>
+            <th class="cos-sm-3">Stan sprawdzania zew. baz danych</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="journal in journals">
-            <td class="col-sm-3">{{journal.ISSN}}</td>
-            <td class="col-sm-11"><a ng-href="#/Journals/{{journal.Id}}/JournalEditions">{{journal.Title}}</a></td>
+            <td class="col-sm-1">{{journal.ISSN}}</td>
+            <td class="col-sm-1">{{journal.eISSN}}</td>
+            <td class="col-sm-2"><a ng-href="#/Journals/{{journal.Id}}/JournalEditions">{{journal.Title}}</a></td>
+            <td class="col-sm-1">{{journal.IsOnMNISZW ? "Tak" : "Nie";}}</td>
+            <td class="col-sm-1">{{journal.MNISZWPoints}}</td>
+            <td class="col-sm-1">{{journal.MNISZWList}}</td>
+            <td class="col-sm-2">{{journal.IsOnWOS ? "Tak" : "Nie";}}</td>
+            <td class="cos-sm-3">{{journal.IsComputing ? "W trakcie sprawdzania" : "Sprawdzone";}}</td>
         </tr>
     </tbody>
 </table>
