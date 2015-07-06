@@ -75,7 +75,9 @@ namespace PublicationAssistantSystem.WebApi
 
             Mapper.CreateMap<ArticleDTO, Article>();
             Mapper.CreateMap<Article, ArticleDTO>()
-                .ForMember(dto=>dto.Discriminator, conf => conf.UseValue("Article"));
+                .ForMember(dto => dto.Discriminator, conf => conf.UseValue("Article"))
+                .ForMember(dto => dto.Journal, conf => conf.MapFrom(x => x.JournalEdition.Journal))
+                .ForMember(dto => dto.JournalEdition, conf => conf.MapFrom(x => x.JournalEdition));
 
             Mapper.CreateMap<BookDTO, Book>();
             Mapper.CreateMap<Book, BookDTO>()

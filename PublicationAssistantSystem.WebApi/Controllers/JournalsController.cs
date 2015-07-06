@@ -45,7 +45,7 @@ namespace PublicationAssistantSystem.WebApi.Controllers
         {
             var journals = _journalRepository.Get();
             
-            var mapped = Enumerable.ToList(journals.Select(Mapper.Map<JournalDTO>));
+            var mapped = journals.Select(Mapper.Map<JournalDTO>).ToList();
             return mapped;
         }
 
