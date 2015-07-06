@@ -32,7 +32,7 @@
                 
             <td ng-switch-when="Articles">{{publication.PageFrom}}</td>
             <td ng-switch-when="Articles">{{publication.PageTo}}</td>
-            <td ng-switch-when="Articles">{{publication.JournalEdition.Journal.Title}}: {{publication.JournalEdition.Journal.PublishDate}}</td>
+            <td ng-switch-when="Articles">{{publication.Journal.Title}}: {{publication.JournalEdition.PublishDate}}</td>
 
             <td>{{publication.IsComputing ? "W trakcie sprawdzania" : "Sprawdzone";}}</td>
             <td>{{publication.IsOnWOS ? "Tak" : "Nie";}}</td>
