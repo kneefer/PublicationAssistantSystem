@@ -24,31 +24,15 @@ publicationsModule.directive("listPublications", ["PublicationFactory", function
 
 }]);
 
-publicationsModule.directive("showPublication", ["PublicationFactory", function (PublicationFactory) {
-
-    return {
-        restrict: "E",
-        scope: {
-            publicationType: "@type",
-            publicationId: "@id"
-        },
-        templateUrl: "Content/app/Publications/templates/conferencePaperFields.html",
-        link: function ($scope, element, attrs) {
-            PublicationFactory.getPublicationHandler($scope.publicationType).get($scope.publicationId)
-                .then(function (response) {
-                    $scope.publication = response.data;
-                }, function (response) {
-                    alert("error creating publications");
-                });
-        }
-    };
-
-}]);
-
-publicationsModule.directive("createPublication", ["PublicationFactory", "EmployeeFactory",
-    function (PublicationFactory, EmployeeFactory) {
+publicationsModule.directive("createPublication", ["PublicationFactory", "EmployeeFactory", "JournalEditionFactory",
+    function (PublicationFactory, EmployeeFactory, JournalEditionFactory) {
 
         function remapEmployeesByIds(employeesIds, allEmployees) {
+
+            if (employeesIds == null || allEmployees == null) {
+                return null;
+            }
+
             var ret = [];
 
             for (var i = 0; i < allEmployees.length; i++) {
@@ -70,7 +54,10 @@ publicationsModule.directive("createPublication", ["PublicationFactory", "Employ
         templateUrl: "Content/app/Publications/templates/createPublication.html",
         link: function ($scope, element, attrs) {
 
+            $scope.publication = {};
+
             $scope.employees = [];
+            $scope.journalEditions = [];
 
             EmployeeFactory.getAllEmployees()
             .then(function (response) {
@@ -79,9 +66,16 @@ publicationsModule.directive("createPublication", ["PublicationFactory", "Employ
                 alert("error getting employees");
             });
 
+            JournalEditionFactory.getAllWithJournals()
+            .then(function (response) {
+                $scope.journalEditions = response.data;
+            }, function (response) {
+                alert("error getting journal editions");
+            });
+
             $scope.savePublication = function (publication) {
 
-                publication.employees = remapEmployeesByIds(publication.Employees, $scope.employees);
+                publication.Employees = remapEmployeesByIds(publication.Employees, $scope.employees);
 
                 PublicationFactory.getPublicationHandler($scope.publicationType).create(publication)
                     .then(function (response) {

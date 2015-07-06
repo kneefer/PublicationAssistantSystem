@@ -2,8 +2,8 @@
 
 var publicationsModule = angular.module("publications");
 
-publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$location",
-    function ($http, $routeParams, $location) {
+publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$location", "$q", "JournalEditionFactory",
+    function ($http, $routeParams, $location, $q, JournalEditionFactory) {
     
     /* handlers format:
     ** list() - get whole repository
@@ -21,6 +21,7 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
         ['Books', 'Książki'],
         ['Patents', 'Patenty'],
         ['Articles', 'Artykuły'],
+        ['Datasets', 'Zestawy danych']
     ];
 
     var getTypeFromUrl = function () {
@@ -245,6 +246,38 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
     // articles code
     var getAllArticles = function () {
         return $http.get("/api/Publications/Articles");
+    }
+
+    function getArticlesJournalEditions(articles) {
+        if (articles == null) {
+            return $q(function (resolve, reject) {
+                resolve({ data: null });
+            });
+        }
+
+        var responses = 0;
+
+        return $q(function (resolve, reject) {
+            for (var i = 0; i < articles.length; i++) {
+
+            }
+        });
+    }
+
+    var getAllArticlesWithJournalEditionsAndJournals = function () {
+        var articles = [];
+
+        return $q(function (resolve, reject) {
+            getAllArticles()
+            .then(function (response) {
+                articles = response.data;
+                getArticlesJournalEditions(articles)
+                .then(function (response) {
+                    articles = response.data;
+                    resolve(response);
+                }, function (response) { reject(); });
+            }, function (response) { reject(); });
+        });
     }
 
     var getArticle = function (id) {

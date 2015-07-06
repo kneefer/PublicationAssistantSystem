@@ -1,22 +1,38 @@
 ﻿<table class="table table-striped">
     <thead>
-        <tr>
+        <tr ng-switch="publicationType">
             <th>Tytuł</th>
             <th>Data publikacji</th>
             <th>Pracownicy</th>
+
+            <th ng-switch-when="Books">ISBN</th>
+            <th ng-switch-when="Books">Wydawca</th>
+
+            <th ng-switch-when="Articles">Strona od</th>
+            <th ng-switch-when="Articles">Strona do</th>
+            <th ng-switch-when="Articles">Wydanie czasopisma</th>
+
             <th>Stan sprawdzania zew. baz danych</th>
             <th>Jest w bazie Web of Science</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="publication in publications">
-            <td class ="col-sm-2">{{publication.Title}}</tdclass>
+        <tr ng-repeat="publication in publications" ng-switch="publicationType">
+            <td class="col-sm-2">{{publication.Title}}</td>
             <td class="col-sm-2">{{publication.PublicationDate}}</td>
             <td class="col-sm-3">
                 <ul ng-repeat="employee in publication.Employees">
                     <li>{{employee.FirstName}} {{employee.LastName}}</li>
                 </ul>
             </td>
+   
+            <td ng-switch-when="Books">{{publication.ISBN}}</td>
+            <td ng-switch-when="Books">{{publication.Publisher}}</td>   
+                
+            <td ng-switch-when="Articles">{{publication.PageFrom}}</td>
+            <td ng-switch-when="Articles">{{publication.PageTo}}</td>
+            <td ng-switch-when="Articles">{{publication.JournalEdition.Journal.Title}}: {{publication.JournalEdition.Journal.PublishDate}}</td>
+
             <td>{{publication.IsComputing ? "W trakcie sprawdzania" : "Sprawdzone";}}</td>
             <td>{{publication.IsOnWOS ? "Tak" : "Nie";}}</td>
         </tr>
