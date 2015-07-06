@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
+using PublicationAssistantSystem.DAL.DTO.Misc;
+using PublicationAssistantSystem.DAL.Models.Misc;
 
 namespace PublicationAssistantSystem.DAL.DTO.Publications
 {
@@ -11,6 +13,9 @@ namespace PublicationAssistantSystem.DAL.DTO.Publications
 
         [Required]
         public int JournalEditionId { get; set; }
+
+        public JournalDTO Journal { get; set; }
+        public JournalEditionDTO JournalEdition { get; set; }
     }
 
     [XmlType("Book")]

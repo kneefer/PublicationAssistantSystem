@@ -54,7 +54,12 @@ namespace PublicationAssistantSystem.WebApi.Controllers.Publications
         public IEnumerable<ArticleDTO> GetAllArticles()
         {
             var articles = _publicationBaseRepository.GetOfType<Article>();
-            
+            foreach (var article in articles)
+            {
+                var article1 = article;
+                article.JournalEdition = _journalEditionRepository.Get(x => x.Id == article1.JournalEditionId, null, x => x.Journal).FirstOrDefault();
+            }
+
             var mapped = articles.Select(Mapper.Map<ArticleDTO>).ToList();
             return mapped;
         }
