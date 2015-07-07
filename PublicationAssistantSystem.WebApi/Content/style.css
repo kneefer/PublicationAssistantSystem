@@ -122,3 +122,7 @@ body {
  .top-margin{
      margin-top: 10px;
  }
+
+ .help-part ul {
+     list-style: none;
+ }
