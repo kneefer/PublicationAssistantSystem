@@ -144,24 +144,8 @@ publicationsModule.directive("downloadPublications", ["$routeParams", "Publicati
     return {
         templateUrl: "Content/app/Publications/templates/downloadPublications.html",
         link: function ($scope, element, attrs) {
-            $scope.downloadAllAsXML = function () {
-                PublicationFactory.downloadAllXML()
-                    .then(function (response) {
-                        console.log(response);
-                    });
-            }
-            $scope.downloadAllAsBIB = function () {
-                PublicationFactory.downloadAllBIB()
-                    .then(function (response) {
-                        console.log(response);
-                    });
-            }
-            $scope.downloadAllAsCSV = function () {
-                PublicationFactory.downloadAllCSV()
-                    .then(function (response) {
-                        console.log(response);
-                    });
-            }
+           
+            
         }
     }
 }]);
