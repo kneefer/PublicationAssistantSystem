@@ -99,6 +99,20 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
         update: null
     };
 
+    var downloadAllXML = function () {
+        return $http.get("/api/Publications/All/AsXML");
+    }
+    var downloadAllBIB = function () {
+        return $http.get("/api/Publications/All/AsBib");
+    }
+    var downloadAllCSV = function () {
+        return $http.get("/api/Publications/All/AsCSV");
+    }
+
+    var parseDate = function (date) {
+        return date.slice(0, 10);
+    }
+
     // conference papers code
     var getAllConferencePapers = function () {
         return $http.get("/api/Publications/ConferencePapers");
@@ -309,6 +323,10 @@ publicationsModule.factory("PublicationFactory", ["$http", "$routeParams", "$loc
         getPublicationHandler: handlers,
         translations: translations,
         getTypeFromUrl: getTypeFromUrl,
-        getPathFromUrl: getPathFromUrl
+        getPathFromUrl: getPathFromUrl,
+        downloadAllXML: downloadAllXML,
+        downloadAllBIB: downloadAllBIB,
+        downloadAllCSV: downloadAllCSV,
+        parseDate: parseDate
     };
 }]);

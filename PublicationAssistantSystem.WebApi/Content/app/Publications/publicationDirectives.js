@@ -23,6 +23,10 @@ publicationsModule.directive("listPublications", ["PublicationFactory", "$http",
                 });
             }
 
+            $scope.parseDate = function(date) {
+                return PublicationFactory.parseDate(date);
+            }
+
             PublicationFactory.getPublicationHandler($scope.publicationType).list()
             .then(function (response) {
                 $scope.publications = response.data;
@@ -132,6 +136,32 @@ publicationsModule.directive("publicationFields", ['$routeParams', function ($ro
         templateUrl: "Content/app/Publications/templates/publicationFields.html",
         link: function ($scope, element, attrs) {
             
+        }
+    }
+}]);
+
+publicationsModule.directive("downloadPublications", ["$routeParams", "PublicationFactory", function ($routeParams, PublicationFactory) {
+    return {
+        templateUrl: "Content/app/Publications/templates/downloadPublications.html",
+        link: function ($scope, element, attrs) {
+            $scope.downloadAllAsXML = function () {
+                PublicationFactory.downloadAllXML()
+                    .then(function (response) {
+                        console.log(response);
+                    });
+            }
+            $scope.downloadAllAsBIB = function () {
+                PublicationFactory.downloadAllBIB()
+                    .then(function (response) {
+                        console.log(response);
+                    });
+            }
+            $scope.downloadAllAsCSV = function () {
+                PublicationFactory.downloadAllCSV()
+                    .then(function (response) {
+                        console.log(response);
+                    });
+            }
         }
     }
 }]);

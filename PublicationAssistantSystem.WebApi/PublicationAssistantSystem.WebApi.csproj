@@ -282,6 +282,8 @@
     <Content Include="Content\app\Faculties\templates\addFaculty.html" />
     <Content Include="Content\app\Faculties\templates\editFaculty.html" />
     <Content Include="Content\app\Faculties\templates\facultyList.html" />
+    <Content Include="Content\app\Docs\docs.html" />
+    <Content Include="Content\app\Docs\docs.js" />
     <Content Include="Content\app\Journals\journalDetails.html" />
     <Content Include="Content\app\Journals\journalDirectives.js" />
     <Content Include="Content\app\Journals\JournalEditions\journalEditionDirectives.js" />

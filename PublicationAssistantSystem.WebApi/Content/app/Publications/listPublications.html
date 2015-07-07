@@ -6,7 +6,7 @@
 <list-publications type="{{publicationType[0]}}"></list-publications>
 
 <div ng-if='publicationType[0] != "All"'>
-    <button class="btn btn-primary show-form-button col-sm-4 col-sm-offset-4 text-center">
-        <a style="color: white;" ng-href="#/Publications/{{publicationType[0]}}/create">Dodaj kolejną publikację</a>
-    </button>
+    <a style="color: white;" ng-href="#/Publications/{{publicationType[0]}}/create">
+        <button class="btn btn-primary show-form-button col-sm-4 col-sm-offset-4 text-center">Dodaj kolejną publikację</button>
+    </a>
 </div>

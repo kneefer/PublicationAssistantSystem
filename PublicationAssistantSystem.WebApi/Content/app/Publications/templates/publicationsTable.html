@@ -20,7 +20,7 @@
     <tbody>
         <tr ng-repeat="publication in publications" ng-switch="publicationType">
             <td class="col-sm-2">{{publication.Title}}</td>
-            <td class="col-sm-2">{{publication.PublicationDate}}</td>
+            <td class="col-sm-2">{{parseDate(publication.PublicationDate)}}</td>
             <td class="col-sm-3">
                 <ul ng-repeat="employee in publication.Employees">
                     <li>{{employee.FirstName}} {{employee.LastName}}</li>
