@@ -11,6 +11,8 @@ namespace PublicationAssistantSystem.Core.Mappers.WOS
         {
             var records = new List<WOSRecord>();
 
+            if(results.records == null) return records;
+
             foreach (var r in results.records)
             {
                 records.Add(new WOSRecord

@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using PublicationAssistantSystem.DAL.Context;
 using PublicationAssistantSystem.DAL.Models;
+using PublicationAssistantSystem.DAL.Models.Misc;
+using PublicationAssistantSystem.DAL.Models.Publications;
 
 namespace PublicationAssistantSystem.Core.PostAddJobs
 {
@@ -35,6 +37,12 @@ namespace PublicationAssistantSystem.Core.PostAddJobs
             using (var context = new PublicationAssistantContext())
             {
                 var toModify = context.Set<TEntity>().Find(_entityId);
+                if (toModify is Article)
+                {
+                    var article = (toModify as Article);
+                    article.JournalEdition = context.Set<JournalEdition>().Find(article.JournalEditionId);
+                }
+
                 SetModifications(toModify);
 
                 toModify.IsComputing = false;
