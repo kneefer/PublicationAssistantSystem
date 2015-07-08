@@ -2,8 +2,8 @@
 
 var journalEditionsModule = angular.module("journalEditions");
 
-journalEditionsModule.directive("listJournalEditions", ["$routeParams", "JournalEditionFactory",
-    function ($routeParams, JournalEditionFactory) {
+journalEditionsModule.directive("listJournalEditions", ["$routeParams", "JournalEditionFactory","PublicationFactory",
+    function ($routeParams, JournalEditionFactory, PublicationFactory) {
 
     return {
         restrict: "E",
@@ -13,6 +13,10 @@ journalEditionsModule.directive("listJournalEditions", ["$routeParams", "Journal
                 .then(function (response) {
                     $scope.journalEditions = response.data;
                 });
+
+            $scope.parseDate = function(date) {
+                return PublicationFactory.parseDate(date);
+            }
         }
     };
 
